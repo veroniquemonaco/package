@@ -76,5 +76,52 @@ class AddProduct
     {
         return $this->quantity;
     }
-}
 
+    /**
+     * Set idProduct
+     *
+     * @param \AppBundle\Entity\Product $idProduct
+     *
+     * @return AddProduct
+     */
+    public function setIdProduct(\AppBundle\Entity\Product $idProduct = null)
+    {
+        $this->idProduct = $idProduct;
+
+        return $this;
+    }
+
+    /**
+     * Get idProduct
+     *
+     * @return \AppBundle\Entity\Product
+     */
+    public function getIdProduct()
+    {
+        return $this->idProduct;
+    }
+
+    /**
+     * Set taille
+     *
+     * @param \AppBundle\Entity\Taille $taille
+     *
+     * @return AddProduct
+     */
+    public function setTaille(\AppBundle\Entity\Taille $taille = null)
+    {
+        $this->taille = $taille;
+
+        return $this;
+    }
+
+    /**
+     * Get taille
+     *
+     * @return \AppBundle\Entity\Taille
+     */
+    public function getTaille()
+    {
+        return $this->taille;
+    }
+}

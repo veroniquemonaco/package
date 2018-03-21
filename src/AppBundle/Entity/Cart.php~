@@ -69,5 +69,45 @@ class Cart
     {
         return $this->amount;
     }
-}
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->addProduct = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
+    /**
+     * Add addProduct
+     *
+     * @param \AppBundle\Entity\AddProduct $addProduct
+     *
+     * @return Cart
+     */
+    public function addAddProduct(\AppBundle\Entity\AddProduct $addProduct)
+    {
+        $this->addProduct[] = $addProduct;
+
+        return $this;
+    }
+
+    /**
+     * Remove addProduct
+     *
+     * @param \AppBundle\Entity\AddProduct $addProduct
+     */
+    public function removeAddProduct(\AppBundle\Entity\AddProduct $addProduct)
+    {
+        $this->addProduct->removeElement($addProduct);
+    }
+
+    /**
+     * Get addProduct
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAddProduct()
+    {
+        return $this->addProduct;
+    }
+}

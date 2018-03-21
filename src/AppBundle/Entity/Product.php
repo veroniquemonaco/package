@@ -50,6 +50,13 @@ class Product
     private $category;
 
     /**
+     * @var string
+     *
+     * @ORM\OneToMany(targetEntity="Tag", mappedBy="product")
+     */
+    private $tags;
+
+    /**
      * @return mixed
      */
     public function getCategory()
@@ -223,5 +230,39 @@ class Product
     public function removeTaille(\AppBundle\Entity\Taille $taille)
     {
         $this->tailles->removeElement($taille);
+    }
+
+    /**
+     * Add tag
+     *
+     * @param \AppBundle\Entity\Tag $tag
+     *
+     * @return Product
+     */
+    public function addTag(\AppBundle\Entity\Tag $tag)
+    {
+        $this->tags[] = $tag;
+
+        return $this;
+    }
+
+    /**
+     * Remove tag
+     *
+     * @param \AppBundle\Entity\Tag $tag
+     */
+    public function removeTag(\AppBundle\Entity\Tag $tag)
+    {
+        $this->tags->removeElement($tag);
+    }
+
+    /**
+     * Get tags
+     *
+     * @return Tag[]
+     */
+    public function getTags()
+    {
+        return $this->tags;
     }
 }
