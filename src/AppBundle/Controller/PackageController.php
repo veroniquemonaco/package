@@ -34,7 +34,6 @@ class PackageController extends Controller
         $qualificationId = $this->getUser()->getQualification()->getId();
 
         $produits = $em->getRepository('AppBundle:Product')->searchBy($qualificationId);
-        dump($produits);
 
         $session = new Session();
 
