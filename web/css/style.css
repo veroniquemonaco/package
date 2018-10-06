@@ -73,6 +73,7 @@ body {
 .product--list {
     background-color: rgba(4,77,67,0.8) ;
     height: 80vh;
+    overflow-y: scroll;
 }
 
 .product--select {
@@ -102,6 +103,10 @@ body {
 }
 
 /** Form login css CodePen Josh Adamous **/
+
+.login--title {
+    text-align: center;
+}
 
 .form-login {
     width: 380px;
@@ -233,11 +238,13 @@ input:focus ~ .highlight {
 /* Button modifiers */
 
 .buttonBlue {
-    background: #4a89dc;
+    background: rgba(4,77,67,0.8);
+    width: 100%;
     text-shadow: 1px 1px 0 rgba(39, 110, 204, .5);
+    margin: auto;
 }
 
-.buttonBlue:hover { background: #357bd8; }
+.buttonBlue:hover { background-color: #14b8a0; }
 
 /* Ripples container */
 

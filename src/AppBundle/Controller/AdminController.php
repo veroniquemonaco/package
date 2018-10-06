@@ -18,6 +18,14 @@ use Symfony\Component\Validator\Constraints\Valid;
 class AdminController extends Controller
 {
     /**
+     * @Route("/admin", name="admin")
+     */
+    public function IndexAdminAction()
+    {
+        return $this->render('layout_admin.html.twig');
+    }
+
+    /**
      * @Route("/admin/exports", name="export_commandes")
      */
     public function ExportCommandesAction(Request $request)

@@ -2,7 +2,7 @@
 
 {% block body %}
     <div class="container">
-        <h1>Login</h1>
+        <h1 class="login--title">Identification</h1>
 
         {{ form_start(form) }}
         <div class="form-login">
@@ -74,9 +74,9 @@
 
             });
 
-            $ripples.on('animationend webkitAnimationEnd mozAnimationEnd oanimationend MSAnimationEnd', function(e) {
-                $(this).removeClass('is-active');
-            });
+            // $ripples.on('animationend webkitAnimationEnd mozAnimationEnd oanimationend MSAnimationEnd', function(e) {
+            //     $(this).removeClass('is-active');
+            // });
 
         });
     </script>
