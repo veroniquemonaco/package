@@ -17,12 +17,13 @@
                         <div class="col-2">Quantité</div>
                         <div class="col-1">Ajouter</div>
                     </div>
+                    <hr>
                     {% for produit in produits %}
                         <div class="row">
                             <div class="col-1">{{ loop.index }}</div>
                             <div class="col-5 form-product" data-productid="{{ produit.id }}">{{ produit.name }}</div>
                             <div class="col-2 form-product-taille">
-                                <select class="custom-select">
+                                <select class="custom-select w-100">
                                     {#<option>tailles</option>#}
                                     {% for taille in produit.tailles %}
                                         <option class="form-product-taille-option"
@@ -101,12 +102,18 @@
                             let tailleCart = data['addPdtTaille'];
                             let libellePdtCart = data['addPdtLibelle'].replace(/"/g, "");
                             let libelleTailleCart = data['addPdtTailleLibelle'].replace(/"/g, "");
-                            $('.panier--product').append("<tr class=\"row\">" +
+                            $('.panier--product').append("<tr class=\"row\" id=idpdt-"+ idPdtCart +">" +
                                 "<td class=\"col-1\">" + idPdtCart +"</td>" +
                                 "<td class=\"col-6\">" + libellePdtCart + "</td>" +
                                 "<td class=\"col-2\">" + libelleTailleCart + "</td>" +
                                 "<td class=\"col-2\">" + qtyCart + "</td>\n" +
                                 "</tr>");
+                            // $('.panier--product').append("<tr class=\"row\">" +
+                            //     "<td class=\"col-1\">" + idPdtCart +"</td>" +
+                            //     "<td class=\"col-6\">" + libellePdtCart + "</td>" +
+                            //     "<td class=\"col-2\">" + libelleTailleCart + "</td>" +
+                            //     "<td class=\"col-2\">" + qtyCart + "</td>\n"
+                            //     "</tr>");
                         }
                     })
                 } else {
@@ -128,7 +135,7 @@
                         success: function (data) {
                             let lessPdtId = data['lessPdtId'];
                             console.log(lessPdtId);
-                            $('.idpdt-' + lessPdtId + '').html('');
+                            $('#idpdt-' + lessPdtId + '').html('');
                         }
                     })
                 }

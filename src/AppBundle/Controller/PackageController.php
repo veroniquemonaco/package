@@ -40,7 +40,6 @@ class PackageController extends Controller
 
         if (!$session->has('panier')) $session->set('panier', []);
 
-
         if ($request->isXmlHttpRequest()) {
             if (!$session->has('panier')) $session->set('panier', []);
             $panier = $session->get('panier');

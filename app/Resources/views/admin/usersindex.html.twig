@@ -2,6 +2,8 @@
 
 {% block contentAdmincontent %}
 
-    {{ dump(users) }}
+    {% for user in users %}
+        {{ user.username }}
 
+    {% endfor %}
 {% endblock %}

@@ -5,43 +5,49 @@
 
 {% block body %}
 
-        <div class="container package-front--panier">
+    <div class="container package-front--panier">
 
-            <div id="panier">
-                <h4 class="text-center mb-4">Votre paquetage</h4>
-                <table class="table table-striped w-75">
-                    <thead>
+        <div id="panier">
+            <h4 class="text-center mb-4">Votre paquetage</h4>
+            <table class="table table-striped w-75">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Produit</th>
+                    <th scope="col">Taille</th>
+                    <th scope="col">Qté</th>
+                </tr>
+                </thead>
+                <tbody class="panier--product">
+                {% for addproduct in panier %}
+
                     <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Produit</th>
-                        <th scope="col">Taille</th>
-                        <th scope="col">Qté</th>
+                        <td>{{ loop.index }}</td>
+                        <td>{{ addproduct.product.name }}</td>
+                        <td>{{ addproduct.taille.name }}</td>
+                        <td>{{ addproduct.quantity }}</td>
                     </tr>
-                    </thead>
-                    <tbody class="panier--product">
-                    {% for addproduct in panier %}
 
-                        <tr>
-                            <td>{{ loop.index }}</td>
-                            <td>{{ addproduct.product.name }}</td>
-                            <td>{{ addproduct.taille.name }}</td>
-                            <td>{{ addproduct.quantity }}</td>
-                        </tr>
 
-                        {%  set totalHT = totalHT + (addproduct.product.prix*addproduct.quantity) %}
 
-                    {% endfor %}
-                    </tbody>
-                </table>
+                    {% set totalHT = totalHT + (addproduct.product.prix*addproduct.quantity) %}
 
-                <div>
-                    {{ totalHT }}
-                </div>
 
-                {#<div class="clearfix"></div>#}
-                <a href="{{ path('commande', { 'panier': panier }) }}" class="btn btn-success float-right">Valider</a>
+
+                {% endfor %}
+                </tbody>
+            </table>
+
+            <div>
+
             </div>
-
+            {% if totalHT < 300 %}
+                <a href="{{ path('commande', { 'panier': panier }) }}" class="btn btn-success float-right">Valider</a>
+            {% else %}
+                <p>le montant est trop élevé refaire votre sélection</p>
+            {% endif %}
         </div>
+
+    </div>
 
 {% endblock %}
