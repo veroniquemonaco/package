@@ -33,6 +33,9 @@
             <img class="logo" src="{{ asset('images/logoBouygues.png') }}">
         </div>
         <button type="button" class="btn btn-link align-self-center ml-2"><a href="{{ path('logout') }}">Déconnexion</a></button>
+        {% if is_granted('ROLE_ADMIN') %}
+            <button type="button" class="btn btn-success align-self-center ml-2"><a href="{{ path('admin') }}">Admin</a></button>
+        {% endif %}
         <div class="arc-bouygues-droit">
             <img class="arc-bouygues-droit" src="{{ asset('images/arc_droit_bouygues.png') }}">
         </div>

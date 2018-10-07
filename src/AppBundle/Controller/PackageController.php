@@ -94,5 +94,21 @@ class PackageController extends Controller
         ));
     }
 
+    /**
+     * @Route("/reset/panier", name="reset_panier")
+     *
+     */
+    public function ResetPanierAction(Session $session )
+    {
+
+        $session = new Session();
+        if($session->has('panier'))
+            $session->remove('panier');
+
+        return $this->redirectToRoute('package');
+
+
+    }
+
 
 }
