@@ -3,7 +3,7 @@
 {% block content %}
 
     <div class="container">
-        <div class="row d-flex justify-content-end m-4">
+        <div>
             <div class="commande--title">
                 <h5>Agence : {{ user.agence.name }}</h5>
                 <h5>{{ user.firstname }} {{ user.lastname }}</h5>
@@ -14,22 +14,30 @@
         <hr>
 
         <div class="row mt-4">
-            <table class="table table-striped">
+            <table width="100%">
                 <thead>
                 <tr class="row">
-                    <th class="col-1">#</th>
-                    <th class="col-7">libellé</th>
-                    <th class="col-2">taille</th>
-                    <th class="col-2">quantité</th>
+                    <th style="height: 40px; border-bottom: 1px solid grey; border-right: 1px solid grey"
+                        width="10%">#</th>
+                    <th style="height: 40px; border-bottom: 1px solid grey; border-right: 1px solid grey"
+                        width="50%">libellé</th>
+                    <th style="height: 40px; border-bottom: 1px solid grey; border-right: 1px solid grey"
+                        width="20%">taille</th>
+                    <th style="height: 40px; border-bottom: 1px solid grey; border-right: 1px solid grey"
+                        width="20%">quantité</th>
                 </tr>
                 </thead>
                 <tbody>
                 {% for produit in commande.commande %}
-                    <tr class="row">
-                        <th class="col-1">{{ loop.index }}</th>
-                        <td class="col-7">{{ produit.libelle }}</td>
-                        <td class="col-2">{{ produit.taille }}</td>
-                        <td class="col-2">{{ produit.qte }}</td>
+                    <tr style="border-bottom: 1px solid grey" class="row">
+                        <td style="height: 40px; border-bottom: 1px solid grey; border-right: 1px solid grey; text-align:center"
+                            width="10%">{{ loop.index }}</td>
+                        <td style="height: 40px; border-bottom: 1px solid grey; border-right: 1px solid grey"
+                            width="50%">{{ produit.libelle }}</td>
+                        <td style="height: 40px; border-bottom: 1px solid grey; border-right: 1px solid grey; text-align:center"
+                            width="20%">{{ produit.taille }}</td>
+                        <td style="height: 40px; border-bottom: 1px solid grey; border-right: 1px solid grey; text-align:center"
+                            width="20%">{{ produit.qte }}</td>
                     </tr>
                 {% endfor %}
                 </tbody>
