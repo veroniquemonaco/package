@@ -31,3 +31,10 @@
     height: 100%;
     overflow-y: scroll;
 }
+
+.buttonAdmin {
+    background: rgba(4,77,67,0.8);
+    width: 15%;
+    text-shadow: 1px 1px 0 rgba(39, 110, 204, .5);
+    margin: auto;
+}

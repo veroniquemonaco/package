@@ -1,4 +1,10 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: veronique
+ * Date: 07/10/18
+ * Time: 18:23
+ */
 
 namespace AppBundle\Form;
 
@@ -13,22 +19,20 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ExportCommandesType extends AbstractType
+class ExportUserCommandesType extends AbstractType
 {
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 
         $builder
-            ->add('agence', EntityType::class, [
-                'class'=>Agence::class,
-                'choice_label'=>'name'
-            ])
-            ->add('submit', SubmitType::class, [
-                'attr' => [
-                    'class' => 'button buttonAdmin'
+            ->add('Recherche', SearchType::class, [
+                'required' => false,
+                'attr'     => ['placeholder'  => 'Entrez un nom...',
+                    'autocomplete' => 'off',
                 ],
-                'label' => 'Rechercher'
-            ]);
+            ])
+            ->add('rechercher',SubmitType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)
@@ -40,6 +44,7 @@ class ExportCommandesType extends AbstractType
 
     public function getBlockPrefix()
     {
-        return 'app_bundle_export_commandes_type';
+        return 'app_bundle_export_user_commandes_type';
     }
+
 }

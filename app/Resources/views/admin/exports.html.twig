@@ -1,16 +1,32 @@
 {% extends 'layout_admin.html.twig' %}
 {% form_theme form 'bootstrap_4_layout.html.twig' %}
 {% form_theme form2 'bootstrap_4_layout.html.twig' %}
+{% form_theme form3 'bootstrap_4_layout.html.twig' %}
 
 {% block contentAdmincontent %}
 
-    <h2>Export des commandes par agence</h2>
+    <h2 class="mb-4">Export des produits commandés</h2>
 
-    {{ form(form) }}
+    <div class="">
+        <h5><ins>Recherche par compagnon</ins></h5>
+        {{ form(form3) }}
+    </div>
+    <hr>
 
-    {{ form(form2) }}
+    <div class="">
+        <h5><ins>Recherche par agence</ins></h5>
+        {{ form(form) }}
+    </div>
+    <hr>
 
-    <h4>liste des produits commandés pour l'agence de {{ agence }}</h4>
+    <div class="">
+        <h5><ins>Lancer la recherche pour toutes les agences</ins></h5>
+        {{ form(form2) }}
+    </div>
+
+    <hr>
+
+    <h5 class="mb-2">Résultat : liste des produits commandés</h5>
     <div class="container w-75">
 
 

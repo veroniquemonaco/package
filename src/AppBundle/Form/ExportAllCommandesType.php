@@ -12,7 +12,12 @@ class ExportAllCommandesType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('Toutes',SubmitType::class);
+            ->add('submit', SubmitType::class, [
+                'attr' => [
+                    'class' => 'button buttonAdmin'
+                ],
+                'label' => 'Rechercher'
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

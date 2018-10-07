@@ -148,18 +148,10 @@ body {
     transition: all 0.2s ease;
 }
 
-.input-login:focus ~ .label-login {
+.input-login ~ .label-login {
     top: -20px;
     transform: scale(.75); left: -2px;
-     font-size: 14px;
-    color: #4a89dc;
-}
-
-
-.input-login.used ~ .label-login {
-    top: -20px;
-    transform: scale(.75); left: -2px;
-    font-size: 14px;
+    font-size: 16px;
     color: #4a89dc;
 }
 
@@ -246,51 +238,51 @@ input:focus ~ .highlight {
 
 .buttonBlue:hover { background-color: #14b8a0; }
 
-/* Ripples container */
+/*!* Ripples container *!*/
 
-.ripples {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    background: transparent;
-}
-
-
-/* Ripples circle */
-
-.ripplesCircle {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    opacity: 0;
-    width: 0;
-    height: 0;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.25);
-}
-
-.ripples.is-active .ripplesCircle {
-    animation: ripples .4s ease-in;
-}
+/*.ripples {*/
+    /*position: absolute;*/
+    /*top: 0;*/
+    /*left: 0;*/
+    /*width: 100%;*/
+    /*height: 100%;*/
+    /*overflow: hidden;*/
+    /*background: transparent;*/
+/*}*/
 
 
-/* Ripples animation */
+/*!* Ripples circle *!*/
 
-@keyframes ripples {
-    0% { opacity: 0; }
+/*.ripplesCircle {*/
+    /*position: absolute;*/
+    /*top: 50%;*/
+    /*left: 50%;*/
+    /*transform: translate(-50%, -50%);*/
+    /*opacity: 0;*/
+    /*width: 0;*/
+    /*height: 0;*/
+    /*border-radius: 50%;*/
+    /*background: rgba(255, 255, 255, 0.25);*/
+/*}*/
 
-    25% { opacity: 1; }
+/*.ripples.is-active .ripplesCircle {*/
+    /*animation: ripples .4s ease-in;*/
+/*}*/
 
-    100% {
-        width: 200%;
-        padding-bottom: 200%;
-        opacity: 0;
-    }
-}
+
+/*!* Ripples animation *!*/
+
+/*@keyframes ripples {*/
+    /*0% { opacity: 0; }*/
+
+    /*25% { opacity: 1; }*/
+
+    /*100% {*/
+        /*width: 200%;*/
+        /*padding-bottom: 200%;*/
+        /*opacity: 0;*/
+    /*}*/
+/*}*/
 
 
 /** ADMIN **/

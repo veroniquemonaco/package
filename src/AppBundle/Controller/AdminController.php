@@ -7,6 +7,7 @@ use AppBundle\Entity\Commande;
 use AppBundle\Entity\ProductPackage;
 use AppBundle\Entity\User;
 use AppBundle\Form\ExportCommandesType;
+use AppBundle\Form\ExportUserCommandesType;
 use AppBundle\Form\ExportAllCommandesType;
 use AppBundle\Form\UserCreationType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -89,10 +90,13 @@ class AdminController extends Controller
             }
         }
 
+        $form3 = $this->createForm(ExportUserCommandesType::class);
+
         return $this->render('admin/exports.html.twig', array(
             'commandes' => $commandes,
             'form' => $form->createView(),
             'form2' => $form2->createView(),
+            'form3' => $form3->createView(),
             'users' => $users,
             'commandesSearch' => $commandesSearch,
             'syntheseCommande' => $array,
