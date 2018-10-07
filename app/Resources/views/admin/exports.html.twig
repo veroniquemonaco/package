@@ -1,11 +1,14 @@
 {% extends 'layout_admin.html.twig' %}
 {% form_theme form 'bootstrap_4_layout.html.twig' %}
+{% form_theme form2 'bootstrap_4_layout.html.twig' %}
 
 {% block contentAdmincontent %}
 
     <h2>Export des commandes par agence</h2>
 
     {{ form(form) }}
+
+    {{ form(form2) }}
 
     <h4>liste des produits commandés pour l'agence de {{ agence }}</h4>
     <div class="container w-75">

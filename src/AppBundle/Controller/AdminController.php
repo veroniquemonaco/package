@@ -7,6 +7,7 @@ use AppBundle\Entity\Commande;
 use AppBundle\Entity\ProductPackage;
 use AppBundle\Entity\User;
 use AppBundle\Form\ExportCommandesType;
+use AppBundle\Form\ExportAllCommandesType;
 use AppBundle\Form\UserCreationType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -33,6 +34,7 @@ class AdminController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $commandes = $em->getRepository(Commande::class)->findAll();
+        $allOrderProducts = $em->getRepository(ProductPackage::class)->findAll();
         $users = $em->getRepository(User::class)->findAll();
         $commandesSearch = '';
         $array = [];
@@ -65,10 +67,32 @@ class AdminController extends Controller
                 }
             }
         }
+        
+        $form2 = $this->createForm(ExportAllCommandesType::class);
+        $form2->handleRequest($request);
+        
+        if($form2->isSubmitted() && $form2->isValid()) {
+            $tab = [];
+            $array = [];
+            foreach ($allOrderProducts as $orderline) {
+                $idpdtunique = $orderline->getIdpdtUnique();
+                $qty = $orderline->getQty();
+                $array[$idpdtunique]['libelle'] = $orderline->getLibellePdt();
+                $array[$idpdtunique]['taille'] = $orderline->getTaille();
+                if (!array_key_exists($idpdtunique, $tab)) {
+                    $tab[$idpdtunique] = $qty;
+                    $array[$idpdtunique]['qty'] = $tab[$idpdtunique];
+                } else {
+                    $tab[$idpdtunique] = $tab[$idpdtunique] + $qty;
+                    $array[$idpdtunique]['qty'] = $tab[$idpdtunique];
+                }
+            }
+        }
 
         return $this->render('admin/exports.html.twig', array(
             'commandes' => $commandes,
             'form' => $form->createView(),
+            'form2' => $form2->createView(),
             'users' => $users,
             'commandesSearch' => $commandesSearch,
             'syntheseCommande' => $array,

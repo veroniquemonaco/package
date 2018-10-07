@@ -3,7 +3,8 @@
 {% block contentAdmincontent %}
 
     {% for user in users %}
-        {{ user.username }}
-
+        <ul>
+            <li>{{ user.username }}</li>
+        </ul>
     {% endfor %}
 {% endblock %}
