@@ -6,13 +6,17 @@ use AppBundle\Entity\Agence;
 use AppBundle\Entity\Commande;
 use AppBundle\Entity\ProductPackage;
 use AppBundle\Entity\User;
+use AppBundle\Repository\UserRepository;
 use AppBundle\Form\ExportCommandesType;
 use AppBundle\Form\ExportUserCommandesType;
 use AppBundle\Form\ExportAllCommandesType;
 use AppBundle\Form\UserCreationType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Validator\Constraints\Valid;
@@ -40,6 +44,7 @@ class AdminController extends Controller
         $commandesSearch = '';
         $array = [];
         $agence='';
+        $searchform='init';
 
         $form = $this->createForm(ExportCommandesType::class);
         $form->handleRequest($request);
@@ -47,6 +52,7 @@ class AdminController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
             $agence = $data['agence']->getName();
+            $searchform=$agence;
 
             $commandesSearch = $em->getRepository(Commande::class)->searchBy($agence);
 
@@ -75,6 +81,7 @@ class AdminController extends Controller
         if($form2->isSubmitted() && $form2->isValid()) {
             $tab = [];
             $array = [];
+            $searchform='all';
             foreach ($allOrderProducts as $orderline) {
                 $idpdtunique = $orderline->getIdpdtUnique();
                 $qty = $orderline->getQty();
@@ -101,7 +108,9 @@ class AdminController extends Controller
             'commandesSearch' => $commandesSearch,
             'syntheseCommande' => $array,
             'agence' => $agence,
+            'searchform' => $searchform,
         ));
+
     }
 
 
@@ -145,6 +154,29 @@ class AdminController extends Controller
         return $this->render('admin/usersindex.html.twig', array(
             'users' => $users
         ));
+    }
+
+    /**
+     * @Route("/exports/ajax/{input}")
+     * @Method("POST")
+     *
+     * @param Request $request
+     * @param $input
+     *
+     * @return JsonResponse
+     */
+    public function autocompleteAction(Request $request,$input)
+    {
+        if ( $request->isXmlHttpRequest()) {
+            /**
+             * @var $repository UserRepository
+             */
+            $repository = $this->getDoctrine()->getRepository(User::class);
+            $data = $repository->getLike($input);
+            return new JsonResponse(array("data" => json_encode($data)));
+        } else {
+            throw new HttpException('500','Invalid call');
+        }
     }
 
 }

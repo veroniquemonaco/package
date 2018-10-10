@@ -5,22 +5,32 @@
 
 {% block contentAdmincontent %}
 
+
+    {{ dump(searchform) }}
     <h2 class="mb-4">Export des produits commandés</h2>
 
     <div class="">
-        <h5><ins>Recherche par compagnon</ins></h5>
+        <h5>
+            <ins>Recherche par compagnon</ins>
+        </h5>
         {{ form(form3) }}
+        <ul id="autocomplete"></ul>
+
     </div>
     <hr>
 
     <div class="">
-        <h5><ins>Recherche par agence</ins></h5>
+        <h5>
+            <ins>Recherche par agence</ins>
+        </h5>
         {{ form(form) }}
     </div>
     <hr>
 
     <div class="">
-        <h5><ins>Lancer la recherche pour toutes les agences</ins></h5>
+        <h5>
+            <ins>Lancer la recherche pour toutes les agences</ins>
+        </h5>
         {{ form(form2) }}
     </div>
 
@@ -55,4 +65,41 @@
     </div>
 
 
+    <button type="button" class="btn btn-info">
+        <a href="{{ path('pdf_export', { 'searchform': searchform }) }}" class="text-white">Télécharger en pdf</a>
+    </button>
+
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript">
+
+       $(document).ready(function() {
+           $("#app_bundle_export_user_commandes_type_Recherche").keyup(function () {
+               let input = $(this).val();
+               console.log(input)
+               if (input.length >= 2) {
+                   $.ajax({
+                       type: "POST",
+                       url: "/exports/ajax/" + input,
+                       dataType: 'json',
+                       success: function (data) {
+                           console.log(data);
+                           // let users = JSON.parse(response.data);
+                           // console.log(users)
+                           // html = "";
+                           // for (i=0; i<users.length; i++) {
+                           //     html += "<li>" + users[i].firstname + users[i].lastname + "</li>";
+                           // }
+                       }
+                   })
+               }
+
+           })
+       })
+
+    </script>
 {% endblock %}

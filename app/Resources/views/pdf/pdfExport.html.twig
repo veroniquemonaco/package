@@ -1,0 +1,33 @@
+{% extends 'pdf/layout-pdf.html.twig' %}
+
+{% block content %}
+
+    <h5 class="mb-2">Résultat : liste des produits commandés</h5>
+    <div class="container w-75">
+
+
+        <div class="row">
+            <table class="table table-striped">
+                <thead>
+                <tr class="row">
+                    <th class="col-1">#</th>
+                    <th class="col-7">libellé</th>
+                    <th class="col-2">taille</th>
+                    <th class="col-2">quantité</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for pdt in orderpdts %}
+                    <tr class="row">
+                        <th class="col-1">{{ loop.index }}</th>
+                        <td class="col-7">{{ pdt.libelle }}</td>
+                        <td class="col-2">{{ pdt.taille }}</td>
+                        <td class="col-2">{{ pdt.qty }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}

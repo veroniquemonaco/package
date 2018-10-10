@@ -3,6 +3,7 @@
 namespace AppBundle\Form;
 
 use AppBundle\Entity\Agence;
+use AppBundle\Entity\Qualification;
 use AppBundle\Entity\Commande;
 use AppBundle\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -21,6 +22,10 @@ class ExportCommandesType extends AbstractType
         $builder
             ->add('agence', EntityType::class, [
                 'class'=>Agence::class,
+                'choice_label'=>'name'
+            ])
+            ->add('qualification',EntityType::class, [
+                'class'=>Qualification::class,
                 'choice_label'=>'name'
             ])
             ->add('submit', SubmitType::class, [
