@@ -42,6 +42,7 @@ class AdminController extends Controller
         $allOrderProducts = $em->getRepository(ProductPackage::class)->findAll();
         $users = $em->getRepository(User::class)->findAll();
         $commandesSearch = '';
+        $commandesUser = '';
         $array = [];
         $agence='';
         $searchform='init';
@@ -51,7 +52,9 @@ class AdminController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
+            dump($data);
             $agence = $data['agence']->getName();
+            $paquetageType = $data['qualification']->getName();
             $searchform=$agence;
 
             $commandesSearch = $em->getRepository(Commande::class)->searchBy($agence);
@@ -98,6 +101,13 @@ class AdminController extends Controller
         }
 
         $form3 = $this->createForm(ExportUserCommandesType::class);
+        $form3->handleRequest($request);
+
+        if($form3->isSubmitted() && $form3->isValid()) {
+            $data = $form3->getData();
+            $commandesUser= $em->getRepository(Commande::class)->findBy(array('user'=>$data));
+            dump($commandesUser);
+        }
 
         return $this->render('admin/exports.html.twig', array(
             'commandes' => $commandes,
@@ -109,6 +119,7 @@ class AdminController extends Controller
             'syntheseCommande' => $array,
             'agence' => $agence,
             'searchform' => $searchform,
+            'commandesUser' => $commandesUser,
         ));
 
     }
@@ -171,7 +182,7 @@ class AdminController extends Controller
             /**
              * @var $repository UserRepository
              */
-            $repository = $this->getDoctrine()->getRepository(User::class);
+            $repository = $this->getDoctrine()->getManager()->getRepository(User::class);
             $data = $repository->getLike($input);
             return new JsonResponse(array("data" => json_encode($data)));
         } else {

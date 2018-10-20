@@ -43,6 +43,14 @@ class ProductPackage
     private $taille;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="taille_id", type="integer")
+     */
+    private $tailleId;
+
+
+    /**
      * @var int
      *
      * @ORM\Column(name="qty", type="integer")
@@ -182,6 +190,22 @@ class ProductPackage
     public function getTaille()
     {
         return $this->taille;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTailleId()
+    {
+        return $this->tailleId;
+    }
+
+    /**
+     * @param int $tailleId
+     */
+    public function setTailleId($tailleId)
+    {
+        $this->tailleId = $tailleId;
     }
 
     /**

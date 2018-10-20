@@ -2,26 +2,71 @@
 
 {% block body %}
 
-    {#<div class="container container-bloc-home">#}
+    {% if commandeYearPaquetage %}
+        <h6>vous avez une commande en cours pour votre paquetage de {{ yearPaquetage }}</h6>
+    {% else %}
+        <h6>vous n'avez aucun paquetage en cours de préparation</h6>
+    {% endif %}
 
-        <div class="package-front">
-            {#<h1 class="package--front--title mb-4">{{ user.firstname }} {{ user.lastname }}, il est temps de préparer votre#}
-                {#paquetage</h1>#}
-            <div class="row">
-                <div class="container product--list col-6">
-                    <h4 class="p-2 mb-4 text-center">Sélection du paquetage</h4>
-                    <div class="row">
-                        <div class="col-1">#</div>
-                        <div class="col-5">Libellé</div>
-                        <div class="col-2">Taille</div>
-                        <div class="col-2">Quantité</div>
-                        <div class="col-1">Ajouter</div>
-                    </div>
-                    <hr>
-                    {% for produit in produits %}
-                        <div class="row">
+    <div class="package-front">
+        {#<h1 class="package--front--title mb-4">{{ user.firstname }} {{ user.lastname }}, il est temps de préparer votre#}
+        {#paquetage</h1>#}
+        <div class="row">
+            <div class="container product--list col-6">
+                <h4 class="p-2 mb-4 text-center">Sélection du paquetage</h4>
+                <div class="row">
+                    <div class="col-1">#</div>
+                    <div class="col-5">Libellé</div>
+                    <div class="col-2">Taille</div>
+                    <div class="col-2">Quantité</div>
+                    <div class="col-1">Ajouter</div>
+                </div>
+                <hr>
+                {% for produit in produits %}
+                    {% if produit.id in backOrder %}
+                        {% set id = produit.id %}
+                        <div class="row" id="productid-{{ produit.id }}">
                             <div class="col-1">{{ loop.index }}</div>
-                            <div class="col-5 form-product" data-productid="{{ produit.id }}">{{ produit.name }}</div>
+                            <div class="col-5 form-product"
+                                 data-productid="{{ produit.id }}">{{ produit.name }}</div>
+                            <div class="col-2 form-product-taille">
+                                <select class="custom-select w-100">
+                                    {#<option>tailles</option>#}
+
+                                    {% for addproduct in panier %}
+                                        {% if addproduct.product.id == id %}
+                                            {% set tailleorderid = addproduct.taille.id %}
+                                            {% set selectedoption = '' %}
+                                            {% for taille in produit.tailles %}
+                                                <option class="form-product-taille-option"
+                                                        value="{{ taille.id }}"
+                                                        {{ (taille.id == tailleorderid) ? 'selected' : '' }}>
+                                                    {{ taille.name }}</option>
+                                            {% endfor %}
+                                        {% endif %}
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-2 form-product-qty">
+                                {% for addproduct in panier %}
+                                    {% if addproduct.product.id == id %}
+                                        {% set qte = addproduct.quantity %}
+                                        <input type="number" class="form-product-qty-value form-group"
+                                               id="quantity" placeholder="{{ qte }}" required>
+                                    {% endif %}
+                                {% endfor %}
+
+                            </div>
+                            <div class="col-1 custom-control custom-checkbox">
+                                <input type="checkbox" class="form-product-check" id="customCheck1" checked>
+                                <label class="custom-control-label" for="customCheck1"></label>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="row" id="productid-{{ produit.id }}">
+                            <div class="col-1">{{ loop.index }}</div>
+                            <div class="col-5 form-product"
+                                 data-productid="{{ produit.id }}">{{ produit.name }}</div>
                             <div class="col-2 form-product-taille">
                                 <select class="custom-select w-100">
                                     {#<option>tailles</option>#}
@@ -40,34 +85,49 @@
                                 <label class="custom-control-label" for="customCheck1"></label>
                             </div>
                         </div>
-                    {% endfor %}
+
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <div class="container product--select col-5">
+                <h4 class="p-2 mb-4 text-center">Sélection de {{ user.firstname }} {{ user.lastname }}</h4>
+                {#<div class="row">#}
+                <div id="panier" class="w-100">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr class="row">
+                            <th class="col-1">#</th>
+                            <th class="col-6">Produit</th>
+                            <th class="col-2">Taille</th>
+                            <th class="col-1">Qté</th>
+                            <th class="col-1">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody class="panier--product">
+                        {% for addproduct in panier %}
+                            <tr class="row" id="idpdt-panier-{{ addproduct.product.id }}"
+                                data-panierproductid="{{ addproduct.product.id }}">
+                                <td class="col-1">{{ loop.index }}</td>
+                                <td class="col-6">{{ addproduct.product.name }}</td>
+                                <td class="col-2">{{ addproduct.taille.name }}</td>
+                                <td class="col-1">{{ addproduct.quantity }}</td>
+                                <td class="col-1">
+                                    <input type="checkbox" class="panier-form-product-check">
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    <div class="clearfix"></div>
+                    <a href="{{ path('panier') }}" class="btn btn-success float-right">Valider</a>
+                    <button type="button" class="btn btn-info">
+                        <a href="{{ path('reset_panier') }}" class="text-white">Annuler Sélection</a>
+                    </button>
                 </div>
-                <div class="container product--select col-5">
-                    <h4 class="p-2 mb-4 text-center">Sélection de {{ user.firstname }} {{ user.lastname }}</h4>
-                    {#<div class="row">#}
-                        <div id="panier" class="w-100">
-                            <table class="table table-striped">
-                                <thead>
-                                <tr class="row">
-                                    <th class="col-1">#</th>
-                                    <th class="col-6">Produit</th>
-                                    <th class="col-2">Taille</th>
-                                    <th class="col-2">Qté</th>
-                                </tr>
-                                </thead>
-                                <tbody class="panier--product">
-                                </tbody>
-                            </table>
-                            <div class="clearfix"></div>
-                            <a href="{{ path('panier') }}" class="btn btn-success float-right">Valider</a>
-                            <button type="button" class="btn btn-info">
-                                <a href="{{ path('reset_panier') }}" class="text-white">Annuler Sélection</a>
-                            </button>
-                        </div>
-                    {#</div>#}
-                </div>
+                {#</div>#}
             </div>
         </div>
+    </div>
     {#</div>#}
 {% endblock %}
 
@@ -82,10 +142,6 @@
                 qty: null
             };
             let cart;
-            // productname.each(function(index) {
-            //     var productid = $(this).data('productid');
-            //     array.push(productid);
-            // });
             $(".form-product-check").change(function () {
                 let isChecked = $(this).is(":checked");
                 if (isChecked) {
@@ -105,18 +161,13 @@
                             let tailleCart = data['addPdtTaille'];
                             let libellePdtCart = data['addPdtLibelle'].replace(/"/g, "");
                             let libelleTailleCart = data['addPdtTailleLibelle'].replace(/"/g, "");
-                            $('.panier--product').append("<tr class=\"row\" id=idpdt-"+ idPdtCart +">" +
-                                "<td class=\"col-1\">" + idPdtCart +"</td>" +
+                            $('.panier--product').append("<tr class=\"row\" id=idpdt-" + idPdtCart + ">" +
+                                "<td class=\"col-1\">" + idPdtCart + "</td>" +
                                 "<td class=\"col-6\">" + libellePdtCart + "</td>" +
                                 "<td class=\"col-2\">" + libelleTailleCart + "</td>" +
-                                "<td class=\"col-2\">" + qtyCart + "</td>\n" +
+                                "<td class=\"col-1\">" + qtyCart + "</td>\n" +
+                                "<td class=\"col-1\"><input type=\"checkbox\" class=\"panier-form-product-check\"></td>\n" +
                                 "</tr>");
-                            // $('.panier--product').append("<tr class=\"row\">" +
-                            //     "<td class=\"col-1\">" + idPdtCart +"</td>" +
-                            //     "<td class=\"col-6\">" + libellePdtCart + "</td>" +
-                            //     "<td class=\"col-2\">" + libelleTailleCart + "</td>" +
-                            //     "<td class=\"col-2\">" + qtyCart + "</td>\n"
-                            //     "</tr>");
                         }
                     })
                 } else {
@@ -139,10 +190,34 @@
                             let lessPdtId = data['lessPdtId'];
                             console.log(lessPdtId);
                             $('#idpdt-' + lessPdtId + '').html('');
+                            $('#idpdt-panier-' + lessPdtId + '').html('');
                         }
                     })
                 }
             });
+
+            $(".panier-form-product-check").change(function () {
+                let isCheckedPanier = $(this).is(":checked");
+                if (isCheckedPanier) {
+                    alert('check')
+                    let lessProductPanier = {
+                        idPdt: null
+                    };
+                    lessProductPanier.idPdt = $(this).parent().parent().data('panierproductid');
+                    $.ajax({
+                        url: '{{ path('package') }}',
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {'lessProductPanier': lessProductPanier},
+                        success: function (data) {
+                            let lessPdtIdPanier = data['lessPdtIdPanier'];
+                            console.log(lessPdtIdPanier);
+                            $('#idpdt-panier-' + lessPdtIdPanier + '').html('');
+                            $('.product--list').$('#productid-' + lessPdtIdPanier + '').children('.form-product-qty').children('input#quantity').val('0');
+                        }
+                    })
+                }
+            })
         });
     </script>
 

@@ -2,14 +2,16 @@
 
 {% block body %}
 
-
+{{ dump(commande) }}
+{{ dump(commandeUser) }}
     <div class="container">
         <div class="row d-flex justify-content-end m-4">
             <div class="commande--title">
                 <h5>Agence : {{ user.agence.name }}</h5>
                 <h5>{{ user.firstname }} {{ user.lastname }}</h5>
                 <h5>Type de paquetage : <span class="text-capitalize">{{ user.qualification.name }}</span></h5>
-                <h5>Date commande : {{ commande.date|date('d/m/Y') }}</h5>
+                {#<h5>Date commande : {{ commandeUser.date|date('d/m/Y') }}</h5>#}
+                {#<h5>Date commande : {{ commande.date|date('d/m/Y') }}</h5>#}
             </div>
         </div>
         <hr>
@@ -25,14 +27,26 @@
                 </tr>
                 </thead>
                 <tbody>
-                {% for produit in commande.commande %}
-                    <tr class="row">
-                        <th class="col-1">{{ loop.index }}</th>
-                        <td class="col-7">{{ produit.libelle }}</td>
-                        <td class="col-2">{{ produit.taille }}</td>
-                        <td class="col-2">{{ produit.qte }}</td>
-                    </tr>
-                {% endfor %}
+                {% if commande %}
+                    {% for produit in commande.commande %}
+                        <tr class="row">
+                            <th class="col-1">{{ loop.index }}</th>
+                            <td class="col-7">{{ produit.libelle }}</td>
+                            <td class="col-2">{{ produit.taille }}</td>
+                            <td class="col-2">{{ produit.qte }}</td>
+                        </tr>
+                    {% endfor %}
+                {% endif %}
+                {% if commandeUser %}
+                    {% for produit in commandeUser.commande %}
+                        <tr class="row">
+                            <th class="col-1">{{ loop.index }}</th>
+                            <td class="col-7">{{ produit.libelle }}</td>
+                            <td class="col-2">{{ produit.taille }}</td>
+                            <td class="col-2">{{ produit.qte }}</td>
+                        </tr>
+                    {% endfor %}
+                {% endif %}
                 </tbody>
             </table>
         </div>

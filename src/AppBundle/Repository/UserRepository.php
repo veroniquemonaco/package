@@ -14,6 +14,7 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
     {
         $input = "%".$input ."%";
         $qb = $this->createQueryBuilder('u')
+            ->select('u.id,u.firstname,u.lastname')
             ->where('u.firstname LIKE :firstname')
                 ->setParameter('firstname', $input)
             ->orWhere('u.lastname LIKE :lastname')

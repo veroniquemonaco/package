@@ -19,6 +19,50 @@
     </div>
     <hr>
 
+    {% if commandesUser %}
+        <h5 class="mb-2">Résultat : liste des commandes</h5>
+        <div class="container w-75">
+
+
+
+            {% for commandeUser in commandesUser %}
+
+                <div class="row">
+                    <h6 class="col-2">Commande n° {{ commandeUser.reference }}</h6>
+                    <h6 class="col-4">Date: {{ commandeUser.date | date('d/m/Y') }}</h6>
+
+                </div>
+                <div class="row">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr class="row">
+                            <th class="col-1">#</th>
+                            <th class="col-7">libellé</th>
+                            <th class="col-2">taille</th>
+                            <th class="col-2">quantité</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for commande in commandeUser.commande %}
+                            <tr class="row">
+                                <th class="col-1">{{ loop.index }}</th>
+                                <td class="col-7">{{ commande.libelle }}</td>
+                                <td class="col-2">{{ commande.taille }}</td>
+                                <td class="col-2">{{ commande.qte }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    {% endif %}
+
+
+
     <div class="">
         <h5>
             <ins>Recherche par agence</ins>
@@ -77,29 +121,42 @@
 
     <script type="text/javascript">
 
-       $(document).ready(function() {
-           $("#app_bundle_export_user_commandes_type_Recherche").keyup(function () {
-               let input = $(this).val();
-               console.log(input)
-               if (input.length >= 2) {
-                   $.ajax({
-                       type: "POST",
-                       url: "/exports/ajax/" + input,
-                       dataType: 'json',
-                       success: function (data) {
-                           console.log(data);
-                           // let users = JSON.parse(response.data);
-                           // console.log(users)
-                           // html = "";
-                           // for (i=0; i<users.length; i++) {
-                           //     html += "<li>" + users[i].firstname + users[i].lastname + "</li>";
-                           // }
-                       }
-                   })
-               }
+        $(document).ready(function () {
+            $("#app_bundle_export_user_commandes_type_Recherche").keyup(function () {
+                let input = $(this).val();
+                console.log(input)
+                if (input.length >= 2) {
+                    $.ajax({
+                        type: "POST",
+                        url: "/exports/ajax/" + input,
+                        dataType: 'json',
+                        success: function (response) {
+                            let users = JSON.parse(response.data);
+                            console.log(users);
+                            html = "";
+                            userid = "";
+                            for (i = 0; i < users.length; i++) {
+                                html += "<li data-mydata=" + users[i].id + "  id=userid-" + users[i].id + ">" + users[i].firstname + users[i].lastname + "</li>";
+                            }
+                            console.log(html);
+                            $('#autocomplete').html(html);
+                            $('#autocomplete li').on('click', function () {
+                                $('#app_bundle_export_user_commandes_type_Recherche').val($(this).html()).data('userid', $(this).data());
+                                userid = $(this).data().mydata;
+                                console.log(userid.mydata);
+                                $('#autocomplete').html('');
+                                $('#app_bundle_export_user_commandes_type_rechercher').on('click', function () {
+                                    $('#app_bundle_export_user_commandes_type_Recherche').val(userid);
+                                })
 
-           })
-       })
+                            });
+                        }
+                    })
+
+                }
+
+            })
+        })
 
     </script>
 {% endblock %}

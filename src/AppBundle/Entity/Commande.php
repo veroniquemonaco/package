@@ -55,6 +55,29 @@ class Commande
     private $commande;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="year_paquetage", type="integer")
+     */
+    private $yearPaquetage;
+
+    /**
+     * @return int
+     */
+    public function getYearPaquetage()
+    {
+        return $this->yearPaquetage;
+    }
+
+    /**
+     * @param int $yearPaquetage
+     */
+    public function setYearPaquetage($yearPaquetage)
+    {
+        $this->yearPaquetage = $yearPaquetage;
+    }
+
+    /**
      * @return mixed
      */
     public function getUser()
