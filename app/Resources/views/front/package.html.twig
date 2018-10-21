@@ -100,7 +100,6 @@
                             <th class="col-6">Produit</th>
                             <th class="col-2">Taille</th>
                             <th class="col-1">Qté</th>
-                            <th class="col-1">Action</th>
                         </tr>
                         </thead>
                         <tbody class="panier--product">
@@ -111,9 +110,6 @@
                                 <td class="col-6">{{ addproduct.product.name }}</td>
                                 <td class="col-2">{{ addproduct.taille.name }}</td>
                                 <td class="col-1">{{ addproduct.quantity }}</td>
-                                <td class="col-1">
-                                    <input type="checkbox" class="panier-form-product-check">
-                                </td>
                             </tr>
                         {% endfor %}
                         </tbody>
@@ -166,7 +162,6 @@
                                 "<td class=\"col-6\">" + libellePdtCart + "</td>" +
                                 "<td class=\"col-2\">" + libelleTailleCart + "</td>" +
                                 "<td class=\"col-1\">" + qtyCart + "</td>\n" +
-                                "<td class=\"col-1\"><input type=\"checkbox\" class=\"panier-form-product-check\"></td>\n" +
                                 "</tr>");
                         }
                     })
@@ -188,7 +183,6 @@
                         data: {'lessProduct': lessProduct},
                         success: function (data) {
                             let lessPdtId = data['lessPdtId'];
-                            console.log(lessPdtId);
                             $('#idpdt-' + lessPdtId + '').html('');
                             $('#idpdt-panier-' + lessPdtId + '').html('');
                         }
@@ -211,7 +205,6 @@
                         data: {'lessProductPanier': lessProductPanier},
                         success: function (data) {
                             let lessPdtIdPanier = data['lessPdtIdPanier'];
-                            console.log(lessPdtIdPanier);
                             $('#idpdt-panier-' + lessPdtIdPanier + '').html('');
                             $('.product--list').$('#productid-' + lessPdtIdPanier + '').children('.form-product-qty').children('input#quantity').val('0');
                         }

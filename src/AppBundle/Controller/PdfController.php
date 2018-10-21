@@ -50,8 +50,6 @@ class PdfController extends Controller
      */
     public function exportPdfAction($searchform)
     {
-        dump($searchform);
-
         $em = $this->getDoctrine()->getManager();
 
         if ($searchform === 'all') {

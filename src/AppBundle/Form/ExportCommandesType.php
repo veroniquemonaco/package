@@ -22,11 +22,13 @@ class ExportCommandesType extends AbstractType
         $builder
             ->add('agence', EntityType::class, [
                 'class'=>Agence::class,
-                'choice_label'=>'name'
+                'choice_label'=>'name',
+                'required' => false
             ])
             ->add('qualification',EntityType::class, [
                 'class'=>Qualification::class,
-                'choice_label'=>'name'
+                'choice_label'=>'name',
+                'required' => false
             ])
             ->add('submit', SubmitType::class, [
                 'attr' => [

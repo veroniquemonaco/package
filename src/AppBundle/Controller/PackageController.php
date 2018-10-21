@@ -50,13 +50,11 @@ class PackageController extends Controller
         if($commandeUser != []) {
             $commandeYearPaquetage = $commandeUser[0]->getCommande();
 
-        dump($commandeYearPaquetage);
 
             foreach($commandeYearPaquetage as $idpdt=>$orderarray) {
                 $backOrder[$idpdt] = $idpdt;
             }
 
-            dump($backOrder);
 
             foreach ($commandeYearPaquetage as $idpdt=>$orderarray) {
                 $addProductCde = new Addproduct();

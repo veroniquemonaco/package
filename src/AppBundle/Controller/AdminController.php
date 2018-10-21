@@ -52,14 +52,23 @@ class AdminController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
-            dump($data);
-            $agence = $data['agence']->getName();
-            $paquetageType = $data['qualification']->getName();
-            $searchform=$agence;
+            if (!$data['agence'] == null){
+                $agence = $data['agence']->getName();
+            } else {
+                $agence = null;
+            }
+
+            if (!$data['qualification'] == null){
+                $paquetageType = $data['qualification']->getName();
+            } else {
+                $paquetageType = null;
+            }
+
+            $searchform=$agence.$paquetageType;
 
             $commandesSearch = $em->getRepository(Commande::class)->searchBy($agence);
 
-            $orderproductsSearch = $em->getRepository(ProductPackage::class)->searchOrderLineBy($agence);
+            $orderproductsSearch = $em->getRepository(ProductPackage::class)->searchOrderLineBy($agence,$paquetageType);
 
             $tab = [];
             $array = [];
@@ -106,7 +115,6 @@ class AdminController extends Controller
         if($form3->isSubmitted() && $form3->isValid()) {
             $data = $form3->getData();
             $commandesUser= $em->getRepository(Commande::class)->findBy(array('user'=>$data));
-            dump($commandesUser);
         }
 
         return $this->render('admin/exports.html.twig', array(
