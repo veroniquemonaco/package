@@ -148,6 +148,7 @@
                     $.ajax({
                         type: "POST",
                         url: "/exports/ajax/" + input,
+                        contentType: 'application/json',
                         dataType: 'json',
                         success: function (response) {
                             let users = JSON.parse(response.data);
@@ -166,6 +167,9 @@
                                 })
 
                             });
+                        },
+                        errors: function () {
+
                         }
                     })
 
