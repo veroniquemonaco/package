@@ -176,7 +176,7 @@ class AdminController extends Controller
     }
 
     /**
-     * @Route("/exports/ajax/{input}")
+     * @Route("/exports/ajax/{input}", name="exports_autocompletion")
      * @Method("POST")
      *
      * @param Request $request
@@ -184,7 +184,7 @@ class AdminController extends Controller
      *
      * @return JsonResponse
      */
-    public function autocompleteAction(Request $request,$input)
+    public function autocompleteAction(Request $request,$input=null)
     {
         if ( $request->isXmlHttpRequest()) {
             /**
