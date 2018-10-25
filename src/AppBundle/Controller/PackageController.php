@@ -33,7 +33,9 @@ class PackageController extends Controller
         $date = new \DateTime();
         $year = $date->format('Y');
         $yearPaquetage = intval($year) + 1;
+        $yearPaquetageOld = intval($year);
         $commandeYearPaquetage=[];
+        $commandeYearPaquetageOld=[];
         $backOrder = [];
         $callpanier = [];
         $panier = [];
@@ -46,6 +48,14 @@ class PackageController extends Controller
 
         $commandeUser = $em->getRepository(Commande::class)->findBy(array('yearPaquetage'=>$yearPaquetage,
                                                                                     'user'=>$user));
+
+        $commandeUserOld = $em->getRepository(Commande::class)->findBy(array('yearPaquetage'=>$yearPaquetageOld,
+                                                                                        'user'=>$user));
+
+        if($commandeUserOld != []) {
+            $commandeYearPaquetageOld = $commandeUserOld[0]->getCommande();
+        }
+
 
         if($commandeUser != []) {
             $commandeYearPaquetage = $commandeUser[0]->getCommande();

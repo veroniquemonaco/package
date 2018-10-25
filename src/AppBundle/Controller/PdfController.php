@@ -52,6 +52,8 @@ class PdfController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
+        $array = [];
+
         if ($searchform === 'all') {
             $allOrderProducts = $em->getRepository(ProductPackage::class)->findAll();
             $tab = [];
@@ -70,26 +72,91 @@ class PdfController extends Controller
                     $array[$idpdtunique]['qty'] = $tab[$idpdtunique];
                 }
             }
-        } else {
-            $orderproductsSearch = $em->getRepository(ProductPackage::class)->searchOrderLineBy($searchform);
-
-            $tab = [];
-            $array = [];
-            foreach ($orderproductsSearch as $orderline) {
-                $idpdtunique = $orderline->getIdpdtUnique();
-                $qty = $orderline->getQty();
-                $array[$idpdtunique]['libelle'] = $orderline->getLibellePdt();
-                $array[$idpdtunique]['taille'] = $orderline->getTaille();
-                if (!array_key_exists($idpdtunique, $tab)) {
-                    $tab[$idpdtunique] = $qty;
-                    $array[$idpdtunique]['qty'] = $tab[$idpdtunique];
-                } else {
-                    $tab[$idpdtunique] = $tab[$idpdtunique] + $qty;
-                    $array[$idpdtunique]['qty'] = $tab[$idpdtunique];
-                }
-            }
-
         }
+
+        $html = $this->renderView('pdf/pdfExport.html.twig', array(
+            'orderpdts' => $array,
+        ));
+
+        $filename = sprintf('commande-%s.pdf', date('Y-m-d'));
+
+        return new Response(
+            $this->get('knp_snappy.pdf')->getOutputFromHtml($html), 200,
+            [
+                'Content-Type' => 'application/pdf',
+                'Content-Disposition' => sprintf('attachment; filename="%s"', $filename),
+            ]
+        );
+    }
+
+    /**
+     *@Route("/pdf/export/{agence}/{paquetageType}", name="pdf_export_agence")
+     */
+    public function exportAgencePdfAction($agence = null ,$paquetageType = null )
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $orderproductsSearch = $em->getRepository(ProductPackage::class)->searchOrderLineBy($agence,$paquetageType);
+
+
+        $tab = [];
+        $array = [];
+        foreach ($orderproductsSearch as $orderline) {
+            $idpdtunique = $orderline->getIdpdtUnique();
+            $qty = $orderline->getQty();
+            $array[$idpdtunique]['libelle'] = $orderline->getLibellePdt();
+            $array[$idpdtunique]['taille'] = $orderline->getTaille();
+            if (!array_key_exists($idpdtunique, $tab)) {
+                $tab[$idpdtunique] = $qty;
+                $array[$idpdtunique]['qty'] = $tab[$idpdtunique];
+            } else {
+                $tab[$idpdtunique] = $tab[$idpdtunique] + $qty;
+                $array[$idpdtunique]['qty'] = $tab[$idpdtunique];
+            }
+        }
+
+
+        $html = $this->renderView('pdf/pdfExport.html.twig', array(
+            'orderpdts' => $array,
+        ));
+
+        $filename = sprintf('commande-%s.pdf', date('Y-m-d'));
+
+        return new Response(
+            $this->get('knp_snappy.pdf')->getOutputFromHtml($html), 200,
+            [
+                'Content-Type' => 'application/pdf',
+                'Content-Disposition' => sprintf('attachment; filename="%s"', $filename),
+            ]
+        );
+    }
+
+    /**
+     *@Route("/pdf/export/{paquetageType}/{agence}", name="pdf_export_paquetageType")
+     */
+    public function exportPaquetageTypePdfAction($agence = null ,$paquetageType = null )
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $orderproductsSearch = $em->getRepository(ProductPackage::class)->searchOrderLineBy($agence,$paquetageType);
+
+        $tab = [];
+        $array = [];
+        foreach ($orderproductsSearch as $orderline) {
+            $idpdtunique = $orderline->getIdpdtUnique();
+            $qty = $orderline->getQty();
+            $array[$idpdtunique]['libelle'] = $orderline->getLibellePdt();
+            $array[$idpdtunique]['taille'] = $orderline->getTaille();
+            if (!array_key_exists($idpdtunique, $tab)) {
+                $tab[$idpdtunique] = $qty;
+                $array[$idpdtunique]['qty'] = $tab[$idpdtunique];
+            } else {
+                $tab[$idpdtunique] = $tab[$idpdtunique] + $qty;
+                $array[$idpdtunique]['qty'] = $tab[$idpdtunique];
+            }
+        }
+
+
 
         $html = $this->renderView('pdf/pdfExport.html.twig', array(
             'orderpdts' => $array,

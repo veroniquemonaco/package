@@ -84,6 +84,11 @@
                                 <input type="checkbox" class="form-product-check" id="customCheck1">
                                 <label class="custom-control-label" for="customCheck1"></label>
                             </div>
+                            {#<div class="col-1 btn-group-toggle buttoncheck" data-toggle="buttons">#}
+                                {#<label class="btn btn-secondary active">#}
+                                    {#<input class="form-product-buttoncheck" checked type="checkbox" autocomplete="off"> Ajouter#}
+                                {#</label>#}
+                            {#</div>#}
                         </div>
 
                     {% endif %}
@@ -138,6 +143,11 @@
                 qty: null
             };
             let cart;
+            $(".buttoncheck").click(function () {
+                // alert('check')
+                // $('.buttoncheck').children().attr('aria-pressed');
+                console.log($('.buttoncheck').children().attr('aria-pressed'));
+            });
             $(".form-product-check").change(function () {
                 let isChecked = $(this).is(":checked");
                 if (isChecked) {

@@ -44,7 +44,8 @@ class AdminController extends Controller
         $commandesSearch = '';
         $commandesUser = '';
         $array = [];
-        $agence='';
+        $agence= null;
+        $paquetageType= null;
         $searchform='init';
 
         $form = $this->createForm(ExportCommandesType::class);
@@ -63,8 +64,6 @@ class AdminController extends Controller
             } else {
                 $paquetageType = null;
             }
-
-            $searchform=$agence.$paquetageType;
 
             $commandesSearch = $em->getRepository(Commande::class)->searchBy($agence);
 
@@ -126,6 +125,7 @@ class AdminController extends Controller
             'commandesSearch' => $commandesSearch,
             'syntheseCommande' => $array,
             'agence' => $agence,
+            'paquetageType' => $paquetageType,
             'searchform' => $searchform,
             'commandesUser' => $commandesUser,
         ));

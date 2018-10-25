@@ -23,7 +23,6 @@
         <div class="container w-75">
 
 
-
             {% for commandeUser in commandesUser %}
 
                 <div class="row">
@@ -80,6 +79,20 @@
         {{ form_end(form) }}
 
     </div>
+
+    {% if agence %}
+        <button type="button" class="btn btn-info">
+            <a href="{{ path('pdf_export_agence', {'agence': agence , 'paquetageType': paquetageType } ) }}"
+               class="text-white">Télécharger en pdf</a>
+        </button>
+    {% endif %}
+    {% if paquetageType %}
+        <button type="button" class="btn btn-info">
+            <a href="{{ path('pdf_export_paquetageType', {'agence': agence , 'paquetageType': paquetageType} ) }}"
+               class="text-white">Télécharger en pdf</a>
+        </button>
+    {% endif %}
+
     <hr>
 
     <div class="">
@@ -89,49 +102,53 @@
 
         {{ form(form2) }}
 
-        {#{{ form_start(form2) }}#}
-
-        {#{{ form_label(form2.qualification,'Type de paquetage') }}#}
-        {#{{ form_widget(form2.qualification) }}#}
-        {#{{ form_errors(form2.qualification) }}#}
-
-        {#{{ form_end(form2) }}#}
     </div>
 
     <hr>
 
-    <h5 class="mb-2">Résultat : liste des produits commandés</h5>
+    <h5 class="mb-2">Résultat de votre recherche : liste des produits commandés</h5>
     <div class="container w-75">
 
+        {% if syntheseCommande %}
 
-        <div class="row">
-            <table class="table table-striped">
-                <thead>
-                <tr class="row">
-                    <th class="col-1">#</th>
-                    <th class="col-7">libellé</th>
-                    <th class="col-2">taille</th>
-                    <th class="col-2">quantité</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for pdt in syntheseCommande %}
+            <div class="row">
+                <table class="table table-striped">
+                    <thead>
                     <tr class="row">
-                        <th class="col-1">{{ loop.index }}</th>
-                        <td class="col-7">{{ pdt.libelle }}</td>
-                        <td class="col-2">{{ pdt.taille }}</td>
-                        <td class="col-2">{{ pdt.qty }}</td>
+                        <th class="col-1">#</th>
+                        <th class="col-7">libellé</th>
+                        <th class="col-2">taille</th>
+                        <th class="col-2">quantité</th>
                     </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-        </div>
+                    </thead>
+                    <tbody>
+                    {% for pdt in syntheseCommande %}
+                        <tr class="row">
+                            <th class="col-1">{{ loop.index }}</th>
+                            <td class="col-7">{{ pdt.libelle }}</td>
+                            <td class="col-2">{{ pdt.taille }}</td>
+                            <td class="col-2">{{ pdt.qty }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <button type="button" class="btn btn-info">
+                <a href="{{ path('pdf_export', { 'searchform': searchform }) }}" class="text-white">Télécharger en
+                    pdf</a>
+            </button>
+
+        {% else %}
+
+            <h6>aucun résultat</h6>
+
+        {% endif %}
+
     </div>
 
 
-    <button type="button" class="btn btn-info">
-        <a href="{{ path('pdf_export', { 'searchform': searchform }) }}" class="text-white">Télécharger en pdf</a>
-    </button>
+
 
 
 {% endblock %}
