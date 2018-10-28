@@ -64,6 +64,8 @@ class SecurityController extends Controller
      */
     public function loginAction(AuthenticationUtils $authenticationUtils)
     {
+
+
         if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
             return $this->redirectToRoute('package');
         } else {
@@ -76,7 +78,8 @@ class SecurityController extends Controller
             }
 
             return $this->render('security/login.html.twig',
-                array('form' => $form->createView(), 'errors' => $authenticationUtils->getLastAuthenticationError()));
+                array('form' => $form->createView(),
+                    'errors' => $authenticationUtils->getLastAuthenticationError()));
 
         }
 

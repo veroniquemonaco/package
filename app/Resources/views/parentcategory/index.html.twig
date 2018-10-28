@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Parentcategories list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for parentCategory in parentCategories %}
+            <tr>
+                <td><a href="{{ path('parentcategory_show', { 'id': parentCategory.id }) }}">{{ parentCategory.id }}</a></td>
+                <td>{{ parentCategory.name }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('parentcategory_show', { 'id': parentCategory.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('parentcategory_edit', { 'id': parentCategory.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('parentcategory_new') }}">Create a new parentCategory</a>
+        </li>
+    </ul>
+{% endblock %}

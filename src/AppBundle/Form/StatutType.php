@@ -2,35 +2,25 @@
 
 namespace AppBundle\Form;
 
-use AppBundle\Entity\ParentCategory;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class CategoryType extends AbstractType
+class StatutType extends AbstractType
 {
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('name')
-            ->add('parentCategory', EntityType::class,[
-                'class'=>ParentCategory::class,
-                'choice_label'=>'name'
-            ])
-            ->add('image');
-    }
-
-    /**
+        $builder->add('name');
+    }/**
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Category'
+            'data_class' => 'AppBundle\Entity\Statut'
         ));
     }
 
@@ -39,7 +29,7 @@ class CategoryType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'appbundle_category';
+        return 'appbundle_statut';
     }
 
 

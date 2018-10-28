@@ -25,6 +25,13 @@ class User implements UserInterface
     /**
      * @var string
      *
+     * @ORM\Column(name="matricule", type="string", length=255)
+     */
+    private $matricule;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="username", type="string", length=255)
      */
     private $username;
@@ -91,6 +98,45 @@ class User implements UserInterface
      * @ORM\ManyToOne(targetEntity="Qualification", inversedBy="users")
      */
     private $qualification;
+
+    /**
+     * @return int
+     */
+    public function getMatricule()
+    {
+        return $this->matricule;
+    }
+
+    /**
+     * @param int $matricule
+     */
+    public function setMatricule($matricule)
+    {
+        $this->matricule = $matricule;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStatut()
+    {
+        return $this->statut;
+    }
+
+    /**
+     * @param mixed $statut
+     */
+    public function setStatut($statut)
+    {
+        $this->statut = $statut;
+    }
+
+    /**
+     * @var
+     *
+     * @ORM\ManyToOne(targetEntity="Statut", inversedBy="users")
+     */
+    private $statut;
 
     /**
      * @var

@@ -16,11 +16,16 @@ class LoginType extends AbstractType
     {
 
              $builder
-                 ->add('username', TextType::class, [
+                 ->add('matricule', TextType::class, [
                  'attr' => [
                      'class' => 'input-login'
                  ]
              ])
+                 ->add('username', TextType::class, [
+                     'attr' => [
+                         'class' => 'input-login'
+                     ]
+                 ])
                  ->add('password',PasswordType::class, [
                      'attr' => [
                          'class' => 'input-login'

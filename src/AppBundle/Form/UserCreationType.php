@@ -5,6 +5,7 @@ namespace AppBundle\Form;
 use AppBundle\Entity\Agence;
 use AppBundle\Entity\Direction;
 use AppBundle\Entity\Qualification;
+use AppBundle\Entity\Statut;
 use AppBundle\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -28,8 +29,17 @@ class UserCreationType extends AbstractType
                     'class' => 'input-login'
                 ]
             ])
+            ->add('matricule', TextType::class, [
+                'attr' => [
+                    'class' => 'input-login'
+                ]
+            ])
             ->add('qualification', EntityType::class, [
                 'class'=>Qualification::class,
+                'choice_label'=>'name',
+            ])
+            ->add('statut', EntityType::class, [
+                'class'=>Statut::class,
                 'choice_label'=>'name',
             ])
             ->add('agence', EntityType::class, [

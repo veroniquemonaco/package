@@ -41,6 +41,29 @@ class Category
     private $image;
 
     /**
+     * @var
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\ParentCategory", inversedBy="categories")
+     */
+    private $parentCategory;
+
+    /**
+     * @return mixed
+     */
+    public function getParentCategory()
+    {
+        return $this->parentCategory;
+    }
+
+    /**
+     * @param mixed $parentCategory
+     */
+    public function setParentCategory($parentCategory)
+    {
+        $this->parentCategory = $parentCategory;
+    }
+
+    /**
      * @return mixed
      */
     public function getProducts()

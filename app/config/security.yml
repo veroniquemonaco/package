@@ -15,7 +15,7 @@ security:
         main:
             entity:
                 class:    AppBundle\Entity\User
-                property: username
+                property: matricule
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
@@ -36,7 +36,7 @@ security:
             form_login:
                 login_path: /security/login
                 check_path: login_check
-                username_parameter: app_bundle_login_type[username]
+                username_parameter: app_bundle_login_type[matricule]
                 password_parameter: app_bundle_login_type[password]
             logout:
                 path:   logout
