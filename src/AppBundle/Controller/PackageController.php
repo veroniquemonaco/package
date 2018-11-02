@@ -37,6 +37,7 @@ class PackageController extends Controller
         $commandeYearPaquetage=[];
         $commandeYearPaquetageOld=[];
         $backOrder = [];
+        $backOrderOld = [];
         $callpanier = [];
         $panier = [];
 
@@ -54,7 +55,14 @@ class PackageController extends Controller
 
         if($commandeUserOld != []) {
             $commandeYearPaquetageOld = $commandeUserOld[0]->getCommande();
+
+            foreach($commandeYearPaquetageOld as $idpdt=>$orderarray) {
+                $backOrderOld[$idpdt] = $idpdt;
+            }
         }
+
+        dump($commandeYearPaquetageOld);
+        dump($backOrderOld);
 
 
         if($commandeUser != []) {
@@ -82,6 +90,9 @@ class PackageController extends Controller
                 $callpanier[$idpdt]=$addProductCde;
             }
         }
+
+        dump($backOrder);
+        dump($commandeYearPaquetage);
 
 
         if (!$session->has('panier')) $session->set('panier', $callpanier);

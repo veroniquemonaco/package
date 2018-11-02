@@ -77,6 +77,29 @@ class ProductPackage
     private $idpdtUnique;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="category_id", type="integer")
+     */
+    private $categoryId;
+
+    /**
+     * @return int
+     */
+    public function getCategoryId()
+    {
+        return $this->categoryId;
+    }
+
+    /**
+     * @param int $categoryId
+     */
+    public function setCategoryId($categoryId)
+    {
+        $this->categoryId = $categoryId;
+    }
+
+    /**
      * @return string
      */
     public function getIdpdtUnique()

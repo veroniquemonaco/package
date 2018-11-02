@@ -41,9 +41,9 @@
             </table>
 
             <div>
-
+{{ dump(totalHT) }}
             </div>
-            {% if totalHT < 300 %}
+            {% if totalHT < 372 %}
                 <a href="{{ path('commande', { 'panier': panier }) }}" class="btn btn-success float-right">Valider</a>
             {% else %}
                 <p>le montant est trop élevé refaire votre sélection</p>

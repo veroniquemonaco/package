@@ -47,6 +47,7 @@ class Category
      */
     private $parentCategory;
 
+
     /**
      * @return mixed
      */
