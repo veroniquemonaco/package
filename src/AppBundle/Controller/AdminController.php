@@ -300,10 +300,10 @@ class AdminController extends Controller
         }
 
         $allOrderProducts = $em->getRepository(ProductPackage::class)->findAll();
+        dump($allOrderProducts);
 
         $tab = [];
         $array = [];
-        $searchform = 'all';
         foreach ($allOrderProducts as $orderline) {
             $idpdtunique = $orderline->getIdpdtUnique();
             $qty = $orderline->getQty();
@@ -311,6 +311,7 @@ class AdminController extends Controller
             $array[$idpdtunique]['taille'] = $orderline->getTaille();
             $array[$idpdtunique]['tailleId'] = $orderline->getTailleId();
             $array[$idpdtunique]['categoryId'] = $orderline->getCategoryId();
+            $array[$idpdtunique]['categoryName'] = $orderline->getCategoryName();
             if (!array_key_exists($idpdtunique, $tab)) {
                 $tab[$idpdtunique] = $qty;
                 $array[$idpdtunique]['qty'] = $tab[$idpdtunique];
@@ -320,30 +321,34 @@ class AdminController extends Controller
             }
         }
 
+        dump($array);
+
         foreach ($arrayByCategoryByTaille as $categoryId=>$value) {
             foreach ($value as $tailleId=>$valueByCategoryByTailleId) {
                 foreach($array as $idpdtunique=>$valueByIdpdtunique) {
                     if ($categoryId == $valueByIdpdtunique['categoryId'] && $tailleId == $valueByIdpdtunique['tailleId']) {
-                        $arrayByCategoryByTaille[$categoryId][$tailleId][1]  = $valueByIdpdtunique['qty'];
+                        $arrayByCategoryByTaille[$categoryId][$tailleId][2]  = $valueByIdpdtunique['qty'];
                     }
                 }
             }
         }
 
-        $writer = $this->container->get('egyg33k.csv.writer');
-        $csv = $writer::createFromFileObject(new \SplTempFileObject());
+        dump($arrayByCategoryByTaille);
 
+//        $writer = $this->container->get('egyg33k.csv.writer');
+//        $csv = $writer::createFromFileObject(new \SplTempFileObject());
+//
+//
+//        foreach ($arrayByCategoryByTaille as $categoryId=>$value){
+//            $csv->insertOne(['Categorie Id','taille','qte']);
+//            foreach($value as $tailleId=>$valueByCategoryByTailleId){
+//                $csv->insertOne($valueByCategoryByTailleId);
+//            }
+//        }
+//        $csv->output('exportsynthesepaquetage.csv');
+//        die('end');
 
-        foreach ($arrayByCategoryByTaille as $categoryId=>$value){
-            $csv->insertOne(['Categorie Id','taille','qte']);
-            foreach($value as $tailleId=>$valueByCategoryByTailleId){
-                $csv->insertOne($valueByCategoryByTailleId);
-            }
-        }
-        $csv->output('exportsynthesepaquetage.csv');
-        die('end');
-
-//        return $this->render('admin/exportCsvSynthese.html.twig', array());
+        return $this->render('admin/exportCsvSynthese.html.twig', array());
     }
 
 }

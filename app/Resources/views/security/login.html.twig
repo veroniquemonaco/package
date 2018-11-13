@@ -10,15 +10,7 @@
 
         {{ form_start(form) }}
         <div class="form-login">
-            <div class="group-login">
 
-                {{ form_widget(form.username) }}
-                <span class="highlight"></span><span class="bar"></span>
-                {{ form_label(form.username,'username', {
-                    'label_attr': {'class':'label-login'}
-                }) }}
-                {{ form_errors(form.username) }}
-            </div>
 
             <div class="group-login">
 
@@ -28,6 +20,16 @@
                     'label_attr': {'class':'label-login'}
                 }) }}
                 {{ form_errors(form.matricule) }}
+            </div>
+
+            <div class="group-login">
+
+                {{ form_widget(form.username) }}
+                <span class="highlight"></span><span class="bar"></span>
+                {{ form_label(form.username,'username', {
+                    'label_attr': {'class':'label-login'}
+                }) }}
+                {{ form_errors(form.username) }}
             </div>
 
             <div class="group-login">
@@ -58,9 +60,11 @@
 {% block javascripts %}
     {{ parent() }}
     <script>
-        $(window, document, undefined).ready(function() {
 
-            $('input').blur(function() {
+
+        $(window, document, undefined).ready(function () {
+
+            $('input').blur(function () {
                 let $this = $(this);
                 if ($this.val())
                     $this.addClass('used');
@@ -70,7 +74,7 @@
 
             let $ripples = $('.ripples');
 
-            $ripples.on('click.Ripples', function(e) {
+            $ripples.on('click.Ripples', function (e) {
 
                 let $this = $(this);
                 let $offset = $this.parent().offset();
@@ -88,10 +92,21 @@
 
             });
 
-            // $ripples.on('animationend webkitAnimationEnd mozAnimationEnd oanimationend MSAnimationEnd', function(e) {
-            //     $(this).removeClass('is-active');
-            // });
+            $('.input-matricule').change(function () {
+                let matricule = $('.input-matricule').val();
+                console.log(matricule);
+                $.ajax({
+                    url: '{{ path('username_loginform') }}',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {'matricule': matricule},
+                    success: function (data) {
+                        let username = eval(data['username']);
+                        $('.input-username').val(username);
+                    }
+                })
 
+            });
         });
     </script>
 

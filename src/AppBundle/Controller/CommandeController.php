@@ -91,10 +91,12 @@ class CommandeController extends Controller
             $orderline = new ProductPackage();
             $idpdtUnique = $addproduct->getProduct()->getId() . $addproduct->getTaille()->getName();
             $categoryOrderline = $addproduct->getProduct()->getCategory()->getId();
+            $categoryOrderlineName = $addproduct->getProduct()->getCategory()->getName();
             $orderline->setUser($user);
             $orderline->setIdpdt($addproduct->getProduct()->getId());
             $orderline->setLibellePdt($addproduct->getProduct()->getName());
             $orderline->setCategoryId($categoryOrderline);
+            $orderline->setCategoryName($categoryOrderlineName);
             $orderline->setTaille($addproduct->getTaille()->getName());
             $orderline->setTailleId($addproduct->getTaille()->getId());
             $orderline->setQty($addproduct->getQuantity());

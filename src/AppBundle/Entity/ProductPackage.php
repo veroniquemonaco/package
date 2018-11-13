@@ -84,6 +84,30 @@ class ProductPackage
     private $categoryId;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="category_name", type="string")
+     *
+     */
+    private $categoryName;
+
+    /**
+     * @return string
+     */
+    public function getCategoryName()
+    {
+        return $this->categoryName;
+    }
+
+    /**
+     * @param string $categoryName
+     */
+    public function setCategoryName($categoryName)
+    {
+        $this->categoryName = $categoryName;
+    }
+
+    /**
      * @return int
      */
     public function getCategoryId()

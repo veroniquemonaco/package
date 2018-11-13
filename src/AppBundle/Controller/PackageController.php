@@ -21,6 +21,16 @@ use Symfony\Component\Routing\Annotation\Route;
 class PackageController extends Controller
 {
     /**
+     * @Route("/accueil", name="accueil")
+     */
+    public function accueilAction()
+    {
+        return $this->render('front/accueil.html.twig', array(
+
+        ));
+    }
+
+    /**
      * @Route("/package", name="package")
      */
     public function indexAction(Request $request)

@@ -11,12 +11,14 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\User;
 use AppBundle\Form\LoginType;
 use AppBundle\Form\RegistrationType;
+use AppBundle\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * @Route("/security")
@@ -84,6 +86,21 @@ class SecurityController extends Controller
         }
 
 
+    }
+
+    /**
+     * @Route("/checkusernamelogin", name="username_loginform")
+     */
+    public function usernameLogin(Request $request)
+    {
+        if ($request->isXmlHttpRequest()) {
+            $data = $request->get('matricule');
+            $em = $this->getDoctrine()->getManager();
+            $compagnon = $em->getRepository(User::class)->findBy(['matricule'=>$data]);
+            $compagnon = $compagnon[0];
+            return new JsonResponse(array("username" => json_encode($compagnon->getUsername()),
+            ));
+        }
     }
 
 }

@@ -9,6 +9,9 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\FormEvent;
+use Doctrine\ORM\EntityRepository;
 
 class LoginType extends AbstractType
 {
@@ -18,12 +21,14 @@ class LoginType extends AbstractType
              $builder
                  ->add('matricule', TextType::class, [
                  'attr' => [
-                     'class' => 'input-login'
+                     'class' => 'input-login input-matricule',
+                     'placeholder' => ''
                  ]
              ])
                  ->add('username', TextType::class, [
                      'attr' => [
-                         'class' => 'input-login'
+                         'class' => 'input-login input-username',
+                         'placeholder' => ''
                      ]
                  ])
                  ->add('password',PasswordType::class, [
@@ -37,6 +42,7 @@ class LoginType extends AbstractType
                      ],
                      'label' => 'Envoyer'
                  ]);
+
     }
 
 
