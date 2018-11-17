@@ -91,6 +91,31 @@ class ProductPackage
      */
     private $categoryName;
 
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="category_id_taille", type="string")
+     *
+     */
+    private $categoryIdTaille;
+
+    /**
+     * @return string
+     */
+    public function getCategoryIdTaille()
+    {
+        return $this->categoryIdTaille;
+    }
+
+    /**
+     * @param string $categoryIdTaille
+     */
+    public function setCategoryIdTaille($categoryIdTaille)
+    {
+        $this->categoryIdTaille = $this->getCategoryId().$this->getTaille();
+    }
+
     /**
      * @return string
      */

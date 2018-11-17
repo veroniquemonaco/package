@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h6>Bonjour {{ user.firstname }} {{ user.lastname }}</h6>
+
+    <p>Dans un objectif de modernisation de nos outils, nous avons souhaité mettre un place un outil de commande
+        digitalisé pour les compagnons et maitrise.</p>
+    <p>Cet outil vous permet de constituer votre paquetage comme vous le souhaitez, à hauteur d'un budget maximum
+        défini. Vous avez donc la possibilité de prendre plus ou moins par type d'article en fonction de votre besoin.
+        Si vous dépassez le budget, vous recevrez un message au moment de la validation vous empêchant de finaliser
+        votre commande.</p>
+
+    {% if commandeYear %}
+        <p>vous avez une commande de paquetage en cours, vous pouvez la reprendre pour la modifier</p>
+        <button type="button" class="btn btn-info">
+            <a href="{{ path('package') }}" class="text-white">Commande en cours</a>
+        </button>
+    {% else %}
+        <p>vous n'avez pas encore fait votre commande de paquetage</p>
+        <button type="button" class="btn btn-info">
+            <a href="{{ path('package') }}" class="text-white">Commencer votre paquetage</a>
+        </button>
+    {% endif %}
+
+    {% if commandeYearOld %}
+        <p>vous pouvez reprendre la commande de l'année précédente</p>
+        <button type="button" class="btn btn-info">
+            <a href="{{ path('package_year_before') }}" class="text-white">Reprendre la commande de l'année
+                précédente</a>
+        </button>
+    {% endif %}
+
+{% endblock %}

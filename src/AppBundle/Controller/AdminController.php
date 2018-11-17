@@ -52,8 +52,6 @@ class AdminController extends Controller
         $paquetageType = null;
         $searchform = 'init';
 
-        dump($allOrderProducts);
-
         $form = $this->createForm(ExportCommandesType::class);
         $form->handleRequest($request);
 
@@ -113,7 +111,6 @@ class AdminController extends Controller
                 }
             }
         }
-        dump($array);
 
         $form3 = $this->createForm(ExportUserCommandesType::class);
         $form3->handleRequest($request);
@@ -300,12 +297,11 @@ class AdminController extends Controller
         }
 
         $allOrderProducts = $em->getRepository(ProductPackage::class)->findAll();
-        dump($allOrderProducts);
 
         $tab = [];
         $array = [];
         foreach ($allOrderProducts as $orderline) {
-            $idpdtunique = $orderline->getIdpdtUnique();
+            $idpdtunique = $orderline->getCategoryIdTaille();
             $qty = $orderline->getQty();
             $array[$idpdtunique]['libelle'] = $orderline->getLibellePdt();
             $array[$idpdtunique]['taille'] = $orderline->getTaille();
@@ -321,7 +317,6 @@ class AdminController extends Controller
             }
         }
 
-        dump($array);
 
         foreach ($arrayByCategoryByTaille as $categoryId=>$value) {
             foreach ($value as $tailleId=>$valueByCategoryByTailleId) {
@@ -332,8 +327,6 @@ class AdminController extends Controller
                 }
             }
         }
-
-        dump($arrayByCategoryByTaille);
 
 //        $writer = $this->container->get('egyg33k.csv.writer');
 //        $csv = $writer::createFromFileObject(new \SplTempFileObject());

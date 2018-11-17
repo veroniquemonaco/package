@@ -45,7 +45,7 @@ class SecurityController extends Controller
             $em->flush();
 
             $this->authenticateUser($user);
-            return $this->redirectToRoute('package');
+            return $this->redirectToRoute('accueil');
 
         }
 
@@ -69,14 +69,14 @@ class SecurityController extends Controller
 
 
         if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
-            return $this->redirectToRoute('package');
+            return $this->redirectToRoute('accueil');
         } else {
             $user = new User();
             $form = $this->createForm(LoginType::class, $user, ['action' => $this->generateUrl('login_check')]);
 
             if ($form->isSubmitted() & $form->isValid()) {
                 $this->authenticateUser($user);
-                return $this->redirectToRoute('package');
+                return $this->redirectToRoute('accueil');
             }
 
             return $this->render('security/login.html.twig',

@@ -16,10 +16,15 @@ class PanierController extends Controller
      */
     public function indexAction()
     {
+        $user = $this->getUser();
+
         $session = new Session();
         if($session->has('panier'))
             $panier = $session->get('panier');
 
-        return $this->render('front/panier.html.twig', array('panier' => $panier));
+        return $this->render('front/panier.html.twig', array(
+            'panier' => $panier,
+            'user' => $user
+        ));
     }
 }
