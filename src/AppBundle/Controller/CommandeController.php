@@ -110,7 +110,7 @@ class CommandeController extends Controller
 
         $commandeUser = $em->getRepository(Commande::class)->findBy(array('yearPaquetage' => $yearPaquetage,
             'user' => $user));
-        $reference = $year . $matricule;
+        $reference = $year;
         if ($commandeUser) {
             $commandeUser = $commandeUser[0];
         }
