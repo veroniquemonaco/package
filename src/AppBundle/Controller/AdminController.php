@@ -328,20 +328,20 @@ class AdminController extends Controller
             }
         }
 
-//        $writer = $this->container->get('egyg33k.csv.writer');
-//        $csv = $writer::createFromFileObject(new \SplTempFileObject());
-//
-//
-//        foreach ($arrayByCategoryByTaille as $categoryId=>$value){
-//            $csv->insertOne(['Categorie Id','taille','qte']);
-//            foreach($value as $tailleId=>$valueByCategoryByTailleId){
-//                $csv->insertOne($valueByCategoryByTailleId);
-//            }
-//        }
-//        $csv->output('exportsynthesepaquetage.csv');
-//        die('end');
+        $writer = $this->container->get('egyg33k.csv.writer');
+        $csv = $writer::createFromFileObject(new \SplTempFileObject());
 
-        return $this->render('admin/exportCsvSynthese.html.twig', array());
+
+        foreach ($arrayByCategoryByTaille as $categoryId=>$value){
+            $csv->insertOne(['Categorie Id','taille','qte']);
+            foreach($value as $tailleId=>$valueByCategoryByTailleId){
+                $csv->insertOne($valueByCategoryByTailleId);
+            }
+        }
+        $csv->output('exportsynthesepaquetage.csv');
+        die('end');
+
+//        return $this->render('admin/exportCsvSynthese.html.twig', array());
     }
 
 }

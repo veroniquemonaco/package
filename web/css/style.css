@@ -79,6 +79,7 @@ body {
 .product--select {
     background-color: rgba(4,77,67,0.8) ;
     height: 80vh;
+    overflow-y: scroll;
 }
 
 .package--front--title {
