@@ -2,33 +2,49 @@
 
 {% block body %}
 
-    <h6>Bonjour {{ user.firstname }} {{ user.lastname }}</h6>
+    <div class="container w-50 m-auto">
 
-    <p>Dans un objectif de modernisation de nos outils, nous avons souhaité mettre un place un outil de commande
-        digitalisé pour les compagnons et maitrise.</p>
-    <p>Cet outil vous permet de constituer votre paquetage comme vous le souhaitez, à hauteur d'un budget maximum
-        défini. Vous avez donc la possibilité de prendre plus ou moins par type d'article en fonction de votre besoin.
-        Si vous dépassez le budget, vous recevrez un message au moment de la validation vous empêchant de finaliser
-        votre commande.</p>
+        <div class="accueil--title mb-4 text-center">
+            <h4 class="font-weight-bold">Bonjour {{ user.firstname }} {{ user.lastname }}</h4>
+        </div>
 
-    {% if commandeYear %}
-        <p>vous avez une commande de paquetage en cours, vous pouvez la reprendre pour la modifier</p>
-        <button type="button" class="btn btn-info">
-            <a href="{{ path('package') }}" class="text-white">Commande en cours</a>
-        </button>
-    {% else %}
-        <p>vous n'avez pas encore fait votre commande de paquetage</p>
-        <button type="button" class="btn btn-info">
-            <a href="{{ path('package') }}" class="text-white">Commencer votre paquetage</a>
-        </button>
-    {% endif %}
+        <div class="accueil--bloc--presentation p-3">
+            <p class="text-justify">Dans un objectif de modernisation de nos outils, nous avons souhaité mettre un place
+                un outil de commande digitalisé pour les compagnons et maitrise.</p>
+            <p class="text-justify">Cet outil vous permet de constituer votre paquetage comme vous le souhaitez, à
+                hauteur d'un budget maximum défini. Vous avez donc la possibilité de prendre plus ou moins par type
+                d'article en fonction de votre besoin.</p>
+            <p class="text-justify">Si vous dépassez le budget, vous recevrez un message au moment de la validation
+                vous empêchant de finaliser votre commande.</p>
+        </div>
 
-    {% if commandeYearOld %}
-        <p>vous pouvez reprendre la commande de l'année précédente</p>
-        <button type="button" class="btn btn-info">
-            <a href="{{ path('package_year_before') }}" class="text-white">Reprendre la commande de l'année
-                précédente</a>
-        </button>
-    {% endif %}
+        <div class="accueil--bloc--paquetage p-3 mt-4">
+            {% if commandeYear %}
+                <div class="d-flex justify-content-between align-items-center">
+                    <p class="mt-4 mb-4">Vous avez déjà commencé votre commande de paquetage pour l'année {{ yearPaquetage }}</p>
+                    <button type="button" class="btn btn-package float-right">
+                        <a href="{{ path('package') }}" class="text-white">Reprendre</a>
+                    </button>
+                </div>
+            {% else %}
+                <div class="d-flex justify-content-between align-items-center">
+                    <p class="mt-4 mb-4">Vous n'avez pas encore fait votre commande de paquetage pour l'année {{ yearPaquetage }}</p>
+                    <button type="button" class="btn btn-package float-right">
+                        <a href="{{ path('package') }}" class="text-white">Commencer</a>
+                    </button>
+                </div>
+            {% endif %}
+
+            {% if commandeYearOld %}
+                <div class="d-flex justify-content-between align-items-center">
+                    <p class="mt-4 mb-4">Vous pouvez reprendre la commande de l'année précédente {{ yearPaquetageOld }}</p>
+                    <button type="button" class="btn btn-package float-right">
+                        <a href="{{ path('package_year_before') }}" class="text-white">Reprendre</a>
+                    </button>
+                </div>
+            {% endif %}
+        </div>
+
+    </div>
 
 {% endblock %}

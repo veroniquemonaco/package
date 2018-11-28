@@ -28,6 +28,8 @@ class CommandeController extends Controller
         $productsPackage = [];
         $arrayByCategory = [];
         $matricule = $user->getMatricule();
+        $reference = $year.'-'.$matricule;
+
 
         $categories = $em->getRepository(Category::class)->findAll();
 
@@ -108,9 +110,10 @@ class CommandeController extends Controller
             $em->flush();
         }
 
-        $commandeUser = $em->getRepository(Commande::class)->findBy(array('yearPaquetage' => $yearPaquetage,
+        $commandeUser = $em->getRepository(Commande::class)->findBy(array(
+            'yearPaquetage' => $yearPaquetage,
             'user' => $user));
-        $reference = $year;
+
         if ($commandeUser) {
             $commandeUser = $commandeUser[0];
         }
@@ -138,7 +141,8 @@ class CommandeController extends Controller
         return $this->render('front/commande.html.twig', array(
             'commande' => $commande,
             'commandeUser' => $commandeUser,
-            'user' => $user));
+            'user' => $user,
+            'reference' => $reference));
 
     }
 }

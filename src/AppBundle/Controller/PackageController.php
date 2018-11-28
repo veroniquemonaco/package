@@ -55,7 +55,9 @@ class PackageController extends Controller
             return $this->render('front/accueil.html.twig', array(
                 'user' => $user,
                 'commandeYear' => $commandeUser,
-                'commandeYearOld' => $commandeUserOld
+                'commandeYearOld' => $commandeUserOld,
+                'yearPaquetage' => $yearPaquetage,
+                'yearPaquetageOld' => $yearPaquetageOld
             ));
         }
     }
@@ -165,7 +167,7 @@ class PackageController extends Controller
                 return new JsonResponse(array("addPdtId" => json_encode($addProduct->getProduct()->getId()),
                     "addPdtTaille" => json_encode($addProduct->getTaille()->getId()),
                     "addPdtQty" => json_encode($addProduct->getQuantity()),
-                    "addPdtLibelle" => json_encode($addProduct->getProduct()->getName()),
+                    "addPdtLibelle" => json_encode($addProduct->getProduct()->getName(),JSON_UNESCAPED_UNICODE),
                     "addPdtTailleLibelle" => json_encode($addProduct->getTaille()->getName()),
                     "addPdtTailleId" => json_encode($addProduct->getTaille()->getId()),
                     "addPdtPrix" => json_encode($addProduct->getPrice()),

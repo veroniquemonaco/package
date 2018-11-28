@@ -34,9 +34,9 @@ class Commande
     private $valider;
 
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(name="reference", type="integer")
+     * @ORM\Column(name="reference", type="string")
      */
     private $reference;
 

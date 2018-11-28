@@ -35,7 +35,7 @@ security:
             context: app
             form_login:
                 login_path: /security/login
-                check_path: login_check
+#                check_path: /security/login
                 username_parameter: app_bundle_login_type[matricule]
                 password_parameter: app_bundle_login_type[password]
             logout:
@@ -49,6 +49,7 @@ security:
 
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
 
             # activate different ways to authenticate
 

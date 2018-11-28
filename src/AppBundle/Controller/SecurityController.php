@@ -19,6 +19,7 @@ use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Security\Core\Exception\BadCredentialsException;
 
 /**
  * @Route("/security")

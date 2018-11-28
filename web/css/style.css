@@ -1,5 +1,9 @@
 body {
-    height:100vh;
+    height:95vh;
+}
+
+.body--package {
+    margin: 10px 20px;
 }
 
 .bloc{
@@ -45,6 +49,27 @@ body {
 
 .package--title h1 {
     padding: 10px;
+}
+
+/**ACCUEIL**/
+
+.accueil--bloc--presentation {
+    background-color: rgba(183,183,183,0.2);
+}
+
+.accueil--bloc--paquetage {
+    background-color: rgba(0,134,111,0.8);
+    color:white;
+}
+
+.btn-package {
+    background-color: rgba(102,180,162,1);
+    border-color: rgba(102,180,162,1);
+}
+
+.btn-package:hover {
+    background-color: rgba(102,180,162,1);
+    border-color: rgba(102,180,162,1);
 }
 
 /**PACKAGE FRONT**/
@@ -101,6 +126,18 @@ body {
     height: 80vh;
     margin: auto;
     color: white;
+}
+
+.btn-next {
+    background-color: #ea4e0e;
+    border-color: #ea4e0e;
+    color:white;
+}
+
+.btn-next:hover {
+    background-color: #ea4e0e;
+    border-color: #ea4e0e;
+    color:white;
 }
 
 /** Form login css CodePen Josh Adamous **/

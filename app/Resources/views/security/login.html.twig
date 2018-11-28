@@ -94,7 +94,6 @@
 
             $('.input-matricule').change(function () {
                 let matricule = $('.input-matricule').val();
-                console.log(matricule);
                 $.ajax({
                     url: '{{ path('username_loginform') }}',
                     type: 'POST',

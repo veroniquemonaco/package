@@ -2,15 +2,16 @@
 
 {% block body %}
 
-    {% if commandeYearPaquetage %}
-        <h6>vous avez une commande en cours pour votre paquetage de {{ yearPaquetage }}</h6>
-    {% else %}
-        <h6>vous n'avez aucun paquetage en cours de préparation</h6>
-    {% endif %}
+    <div class="mb-4">
+        {% if commandeYearPaquetage %}
+            <h4 class="text-center">Vous avez une commande en cours pour votre paquetage de {{ yearPaquetage }}</h4>
+        {% else %}
+            <h4 class="text-center">Vous n'avez aucun paquetage en cours de préparation</h4>
+        {% endif %}
+    </div>
+
 
     <div class="package-front">
-        {#<h1 class="package--front--title mb-4">{{ user.firstname }} {{ user.lastname }}, il est temps de préparer votre#}
-        {#paquetage</h1>#}
         <div class="row">
             <div class="container product--list col-6">
                 <h4 class="p-2 mb-4 text-center">Sélection du paquetage</h4>
@@ -31,8 +32,6 @@
                                  data-productid="{{ produit.id }}">{{ produit.name }}</div>
                             <div class="col-2 form-product-taille">
                                 <select class="custom-select w-100">
-                                    {#<option>tailles</option>#}
-
                                     {% for addproduct in panier %}
                                         {% if addproduct.product.id == id %}
                                             {% set tailleorderid = addproduct.taille.id %}
@@ -52,14 +51,14 @@
                                     {% if addproduct.product.id == id %}
                                         {% set qte = addproduct.quantity %}
                                         <input type="number" class="form-product-qty-value form-group"
-                                               id="quantity" placeholder="{{ qte }}" required>
+                                               id="quantity"  value="{{ qte }}" required>
                                     {% endif %}
                                 {% endfor %}
 
                             </div>
-                            <div class="col-1 custom-control custom-checkbox">
-                                <input type="checkbox" class="form-product-check" id="customCheck1" checked>
-                                <label class="custom-control-label" for="customCheck1"></label>
+                            <div class="col-1 custom-switch">
+                                <input type="checkbox" class="custom-switch-input" id="check-{{ produit.id }}" checked>
+                                <label class="custom-switch-btn" for="check-{{ produit.id }}"></label>
                             </div>
                         </div>
                     {% else %}
@@ -80,17 +79,11 @@
                                 <input type="number" class="form-product-qty-value form-group"
                                        id="quantity" placeholder="0" required>
                             </div>
-                            <div class="col-1 custom-control custom-checkbox">
-                                <input type="checkbox" class="form-product-check" id="customCheck1">
-                                <label class="custom-control-label" for="customCheck1"></label>
+                            <div class="col-1 custom-switch">
+                                <input type="checkbox" class="custom-switch-input" id="check-{{ produit.id }}">
+                                <label class="custom-switch-btn" for="check-{{ produit.id }}"></label>
                             </div>
-                            {#<div class="col-1 btn-group-toggle buttoncheck" data-toggle="buttons">#}
-                                {#<label class="btn btn-secondary active">#}
-                                    {#<input class="form-product-buttoncheck" checked type="checkbox" autocomplete="off"> Ajouter#}
-                                {#</label>#}
-                            {#</div>#}
                         </div>
-
                     {% endif %}
                 {% endfor %}
             </div>
@@ -120,7 +113,7 @@
                         </tbody>
                     </table>
                     <div class="clearfix"></div>
-                    <a href="{{ path('panier') }}" class="btn btn-success float-right">Valider</a>
+                    <a href="{{ path('panier') }}" class="btn btn-next float-right">Valider</a>
                     <button type="button" class="btn btn-info">
                         <a href="{{ path('reset_panier') }}" class="text-white">Annuler Sélection</a>
                     </button>
@@ -143,13 +136,9 @@
                 qty: null
             };
             let cart;
-            $(".buttoncheck").click(function () {
-                // alert('check')
-                // $('.buttoncheck').children().attr('aria-pressed');
-                console.log($('.buttoncheck').children().attr('aria-pressed'));
-            });
-            $(".form-product-check").change(function () {
+            $(".custom-switch-input").change(function () {
                 let isChecked = $(this).is(":checked");
+
                 if (isChecked) {
                     addProduct.idPdt = $(this).parent().parent().children('.form-product').data('productid');
                     addProduct.qty = $(this).parent().parent().children('.form-product-qty')
@@ -193,8 +182,8 @@
                         data: {'lessProduct': lessProduct},
                         success: function (data) {
                             let lessPdtId = data['lessPdtId'];
-                            $('#idpdt-' + lessPdtId + '').html('');
-                            $('#idpdt-panier-' + lessPdtId + '').html('');
+                            $('#idpdt-' + lessPdtId + '').remove();
+                            $('#idpdt-panier-' + lessPdtId + '').remove();
                         }
                     })
                 }
