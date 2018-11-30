@@ -148,7 +148,7 @@ class AdminController extends Controller
 
         if ($form->isValid() && $form->isSubmitted()) {
             $em = $this->getDoctrine()->getManager();
-            $username = $user->getFirstname() . $user->getLastname();
+            $username = $user->getFirstname() .', '. $user->getLastname();
             $email = $username . '@test.fr';
             $plainPassword = 'motdepasse';
             $encoded = $encoder->encodePassword($user, $plainPassword);
