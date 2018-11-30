@@ -3,11 +3,14 @@
 {% block body %}
 
     <div class="container">
+        <div class="">
+            <h4>Confirmation de la commande</h4>
+        </div>
         <div class="row d-flex justify-content-end m-4">
             <div class="commande--title">
-                <h5>Agence : {{ user.agence.name }}</h5>
                 <h5>{{ user.firstname }} {{ user.lastname }}</h5>
                 <h5>Type de paquetage : <span class="text-capitalize">{{ user.qualification.name }}</span></h5>
+                <h5>Agence : {{ user.agence.name }}</h5>
                 <h5>Référence Commande: {{ reference }}</h5>
                 {#<h5>Date commande : {{ commandeUser.date|date('d/m/Y') }}</h5>#}
                 {#<h5>Date commande : {{ commande.date|date('d/m/Y') }}</h5>#}
@@ -50,7 +53,7 @@
             </table>
         </div>
 
-        <button type="button" class="btn btn-info">
+        <button type="button" class="btn btn-next float-right">
             <a href="{{ path('pdf') }}" class="text-white">Télécharger en pdf</a>
         </button>
 

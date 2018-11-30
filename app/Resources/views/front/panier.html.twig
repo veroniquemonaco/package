@@ -8,10 +8,11 @@
     <div class="container package-front--panier">
 
         <div id="panier">
-            <h4 class="text-center mb-4">Votre paquetage</h4>
-            <h5>Vous êtes sur le point de valider la commande de {{ user.firstname }} {{ user.lastname }}</h5>
+            <h4 class="text-center mb-4">Récapitulatif de votre paquetage</h4>
+            <h5 class="w-75 text-center mb-4">Vous êtes sur le point de valider la commande de
+                {{ user.firstname }} {{ user.lastname }}</h5>
 
-            <table class="table table-striped w-75">
+            <table class="table table-striped w-75 m-auto">
                 <thead>
                 <tr>
                     <th scope="col">#</th>
@@ -39,43 +40,43 @@
             {% if user.qualification.id == 1 %}
                 {% if totalHT < 373 %}
                     <a href="{{ path('commande', { 'panier': panier }) }}"
-                       class="btn btn-success float-right">Valider</a>
+                       class="btn btn-next float-right">Valider</a>
                 {% else %}
                     <p>le montant est trop élevé refaire votre sélection</p>
                 {% endif %}
             {% elseif user.qualification.id == 2 %}
                 {% if totalHT < 374 %}
                     <a href="{{ path('commande', { 'panier': panier }) }}"
-                       class="btn btn-success float-right">Valider</a>
+                       class="btn btn-next float-right">Valider</a>
                 {% else %}
                     <p>le montant est trop élevé refaire votre sélection</p>
                 {% endif %}
             {% elseif user.qualification.id == 3 %}
                 {% if totalHT < 391 %}
                     <a href="{{ path('commande', { 'panier': panier }) }}"
-                       class="btn btn-success float-right">Valider</a>
+                       class="btn btn-next float-right">Valider</a>
                 {% else %}
                     <p>le montant est trop élevé refaire votre sélection</p>
                 {% endif %}
             {% elseif user.qualification.id == 4 %}
                 {% if totalHT < 391 %}
                     <a href="{{ path('commande', { 'panier': panier }) }}"
-                       class="btn btn-success float-right">Valider</a>
+                       class="btn btn-next float-right">Valider</a>
                 {% else %}
                     <p>le montant est trop élevé refaire votre sélection</p>
                 {% endif %}
             {% elseif user.qualification.id == 5 %}
                 {% if totalHT < 416 %}
                     <a href="{{ path('commande', { 'panier': panier }) }}"
-                       class="btn btn-success float-right">Valider</a>
+                       class="btn btn-next float-right">Valider</a>
                 {% else %}
                     <p>le montant est trop élevé refaire votre sélection</p>
                 {% endif %}
             {% endif %}
         </div>
 
-        <button type="button" class="btn btn-info">
-            <a href="{{ path('reset_panier') }}" class="text-white">Retour Sélection</a>
+        <button type="button" class="btn btn-back">
+            <a href="{{ path('package_return') }}" class="text-white">Retour Sélection</a>
         </button>
 
     </div>

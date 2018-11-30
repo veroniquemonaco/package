@@ -19,30 +19,76 @@
         </div>
 
         <div class="accueil--bloc--paquetage p-3 mt-4">
-            {% if commandeYear %}
-                <div class="d-flex justify-content-between align-items-center">
-                    <p class="mt-4 mb-4">Vous avez déjà commencé votre commande de paquetage pour l'année {{ yearPaquetage }}</p>
-                    <button type="button" class="btn btn-package float-right">
-                        <a href="{{ path('package') }}" class="text-white">Reprendre</a>
-                    </button>
-                </div>
+            {#{% if commandeYear %}#}
+                {#<div class="d-flex justify-content-between align-items-center">#}
+                    {#<p class="mt-4 mb-4">Vous avez déjà commencé votre commande de paquetage pour#}
+                        {#l'année {{ yearPaquetage }}</p>#}
+                    {#<button type="button" class="btn btn-package float-right">#}
+                        {#<a href="{{ path('package') }}" class="text-white">Reprendre</a>#}
+                    {#</button>#}
+                {#</div>#}
+            {#{% else %}#}
+                {#<div class="d-flex justify-content-between align-items-center">#}
+                    {#<p class="mt-4 mb-4">Vous n'avez pas encore fait votre commande de paquetage pour#}
+                        {#l'année {{ yearPaquetage }}</p>#}
+                    {#<button type="button" class="btn btn-package float-right">#}
+                        {#<a href="{{ path('package') }}" class="text-white">Commencer</a>#}
+                    {#</button>#}
+                {#</div>#}
+            {#{% endif %}#}
+
+            {#{% if commandeYearOld %}#}
+                {#<div class="d-flex justify-content-between align-items-center">#}
+                    {#<p class="mt-4 mb-4">Vous pouvez reprendre la commande de l'année#}
+                        {#précédente {{ yearPaquetageOld }}</p>#}
+                    {#<button type="button" class="btn btn-package float-right">#}
+                        {#<a href="{{ path('package_year_before') }}" class="text-white">Reprendre</a>#}
+                    {#</button>#}
+                {#</div>#}
+            {#{% endif %}#}
+
+            {% if not commandeYear %}
+                <p class="mt-4 mb-4">Vous n'avez pas encore fait votre commande de paquetage pour
+                    l'année {{ yearPaquetage }}</p>
+                {% if commandeYearOld %}
+                    <div class="d-flex justify-content-between align-items-center">
+                        <p class="mt-4 mb-4">Vous pouvez reprendre la commande de l'année
+                            précédente {{ yearPaquetageOld }}</p>
+                        <button type="button" class="btn btn-package float-right">
+                            <a href="{{ path('package_year_before') }}" class="text-white">Reprendre</a>
+                        </button>
+                    </div>
+                {% else %}
+                    <div class="d-flex justify-content-between align-items-center">
+                        <p class="mt-4 mb-4">Vous n'avez pas encore fait votre commande de paquetage pour
+                            l'année {{ yearPaquetage }}</p>
+                        <button type="button" class="btn btn-package float-right">
+                            <a href="{{ path('package') }}" class="text-white">Commencer</a>
+                        </button>
+                    </div>
+                {% endif %}
             {% else %}
-                <div class="d-flex justify-content-between align-items-center">
-                    <p class="mt-4 mb-4">Vous n'avez pas encore fait votre commande de paquetage pour l'année {{ yearPaquetage }}</p>
-                    <button type="button" class="btn btn-package float-right">
-                        <a href="{{ path('package') }}" class="text-white">Commencer</a>
-                    </button>
-                </div>
+                {% if commandeYear %}
+                    <div class="d-flex justify-content-between align-items-center">
+                        <p class="mt-4 mb-4">Vous avez déjà commencé votre commande de paquetage pour
+                            l'année {{ yearPaquetage }}</p>
+                        <button type="button" class="btn btn-package float-right">
+                            <a href="{{ path('package') }}" class="text-white">Reprendre</a>
+                        </button>
+                    </div>
+                {% else %}
+                    <div class="d-flex justify-content-between align-items-center">
+                        <p class="mt-4 mb-4">Vous n'avez pas encore fait votre commande de paquetage pour
+                            l'année {{ yearPaquetage }}</p>
+                        <button type="button" class="btn btn-package float-right">
+                            <a href="{{ path('package') }}" class="text-white">Commencer</a>
+                        </button>
+                    </div>
+                {% endif %}
+
             {% endif %}
 
-            {% if commandeYearOld %}
-                <div class="d-flex justify-content-between align-items-center">
-                    <p class="mt-4 mb-4">Vous pouvez reprendre la commande de l'année précédente {{ yearPaquetageOld }}</p>
-                    <button type="button" class="btn btn-package float-right">
-                        <a href="{{ path('package_year_before') }}" class="text-white">Reprendre</a>
-                    </button>
-                </div>
-            {% endif %}
+
         </div>
 
     </div>

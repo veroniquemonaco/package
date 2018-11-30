@@ -20,6 +20,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Security\Core\Exception\BadCredentialsException;
+use Symfony\Component\Config\Definition\Exception\Exception;
 
 /**
  * @Route("/security")
@@ -60,6 +61,7 @@ class SecurityController extends Controller
         $token = new UsernamePasswordToken($user, null, 'main', $user->getRoles());
         $this->get('security.token_storage')->setToken($token);
         $this->get('session')->set('_security_main', serialize($token));
+
     }
 
     /**
@@ -78,15 +80,14 @@ class SecurityController extends Controller
             if ($form->isSubmitted() & $form->isValid()) {
                 $this->authenticateUser($user);
                 return $this->redirectToRoute('accueil');
+            } else if ($form->isSubmitted() & !$form->isValid()) {
+                throw new Exception('mot de passe invalide');
             }
 
             return $this->render('security/login.html.twig',
                 array('form' => $form->createView(),
                     'errors' => $authenticationUtils->getLastAuthenticationError()));
-
         }
-
-
     }
 
     /**

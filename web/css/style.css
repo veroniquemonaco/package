@@ -140,6 +140,18 @@ body {
     color:white;
 }
 
+.btn-back {
+    background-color: #aaa;
+    border-color: #aaa;
+    color:white;
+}
+
+.btn-back:hover {
+    background-color: #aaa;
+    border-color: #aaa;
+    color:white;
+}
+
 /** Form login css CodePen Josh Adamous **/
 
 .login--title {
