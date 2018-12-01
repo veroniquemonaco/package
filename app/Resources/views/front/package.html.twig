@@ -53,7 +53,7 @@
                                     {% if addproduct.product.id == id %}
                                         {% set qte = addproduct.quantity %}
                                         <input type="number" class="form-product-qty-value form-group"
-                                               id="quantity"  value="{{ qte }}" required>
+                                               id="quantity"  value="{{ qte }}" min="0" required>
                                     {% endif %}
                                 {% endfor %}
 
@@ -79,7 +79,7 @@
                             </div>
                             <div class="col-2 form-product-qty">
                                 <input type="number" class="form-product-qty-value form-group"
-                                       id="quantity" placeholder="0" required>
+                                       id="quantity" placeholder="0" min="0" required>
                             </div>
                             <div class="col-1 custom-switch">
                                 <input type="checkbox" class="custom-switch-input" id="check-{{ produit.id }}">
@@ -159,7 +159,7 @@
                             let libellePdtCart = data['addPdtLibelle'].replace(/"/g, "");
                             let libelleTailleCart = data['addPdtTailleLibelle'].replace(/"/g, "");
                             $('.panier--product').append("<tr class=\"row\" id=idpdt-" + idPdtCart + ">" +
-                                "<td class=\"col-1\">" + idPdtCart + "</td>" +
+                                "<td class=\"offset-1 col-1\">" + idPdtCart + "</td>" +
                                 "<td class=\"col-6\">" + libellePdtCart + "</td>" +
                                 "<td class=\"col-2\">" + libelleTailleCart + "</td>" +
                                 "<td class=\"col-1\">" + qtyCart + "</td>\n" +
