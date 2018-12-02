@@ -5,7 +5,7 @@
 
 {% block body %}
 
-    <div class="container package-front--panier">
+    <div class="container package-front--panier p-3">
 
         <div id="panier">
             <h4 class="text-center mb-4">Récapitulatif de votre paquetage</h4>
@@ -75,9 +75,7 @@
             {% endif %}
         </div>
 
-        <button type="button" class="btn btn-back">
-            <a href="{{ path('package_return') }}" class="text-white">Retour Sélection</a>
-        </button>
+        <a href="{{ path('package_return') }}" class="btn btn-back text-white">Retour Sélection</a>
 
     </div>
 

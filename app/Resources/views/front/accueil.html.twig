@@ -20,31 +20,31 @@
 
         <div class="accueil--bloc--paquetage p-3 mt-4">
             {#{% if commandeYear %}#}
-                {#<div class="d-flex justify-content-between align-items-center">#}
-                    {#<p class="mt-4 mb-4">Vous avez déjà commencé votre commande de paquetage pour#}
-                        {#l'année {{ yearPaquetage }}</p>#}
-                    {#<button type="button" class="btn btn-package float-right">#}
-                        {#<a href="{{ path('package') }}" class="text-white">Reprendre</a>#}
-                    {#</button>#}
-                {#</div>#}
+            {#<div class="d-flex justify-content-between align-items-center">#}
+            {#<p class="mt-4 mb-4">Vous avez déjà commencé votre commande de paquetage pour#}
+            {#l'année {{ yearPaquetage }}</p>#}
+            {#<button type="button" class="btn btn-package float-right">#}
+            {#<a href="{{ path('package') }}" class="text-white">Reprendre</a>#}
+            {#</button>#}
+            {#</div>#}
             {#{% else %}#}
-                {#<div class="d-flex justify-content-between align-items-center">#}
-                    {#<p class="mt-4 mb-4">Vous n'avez pas encore fait votre commande de paquetage pour#}
-                        {#l'année {{ yearPaquetage }}</p>#}
-                    {#<button type="button" class="btn btn-package float-right">#}
-                        {#<a href="{{ path('package') }}" class="text-white">Commencer</a>#}
-                    {#</button>#}
-                {#</div>#}
+            {#<div class="d-flex justify-content-between align-items-center">#}
+            {#<p class="mt-4 mb-4">Vous n'avez pas encore fait votre commande de paquetage pour#}
+            {#l'année {{ yearPaquetage }}</p>#}
+            {#<button type="button" class="btn btn-package float-right">#}
+            {#<a href="{{ path('package') }}" class="text-white">Commencer</a>#}
+            {#</button>#}
+            {#</div>#}
             {#{% endif %}#}
 
             {#{% if commandeYearOld %}#}
-                {#<div class="d-flex justify-content-between align-items-center">#}
-                    {#<p class="mt-4 mb-4">Vous pouvez reprendre la commande de l'année#}
-                        {#précédente {{ yearPaquetageOld }}</p>#}
-                    {#<button type="button" class="btn btn-package float-right">#}
-                        {#<a href="{{ path('package_year_before') }}" class="text-white">Reprendre</a>#}
-                    {#</button>#}
-                {#</div>#}
+            {#<div class="d-flex justify-content-between align-items-center">#}
+            {#<p class="mt-4 mb-4">Vous pouvez reprendre la commande de l'année#}
+            {#précédente {{ yearPaquetageOld }}</p>#}
+            {#<button type="button" class="btn btn-package float-right">#}
+            {#<a href="{{ path('package_year_before') }}" class="text-white">Reprendre</a>#}
+            {#</button>#}
+            {#</div>#}
             {#{% endif %}#}
 
             {% if not commandeYear %}
@@ -54,17 +54,13 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <p class="mt-4 mb-4">Vous pouvez reprendre la commande de l'année
                             précédente {{ yearPaquetageOld }}</p>
-                        <button type="button" class="btn btn-package float-right">
-                            <a href="{{ path('package_year_before') }}" class="text-white">Reprendre</a>
-                        </button>
+                        <a href="{{ path('package_year_before') }}" class="btn btn-package float-right text-white">Reprendre</a>
                     </div>
                 {% else %}
                     <div class="d-flex justify-content-between align-items-center">
                         <p class="mt-4 mb-4">Vous n'avez pas encore fait votre commande de paquetage pour
                             l'année {{ yearPaquetage }}</p>
-                        <button type="button" class="btn btn-package float-right">
-                            <a href="{{ path('package') }}" class="text-white">Commencer</a>
-                        </button>
+                        <a href="{{ path('package') }}" class="btn btn-package float-right text-white">Commencer</a>
                     </div>
                 {% endif %}
             {% else %}
@@ -72,17 +68,21 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <p class="mt-4 mb-4">Vous avez déjà commencé votre commande de paquetage pour
                             l'année {{ yearPaquetage }}</p>
-                        <button type="button" class="btn btn-package float-right">
-                            <a href="{{ path('package') }}" class="text-white">Reprendre</a>
-                        </button>
+                        <a href="{{ path('package') }}" class="btn btn-package float-right text-white">Reprendre
+                        </a>
                     </div>
                 {% else %}
                     <div class="d-flex justify-content-between align-items-center">
                         <p class="mt-4 mb-4">Vous n'avez pas encore fait votre commande de paquetage pour
                             l'année {{ yearPaquetage }}</p>
-                        <button type="button" class="btn btn-package float-right">
-                            <a href="{{ path('package') }}" class="text-white">Commencer</a>
-                        </button>
+                        <a href="{{ path('package') }}" class="btn btn-package float-right text-white">Commencer</a>
+                    </div>
+                {% endif %}
+                {% if commandeYearOld %}
+                    <div class="d-flex justify-content-between align-items-center">
+                        <p class="mt-4 mb-4">Vous pouvez reprendre la commande de l'année
+                            précédente {{ yearPaquetageOld }}</p>
+                        <a href="{{ path('package_year_before') }}" class="btn btn-package float-right text-white">Reprendre</a>
                     </div>
                 {% endif %}
 

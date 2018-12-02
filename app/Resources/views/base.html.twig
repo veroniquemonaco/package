@@ -19,7 +19,8 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
               integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
               crossorigin="anonymous">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+        <link rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
         <link href="{{ asset('dist/css/component-custom-switch.css') }}" rel="stylesheet">
         <!-- jQuery -->
 
@@ -33,10 +34,10 @@
         <div class="logo">
             <img class="logo" src="{{ asset('images/logoBouygues.png') }}">
         </div>
-        <button type="button" class="btn btn-link align-self-center ml-2"><a href="{{ path('logout') }}">Déconnexion</a></button>
+        <a href="{{ path('logout') }}" class="btn btn-link align-self-center ml-2">Déconnexion</a>
         {% if is_granted('ROLE_ADMIN') %}
-            <button type="button" class="btn btn-info align-self-center ml-2">
-                <a href="{{ path('admin') }}" class="text-white">Admin</a></button>
+            <a href="{{ absolute_url(path('admin')) }}" class="btn btn-info align-self-center ml-2 text-white">
+                Admin</a>
         {% endif %}
         <div class="arc-bouygues-droit">
             <img class="arc-bouygues-droit" src="{{ asset('images/arc_droit_bouygues.png') }}">
@@ -53,8 +54,8 @@
 
 {% block javascripts %}
     {#<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"#}
-            {#integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"#}
-            {#crossorigin="anonymous"></script>#}
+    {#integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"#}
+    {#crossorigin="anonymous"></script>#}
     <script src="{{ asset('js/jquery-3.3.1.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
             integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
