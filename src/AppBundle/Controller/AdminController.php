@@ -287,12 +287,13 @@ class AdminController extends Controller
             }
         }
 
-
         $arrayByCategoryByTaille=[];
 
         foreach ($arrayCategoryTailles as $categoryId=>$value) {
+            $categoryName = $em->getRepository(Category::class)->find($categoryId)->getName();
             foreach ($value as $tailleId=>$valueByTailleId) {
-                $arrayByCategoryByTaille[$categoryId][$tailleId] = [$categoryId,$valueByTailleId['tailleName'],$valueByTailleId['qte']];
+                $arrayByCategoryByTaille[$categoryId][$tailleId] = [$categoryId,$categoryName,
+                    $valueByTailleId['tailleName'],$valueByTailleId['qte']];
             }
         }
 
@@ -317,12 +318,11 @@ class AdminController extends Controller
             }
         }
 
-
         foreach ($arrayByCategoryByTaille as $categoryId=>$value) {
             foreach ($value as $tailleId=>$valueByCategoryByTailleId) {
                 foreach($array as $idpdtunique=>$valueByIdpdtunique) {
                     if ($categoryId == $valueByIdpdtunique['categoryId'] && $tailleId == $valueByIdpdtunique['tailleId']) {
-                        $arrayByCategoryByTaille[$categoryId][$tailleId][2]  = $valueByIdpdtunique['qty'];
+                        $arrayByCategoryByTaille[$categoryId][$tailleId][3]  = $valueByIdpdtunique['qty'];
                     }
                 }
             }
@@ -333,7 +333,7 @@ class AdminController extends Controller
 
 
         foreach ($arrayByCategoryByTaille as $categoryId=>$value){
-            $csv->insertOne(['Categorie Id','taille','qte']);
+            $csv->insertOne(['Categorie Id','Category Nom','taille','qte']);
             foreach($value as $tailleId=>$valueByCategoryByTailleId){
                 $csv->insertOne($valueByCategoryByTailleId);
             }

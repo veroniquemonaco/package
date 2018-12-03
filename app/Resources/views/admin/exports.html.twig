@@ -61,91 +61,91 @@
 
 
 
-    <div class="">
-        <h5>
-            <ins>Recherche par agence et par type de paquetage</ins>
-        </h5>
+    {#<div class="">#}
+        {#<h5>#}
+            {#<ins>Recherche par agence et par type de paquetage</ins>#}
+        {#</h5>#}
 
-        {{ form_start(form) }}
+        {#{{ form_start(form) }}#}
 
-        {{ form_label(form.agence,'Agence') }}
-        {{ form_widget(form.agence) }}
-        {{ form_errors(form.agence) }}
+        {#{{ form_label(form.agence,'Agence') }}#}
+        {#{{ form_widget(form.agence) }}#}
+        {#{{ form_errors(form.agence) }}#}
 
-        {{ form_label(form.qualification,'Type de paquetage') }}
-        {{ form_widget(form.qualification) }}
-        {{ form_errors(form.qualification) }}
+        {#{{ form_label(form.qualification,'Type de paquetage') }}#}
+        {#{{ form_widget(form.qualification) }}#}
+        {#{{ form_errors(form.qualification) }}#}
 
-        {{ form_end(form) }}
+        {#{{ form_end(form) }}#}
 
-    </div>
+    {#</div>#}
 
-    {% if agence %}
-        <button type="button" class="btn btn-info">
-            <a href="{{ path('pdf_export_agence', {'agence': agence , 'paquetageType': paquetageType } ) }}"
-               class="text-white">Télécharger en pdf</a>
-        </button>
-    {% endif %}
-    {% if paquetageType %}
-        <button type="button" class="btn btn-info">
-            <a href="{{ path('pdf_export_paquetageType', {'agence': agence , 'paquetageType': paquetageType} ) }}"
-               class="text-white">Télécharger en pdf</a>
-        </button>
-    {% endif %}
+    {#{% if agence %}#}
+        {#<button type="button" class="btn btn-info">#}
+            {#<a href="{{ path('pdf_export_agence', {'agence': agence , 'paquetageType': paquetageType } ) }}"#}
+               {#class="text-white">Télécharger en pdf</a>#}
+        {#</button>#}
+    {#{% endif %}#}
+    {#{% if paquetageType %}#}
+        {#<button type="button" class="btn btn-info">#}
+            {#<a href="{{ path('pdf_export_paquetageType', {'agence': agence , 'paquetageType': paquetageType} ) }}"#}
+               {#class="text-white">Télécharger en pdf</a>#}
+        {#</button>#}
+    {#{% endif %}#}
 
-    <hr>
+    {#<hr>#}
 
-    <div class="">
-        <h5>
-            <ins>Lancer la recherche pour toutes les agences</ins>
-        </h5>
+    {#<div class="">#}
+        {#<h5>#}
+            {#<ins>Lancer la recherche pour toutes les agences</ins>#}
+        {#</h5>#}
 
-        {{ form(form2) }}
+        {#{{ form(form2) }}#}
 
-    </div>
+    {#</div>#}
 
-    <hr>
+    {#<hr>#}
 
-    <h5 class="mb-2">Résultat de votre recherche : liste des produits commandés</h5>
-    <div class="container w-75">
+    {#<h5 class="mb-2">Résultat de votre recherche : liste des produits commandés</h5>#}
+    {#<div class="container w-75">#}
 
-        {% if syntheseCommande %}
+        {#{% if syntheseCommande %}#}
 
-            <div class="row">
-                <table class="table table-striped">
-                    <thead>
-                    <tr class="row">
-                        <th class="col-1">#</th>
-                        <th class="col-7">libellé</th>
-                        <th class="col-2">taille</th>
-                        <th class="col-2">quantité</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for pdt in syntheseCommande %}
-                        <tr class="row">
-                            <th class="col-1">{{ loop.index }}</th>
-                            <td class="col-7">{{ pdt.libelle }}</td>
-                            <td class="col-2">{{ pdt.taille }}</td>
-                            <td class="col-2">{{ pdt.qty }}</td>
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
-            </div>
+            {#<div class="row">#}
+                {#<table class="table table-striped">#}
+                    {#<thead>#}
+                    {#<tr class="row">#}
+                        {#<th class="col-1">#</th>#}
+                        {#<th class="col-7">libellé</th>#}
+                        {#<th class="col-2">taille</th>#}
+                        {#<th class="col-2">quantité</th>#}
+                    {#</tr>#}
+                    {#</thead>#}
+                    {#<tbody>#}
+                    {#{% for pdt in syntheseCommande %}#}
+                        {#<tr class="row">#}
+                            {#<th class="col-1">{{ loop.index }}</th>#}
+                            {#<td class="col-7">{{ pdt.libelle }}</td>#}
+                            {#<td class="col-2">{{ pdt.taille }}</td>#}
+                            {#<td class="col-2">{{ pdt.qty }}</td>#}
+                        {#</tr>#}
+                    {#{% endfor %}#}
+                    {#</tbody>#}
+                {#</table>#}
+            {#</div>#}
 
-            <button type="button" class="btn btn-info">
-                <a href="{{ path('pdf_export', { 'searchform': searchform }) }}" class="text-white">Télécharger en
-                    pdf</a>
-            </button>
+            {#<button type="button" class="btn btn-info">#}
+                {#<a href="{{ path('pdf_export', { 'searchform': searchform }) }}" class="text-white">Télécharger en#}
+                    {#pdf</a>#}
+            {#</button>#}
 
-        {% else %}
+        {#{% else %}#}
 
-            <h6>aucun résultat</h6>
+            {#<h6>aucun résultat</h6>#}
 
-        {% endif %}
+        {#{% endif %}#}
 
-    </div>
+    {#</div>#}
 
 
 
@@ -172,7 +172,7 @@
                             html = "";
                             userid = "";
                             for (i = 0; i < users.length; i++) {
-                                html += "<li data-mydata=" + users[i].id + "  id=userid-" + users[i].id + ">" + users[i].firstname + users[i].lastname + "</li>";
+                                html += "<li data-mydata=" + users[i].id + "  id=userid-" + users[i].id + ">" + users[i].firstname + ' , ' + users[i].lastname + "</li>";
                             }
                             $('#autocomplete').html(html);
                             $('#autocomplete li').on('click', function () {
