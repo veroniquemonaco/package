@@ -26,16 +26,15 @@ class ExportUserCommandesType extends AbstractType
     {
 
         $builder
-            ->add('Recherche', SearchType::class, [
+            ->add('recherche', SearchType::class, [
                 'required' => false,
                 'attr'     => ['placeholder'  => 'Entrez un nom...',
                     'autocomplete' => 'off',
                 ],
             ])
-//            ->add('AnnéeCommande', TextType::class, [
-//                'required' => false,
-//
-//            ])
+            ->add('yearOrder', TextType::class, [
+                'required' => false,
+            ])
             ->add('rechercher',SubmitType::class);
     }
 

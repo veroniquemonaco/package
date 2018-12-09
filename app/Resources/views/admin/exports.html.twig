@@ -2,17 +2,59 @@
 {% form_theme form 'bootstrap_4_layout.html.twig' %}
 {% form_theme form2 'bootstrap_4_layout.html.twig' %}
 {% form_theme form3 'bootstrap_4_layout.html.twig' %}
+{% form_theme form4 'bootstrap_4_layout.html.twig' %}
+{% form_theme form5 'bootstrap_4_layout.html.twig' %}
 
 {% block contentAdmincontent %}
 
 
     <h2 class="mb-4">Export des produits commandés</h2>
 
+    <div class="mb-4">
+        <h5>
+            <ins>Exporter la synthèse des commandes par compagnon</ins>
+        </h5>
+
+        {{ form(form4) }}
+
+        {% if yearPaquetage %}
+            <a class="btn btn-next"
+               href="{{ path('export_csv_file',{'yearPaquetage':yearPaquetage}) }}">
+                Export CSV</a>
+        {% endif %}
+    </div>
+
+    <div class="mb-4">
+        <h5>
+            <ins>Exporter la synthèse des commandes par catégorie</ins>
+        </h5>
+
+        {{ form(form5) }}
+
+        {% if yearPaquetage2 %}
+            {{ yearPaquetage2 }}
+        <a class="btn btn-next" href="{{ path('export_csv_synthese_file', {'yearPaquetage2': yearPaquetage2}) }}">
+            Export Synthese CSV</a>
+        {% endif %}
+    </div>
+
     <div class="">
         <h5>
             <ins>Recherche par compagnon</ins>
         </h5>
-        {{ form(form3) }}
+
+        {{ form_start(form3) }}
+
+        {{ form_label(form3.recherche,'Nom du compagnon') }}
+        {{ form_widget(form3.recherche) }}
+        {{ form_errors(form3.recherche) }}
+
+        {{ form_label(form3.yearOrder,'Année du paquetage') }}
+        {{ form_widget(form3.yearOrder) }}
+        {{ form_errors(form3.yearOrder) }}
+
+        {{ form_end(form3) }}
+
         <ul id="autocomplete"></ul>
 
     </div>
@@ -21,7 +63,6 @@
     {% if commandesUser %}
         <h5 class="mb-2">Résultat : liste des commandes</h5>
         <div class="container w-75">
-
 
             {% for commandeUser in commandesUser %}
 
@@ -57,50 +98,57 @@
 
         </div>
 
+        {% if userSearchId %}
+            <button type="button" class="btn btn-info">
+                <a href="{{ path('pdf_export_commandeUser', {'userSearchId': userSearchId,'userYearPaquetage':userYearPaquetage } ) }}"
+                   class="text-white">Télécharger en pdf</a>
+            </button>
+        {% endif %}
+
     {% endif %}
 
 
 
     {#<div class="">#}
-        {#<h5>#}
-            {#<ins>Recherche par agence et par type de paquetage</ins>#}
-        {#</h5>#}
+    {#<h5>#}
+    {#<ins>Recherche par agence et par type de paquetage</ins>#}
+    {#</h5>#}
 
-        {#{{ form_start(form) }}#}
+    {#{{ form_start(form) }}#}
 
-        {#{{ form_label(form.agence,'Agence') }}#}
-        {#{{ form_widget(form.agence) }}#}
-        {#{{ form_errors(form.agence) }}#}
+    {#{{ form_label(form.agence,'Agence') }}#}
+    {#{{ form_widget(form.agence) }}#}
+    {#{{ form_errors(form.agence) }}#}
 
-        {#{{ form_label(form.qualification,'Type de paquetage') }}#}
-        {#{{ form_widget(form.qualification) }}#}
-        {#{{ form_errors(form.qualification) }}#}
+    {#{{ form_label(form.qualification,'Type de paquetage') }}#}
+    {#{{ form_widget(form.qualification) }}#}
+    {#{{ form_errors(form.qualification) }}#}
 
-        {#{{ form_end(form) }}#}
+    {#{{ form_end(form) }}#}
 
     {#</div>#}
 
     {#{% if agence %}#}
-        {#<button type="button" class="btn btn-info">#}
-            {#<a href="{{ path('pdf_export_agence', {'agence': agence , 'paquetageType': paquetageType } ) }}"#}
-               {#class="text-white">Télécharger en pdf</a>#}
-        {#</button>#}
+    {#<button type="button" class="btn btn-info">#}
+    {#<a href="{{ path('pdf_export_agence', {'agence': agence , 'paquetageType': paquetageType } ) }}"#}
+    {#class="text-white">Télécharger en pdf</a>#}
+    {#</button>#}
     {#{% endif %}#}
     {#{% if paquetageType %}#}
-        {#<button type="button" class="btn btn-info">#}
-            {#<a href="{{ path('pdf_export_paquetageType', {'agence': agence , 'paquetageType': paquetageType} ) }}"#}
-               {#class="text-white">Télécharger en pdf</a>#}
-        {#</button>#}
+    {#<button type="button" class="btn btn-info">#}
+    {#<a href="{{ path('pdf_export_paquetageType', {'agence': agence , 'paquetageType': paquetageType} ) }}"#}
+    {#class="text-white">Télécharger en pdf</a>#}
+    {#</button>#}
     {#{% endif %}#}
 
     {#<hr>#}
 
     {#<div class="">#}
-        {#<h5>#}
-            {#<ins>Lancer la recherche pour toutes les agences</ins>#}
-        {#</h5>#}
+    {#<h5>#}
+    {#<ins>Lancer la recherche pour toutes les agences</ins>#}
+    {#</h5>#}
 
-        {#{{ form(form2) }}#}
+    {#{{ form(form2) }}#}
 
     {#</div>#}
 
@@ -109,41 +157,41 @@
     {#<h5 class="mb-2">Résultat de votre recherche : liste des produits commandés</h5>#}
     {#<div class="container w-75">#}
 
-        {#{% if syntheseCommande %}#}
+    {#{% if syntheseCommande %}#}
 
-            {#<div class="row">#}
-                {#<table class="table table-striped">#}
-                    {#<thead>#}
-                    {#<tr class="row">#}
-                        {#<th class="col-1">#</th>#}
-                        {#<th class="col-7">libellé</th>#}
-                        {#<th class="col-2">taille</th>#}
-                        {#<th class="col-2">quantité</th>#}
-                    {#</tr>#}
-                    {#</thead>#}
-                    {#<tbody>#}
-                    {#{% for pdt in syntheseCommande %}#}
-                        {#<tr class="row">#}
-                            {#<th class="col-1">{{ loop.index }}</th>#}
-                            {#<td class="col-7">{{ pdt.libelle }}</td>#}
-                            {#<td class="col-2">{{ pdt.taille }}</td>#}
-                            {#<td class="col-2">{{ pdt.qty }}</td>#}
-                        {#</tr>#}
-                    {#{% endfor %}#}
-                    {#</tbody>#}
-                {#</table>#}
-            {#</div>#}
+    {#<div class="row">#}
+    {#<table class="table table-striped">#}
+    {#<thead>#}
+    {#<tr class="row">#}
+    {#<th class="col-1">#</th>#}
+    {#<th class="col-7">libellé</th>#}
+    {#<th class="col-2">taille</th>#}
+    {#<th class="col-2">quantité</th>#}
+    {#</tr>#}
+    {#</thead>#}
+    {#<tbody>#}
+    {#{% for pdt in syntheseCommande %}#}
+    {#<tr class="row">#}
+    {#<th class="col-1">{{ loop.index }}</th>#}
+    {#<td class="col-7">{{ pdt.libelle }}</td>#}
+    {#<td class="col-2">{{ pdt.taille }}</td>#}
+    {#<td class="col-2">{{ pdt.qty }}</td>#}
+    {#</tr>#}
+    {#{% endfor %}#}
+    {#</tbody>#}
+    {#</table>#}
+    {#</div>#}
 
-            {#<button type="button" class="btn btn-info">#}
-                {#<a href="{{ path('pdf_export', { 'searchform': searchform }) }}" class="text-white">Télécharger en#}
-                    {#pdf</a>#}
-            {#</button>#}
+    {#<button type="button" class="btn btn-info">#}
+    {#<a href="{{ path('pdf_export', { 'searchform': searchform }) }}" class="text-white">Télécharger en#}
+    {#pdf</a>#}
+    {#</button>#}
 
-        {#{% else %}#}
+    {#{% else %}#}
 
-            {#<h6>aucun résultat</h6>#}
+    {#<h6>aucun résultat</h6>#}
 
-        {#{% endif %}#}
+    {#{% endif %}#}
 
     {#</div>#}
 
@@ -159,7 +207,7 @@
     <script type="text/javascript">
 
         $(document).ready(function () {
-            $("#app_bundle_export_user_commandes_type_Recherche").keyup(function () {
+            $("#app_bundle_export_user_commandes_type_recherche").keyup(function () {
                 let input = $(this).val();
                 if (input.length >= 2) {
                     $.ajax({
@@ -176,11 +224,11 @@
                             }
                             $('#autocomplete').html(html);
                             $('#autocomplete li').on('click', function () {
-                                $('#app_bundle_export_user_commandes_type_Recherche').val($(this).html()).data('userid', $(this).data());
+                                $('#app_bundle_export_user_commandes_type_recherche').val($(this).html()).data('userid', $(this).data());
                                 userid = $(this).data().mydata;
                                 $('#autocomplete').html('');
                                 $('#app_bundle_export_user_commandes_type_rechercher').on('click', function () {
-                                    $('#app_bundle_export_user_commandes_type_Recherche').val(userid);
+                                    $('#app_bundle_export_user_commandes_type_recherche').val(userid);
                                 })
 
                             });

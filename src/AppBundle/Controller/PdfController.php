@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Commande;
 use AppBundle\Entity\ProductPackage;
+use AppBundle\Entity\User;
 use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -160,6 +161,36 @@ class PdfController extends Controller
 
         $html = $this->renderView('pdf/pdfExport.html.twig', array(
             'orderpdts' => $array,
+        ));
+
+        $filename = sprintf('commande-%s.pdf', date('Y-m-d'));
+
+        return new Response(
+            $this->get('knp_snappy.pdf')->getOutputFromHtml($html), 200,
+            [
+                'Content-Type' => 'application/pdf',
+                'Content-Disposition' => sprintf('attachment; filename="%s"', $filename),
+            ]
+        );
+    }
+
+    /**
+     *@Route("/pdf/export/commandeUser/{userSearchId}/{userYearPaquetage}", name="pdf_export_commandeUser")
+     */
+    public function exportCommandeUser($userSearchId,$userYearPaquetage)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $user = $em->getRepository(User::class)->find($userSearchId);
+
+        $commandesUser = $em->getRepository(Commande::class)->findBy(array('user' => $userSearchId,
+            'yearPaquetage' => $userYearPaquetage));
+        $commandeUser = $commandesUser[0];
+
+
+        $html = $this->renderView('pdf/pdfExportCommandeUser.html.twig', array(
+            'user' => $user,
+            'commandeUser' => $commandeUser
         ));
 
         $filename = sprintf('commande-%s.pdf', date('Y-m-d'));

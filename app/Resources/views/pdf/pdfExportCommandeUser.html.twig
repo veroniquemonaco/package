@@ -1,0 +1,49 @@
+{% extends 'pdf/layout-pdf.html.twig' %}
+
+{% block content %}
+
+    <div class="container">
+        <div>
+            <div class="commande--title">
+                <h5>Agence : {{ user.agence.name }}</h5>
+                <h5>{{ user.firstname }} {{ user.lastname }}</h5>
+                <h5>Type de paquetage : <span class="text-capitalize">{{ user.qualification.name }}</span></h5>
+                <h5>Date commande : {{ commandeUser.date|date('d/m/Y') }}</h5>
+            </div>
+        </div>
+        <hr>
+
+        <div class="row mt-4">
+            <table width="100%">
+                <thead>
+                <tr class="row">
+                    <th style="height: 40px; border-bottom: 1px solid grey; border-right: 1px solid grey"
+                        width="10%">#</th>
+                    <th style="height: 40px; border-bottom: 1px solid grey; border-right: 1px solid grey"
+                        width="50%">libellé</th>
+                    <th style="height: 40px; border-bottom: 1px solid grey; border-right: 1px solid grey"
+                        width="20%">taille</th>
+                    <th style="height: 40px; border-bottom: 1px solid grey; border-right: 1px solid grey"
+                        width="20%">quantité</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for produit in commandeUser.commande %}
+                    <tr style="border-bottom: 1px solid grey" class="row">
+                        <td style="height: 40px; border-bottom: 1px solid grey; border-right: 1px solid grey; text-align:center"
+                            width="10%">{{ loop.index }}</td>
+                        <td style="height: 40px; border-bottom: 1px solid grey; border-right: 1px solid grey"
+                            width="50%">{{ produit.libelle }}</td>
+                        <td style="height: 40px; border-bottom: 1px solid grey; border-right: 1px solid grey; text-align:center"
+                            width="20%">{{ produit.taille }}</td>
+                        <td style="height: 40px; border-bottom: 1px solid grey; border-right: 1px solid grey; text-align:center"
+                            width="20%">{{ produit.qte }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+{% endblock %}

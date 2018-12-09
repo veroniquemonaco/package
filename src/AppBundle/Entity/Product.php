@@ -70,6 +70,29 @@ class Product
     private $qualifications;
 
     /**
+     * @return bool
+     */
+    public function isActif()
+    {
+        return $this->actif;
+    }
+
+    /**
+     * @param bool $actif
+     */
+    public function setActif($actif)
+    {
+        $this->actif = $actif;
+    }
+
+    /**
+     * @var boolean
+     *
+     *  @ORM\Column(name="actif", type="boolean")
+     */
+    private $actif;
+
+    /**
      * @return mixed
      */
     public function getCategory()

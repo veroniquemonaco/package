@@ -14,6 +14,8 @@ use AppBundle\Repository\TailleRepository;
 use AppBundle\Form\ExportCommandesType;
 use AppBundle\Form\ExportUserCommandesType;
 use AppBundle\Form\ExportAllCommandesType;
+use AppBundle\Form\ExportSyntheseOrderUserType;
+use AppBundle\Form\ExportSyntheseOrderCategoryType;
 use AppBundle\Form\UserCreationType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -51,6 +53,11 @@ class AdminController extends Controller
         $agence = null;
         $paquetageType = null;
         $searchform = 'init';
+        $userSearchId = '';
+        $userYearPaquetage = '';
+        $yearPaquetage = '';
+        $yearPaquetage2 = '';
+
 
         $form = $this->createForm(ExportCommandesType::class);
         $form->handleRequest($request);
@@ -117,7 +124,26 @@ class AdminController extends Controller
 
         if ($form3->isSubmitted() && $form3->isValid()) {
             $data = $form3->getData();
-            $commandesUser = $em->getRepository(Commande::class)->findBy(array('user' => $data));
+            $userSearchId=$data['recherche'];
+            $userYearPaquetage=$data['yearOrder'];
+            $commandesUser = $em->getRepository(Commande::class)->findBy(array('user' => $userSearchId,
+                'yearPaquetage' => $userYearPaquetage));
+        }
+
+        $form4 = $this->createForm(ExportSyntheseOrderUserType::class);
+        $form4->handleRequest($request);
+
+        if ($form4->isSubmitted() && $form4->isValid()) {
+            $data = $form4->getData();
+            $yearPaquetage = $data['yearPaquetage'];
+        }
+
+        $form5 = $this->createForm(ExportSyntheseOrderCategoryType::class);
+        $form5->handleRequest($request);
+
+        if ($form5->isSubmitted() && $form5->isValid()) {
+            $data = $form5->getData();
+            $yearPaquetage2 = $data['yearPaquetage2'];
         }
 
         return $this->render('admin/exports.html.twig', array(
@@ -125,6 +151,8 @@ class AdminController extends Controller
             'form' => $form->createView(),
             'form2' => $form2->createView(),
             'form3' => $form3->createView(),
+            'form4' => $form4->createView(),
+            'form5' => $form5->createView(),
             'users' => $users,
             'commandesSearch' => $commandesSearch,
             'syntheseCommande' => $array,
@@ -132,6 +160,10 @@ class AdminController extends Controller
             'paquetageType' => $paquetageType,
             'searchform' => $searchform,
             'commandesUser' => $commandesUser,
+            'userSearchId' => $userSearchId,
+            'userYearPaquetage' => $userYearPaquetage,
+            'yearPaquetage' => $yearPaquetage,
+            'yearPaquetage2' => $yearPaquetage2
         ));
 
     }
@@ -203,15 +235,15 @@ class AdminController extends Controller
     }
 
     /**
-     * @Route("/admin/export/csv", name="export_csv_file")
+     * @Route("/admin/export/csv/{yearPaquetage}", name="export_csv_file")
      */
-    public function exportCsvFile()
+    public function exportCsvFile($yearPaquetage = null)
     {
         $em = $this->getDoctrine()->getManager();
 
         $date = new \DateTime();
         $year = $date->format('Y');
-        $yearPaquetage = intval($year) + 1;
+//        $yearPaquetage = intval($year) + 1;
 
         $userOrderByCategories = $em->getRepository(UserOrderByCategory::class)->findBy(
             ['yearPaquetage' => $yearPaquetage]
@@ -264,9 +296,9 @@ class AdminController extends Controller
     }
 
     /**
-     * @Route("/admin/export/synthesecsv", name="export_csv_synthese_file")
+     * @Route("/admin/export/synthesecsv/{yearPaquetage2}", name="export_csv_synthese_file")
      */
-    public function exportCsvSyntheseFile()
+    public function exportCsvSyntheseFile($yearPaquetage2 = null)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -297,7 +329,7 @@ class AdminController extends Controller
             }
         }
 
-        $allOrderProducts = $em->getRepository(ProductPackage::class)->findAll();
+        $allOrderProducts = $em->getRepository(ProductPackage::class)->findBy(['yearPaquetage' => $yearPaquetage2]);
 
         $tab = [];
         $array = [];

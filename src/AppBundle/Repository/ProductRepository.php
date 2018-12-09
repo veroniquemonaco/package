@@ -18,7 +18,9 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
             ->select('p')
             ->leftJoin('p.qualifications','q')
             ->where('q.id = :qualificationId')
-            ->setParameter('qualificationId', $qualificationId);
+            ->andWhere('p.actif = :actif')
+            ->setParameter('qualificationId', $qualificationId)
+            ->setParameter('actif',true);
 
         return $qb->getQuery()->getResult();
 
