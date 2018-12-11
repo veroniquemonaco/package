@@ -32,7 +32,7 @@ body {
     position:absolute;
     bottom:0;
     left:0;
-    width:15%;
+    width:14%;
 }
 
 .arc-bouygues-gauche img {
@@ -89,7 +89,7 @@ body {
 .package-front {
     /*transform: rotate(3deg);*/
     width:85%;
-    height: 80vh;
+    height: 75vh;
     margin: auto;
     /*background-color: rgba(4,77,67,0.8) ;*/
     color: white;
@@ -97,13 +97,13 @@ body {
 
 .product--list {
     background-color: rgba(4,77,67,0.8) ;
-    height: 80vh;
+    height: 75vh;
     overflow-y: scroll;
 }
 
 .product--select {
     background-color: rgba(4,77,67,0.8) ;
-    height: 80vh;
+    height: 75vh;
     overflow-y: scroll;
 }
 
