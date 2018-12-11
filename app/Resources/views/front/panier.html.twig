@@ -34,9 +34,9 @@
                 {% endfor %}
                 </tbody>
             </table>
+        </div>
 
-            <div>
-            </div>
+        <div class="mt-3">
             {% if user.qualification.id == 1 %}
                 {% if totalHT < 373 %}
                     <a href="{{ path('commande', { 'panier': panier }) }}"
@@ -73,9 +73,10 @@
                     <p>le montant est trop élevé refaire votre sélection</p>
                 {% endif %}
             {% endif %}
-        </div>
 
-        <a href="{{ path('package_return') }}" class="btn btn-back text-white">Retour Sélection</a>
+            <a href="{{ path('package_return') }}" class="btn btn-back text-white">Retour Sélection</a>
+
+        </div>
 
     </div>
 

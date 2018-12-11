@@ -126,6 +126,7 @@ body {
     height: 80vh;
     margin: auto;
     color: white;
+    overflow-y: scroll;
 }
 
 .btn-next {
