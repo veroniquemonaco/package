@@ -32,7 +32,6 @@
         {{ form(form5) }}
 
         {% if yearPaquetage2 %}
-            {{ yearPaquetage2 }}
         <a class="btn btn-next" href="{{ path('export_csv_synthese_file', {'yearPaquetage2': yearPaquetage2}) }}">
             Export Synthese CSV</a>
         {% endif %}

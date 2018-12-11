@@ -37,6 +37,14 @@ class CommandeController extends Controller
         if ($session->has('panier'))
             $panier = $session->get('panier');
 
+        $panierCorrige = [];
+
+        foreach ($panier as $index=>$addproduct) {
+            if ($addproduct->getQuantity() != 0) {
+                $panierCorrige[$index]=$addproduct;
+            }
+        }
+
         $array = [];
 
         $productsPackage = $em->getRepository(ProductPackage::class)
@@ -83,7 +91,7 @@ class CommandeController extends Controller
         $em->flush();
 
 
-        foreach ($panier as $index => $addproduct) {
+        foreach ($panierCorrige as $index => $addproduct) {
             $array[$index]['idpdt'] = $addproduct->getProduct()->getId();
             $array[$index]['libelle'] = $addproduct->getProduct()->getName();
             $array[$index]['qte'] = $addproduct->getQuantity();
