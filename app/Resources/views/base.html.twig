@@ -30,7 +30,7 @@
 </head>
 <body class="body--package">
 <div class="container-fluid bloc">
-    <div class="row d-flex">
+    <div class="package--header row d-flex">
         <div class="logo">
             <img class="logo" src="{{ asset('images/logoBouygues.png') }}">
         </div>
@@ -45,10 +45,14 @@
     </div>
     {% block contentAdmin %}{% endblock %}
     {% block fos_user_content %}{% endblock %}
+    <div class="package--content">
     {% block body %}{% endblock %}
-    <div class="arc-bouygues-gauche">
-        <img class="arc-bouygues-gauche" src="{{ asset('images/arc_gauche_bouygues.png') }}">
     </div>
+    <footer class="package--footer">
+        <div class="arc-bouygues-gauche">
+            <img class="arc-bouygues-gauche" src="{{ asset('images/arc_gauche_bouygues.png') }}">
+        </div>
+    </footer>
 </div>
 
 

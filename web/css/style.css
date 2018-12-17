@@ -1,5 +1,6 @@
 body {
-    height:95vh;
+    /*height:95vh;*/
+    min-height:100vh;
 }
 
 .body--package {
@@ -7,7 +8,7 @@ body {
 }
 
 .bloc{
-    height: 100vh;
+    /*height: 95vh;*/
     width:100%;
     /*background-image: url("../images/backgroundImage2.jpg");*/
     /*background-color: rgba(4,77,67,0.7);*/
@@ -16,23 +17,43 @@ body {
     /*opacity: 1;*/
 }
 
+.package--header {
+    height: 15vh;
+}
+
 .arc-bouygues-droit {
     position:absolute;
     top:0;
     right:0;
-    width:10%;
+    width:14%;
     z-index: 10;
 }
 
 .arc-bouygues-droit img {
     width: 80%;
+    position:absolute;
+    bottom:0;
+    left:0;
+}
+
+.package--content {
+    min-height: 75vh;
+}
+
+.package--footer {
+    /*margin-top:25px;*/
+    width:100%;
+    height: 2vh;
+    /*background-color: red;*/
+    /*position:fixed;*/
+    /*bottom:0px;*/
 }
 
 .arc-bouygues-gauche {
     position:absolute;
     bottom:0;
     left:0;
-    width:14%;
+    width:8%;
 }
 
 .arc-bouygues-gauche img {
@@ -89,7 +110,7 @@ body {
 .package-front {
     /*transform: rotate(3deg);*/
     width:85%;
-    height: 75vh;
+    height: 85vh;
     margin: auto;
     /*background-color: rgba(4,77,67,0.8) ;*/
     color: white;
@@ -97,13 +118,13 @@ body {
 
 .product--list {
     background-color: rgba(4,77,67,0.8) ;
-    height: 75vh;
+    height: 85vh;
     overflow-y: scroll;
 }
 
 .product--select {
     background-color: rgba(4,77,67,0.8) ;
-    height: 75vh;
+    height: 85vh;
     overflow-y: scroll;
 }
 
@@ -288,52 +309,6 @@ input:focus ~ .highlight {
 }
 
 .buttonBlue:hover { background-color: #14b8a0; }
-
-/*!* Ripples container *!*/
-
-/*.ripples {*/
-    /*position: absolute;*/
-    /*top: 0;*/
-    /*left: 0;*/
-    /*width: 100%;*/
-    /*height: 100%;*/
-    /*overflow: hidden;*/
-    /*background: transparent;*/
-/*}*/
-
-
-/*!* Ripples circle *!*/
-
-/*.ripplesCircle {*/
-    /*position: absolute;*/
-    /*top: 50%;*/
-    /*left: 50%;*/
-    /*transform: translate(-50%, -50%);*/
-    /*opacity: 0;*/
-    /*width: 0;*/
-    /*height: 0;*/
-    /*border-radius: 50%;*/
-    /*background: rgba(255, 255, 255, 0.25);*/
-/*}*/
-
-/*.ripples.is-active .ripplesCircle {*/
-    /*animation: ripples .4s ease-in;*/
-/*}*/
-
-
-/*!* Ripples animation *!*/
-
-/*@keyframes ripples {*/
-    /*0% { opacity: 0; }*/
-
-    /*25% { opacity: 1; }*/
-
-    /*100% {*/
-        /*width: 200%;*/
-        /*padding-bottom: 200%;*/
-        /*opacity: 0;*/
-    /*}*/
-/*}*/
 
 
 /** ADMIN **/

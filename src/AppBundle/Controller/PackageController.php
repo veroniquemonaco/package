@@ -35,9 +35,16 @@ class PackageController extends Controller
         } else {
             $yearPaquetage = '';
             $date = new \DateTime();
+            $dateMonth = $date->format('m');
             $year = $date->format('Y');
-            $yearPaquetage = intval($year) + 1;
-            $yearPaquetageOld = intval($year);
+            if (in_array($dateMonth,[7,8,9,10,11,12])){
+                $yearPaquetage = intval($year) + 1;
+                $yearPaquetageOld = intval($year);
+            } else if (in_array($dateMonth,[1,2,3,4,5,6])){
+                $yearPaquetage = intval($year);
+                $yearPaquetageOld = intval($year)-1;
+            }
+
 
             $commandeUser = $em->getRepository(Commande::class)->findBy(array('yearPaquetage' => $yearPaquetage,
                 'user' => $user));
@@ -73,9 +80,15 @@ class PackageController extends Controller
 
         $yearPaquetage = '';
         $date = new \DateTime();
+        $dateMonth = $date->format('m');
         $year = $date->format('Y');
-        $yearPaquetage = intval($year) + 1;
-        $yearPaquetageOld = intval($year);
+        if (in_array($dateMonth,[7,8,9,10,11,12])){
+            $yearPaquetage = intval($year) + 1;
+            $yearPaquetageOld = intval($year);
+        } else if (in_array($dateMonth,[1,2,3,4,5,6])){
+            $yearPaquetage = intval($year);
+            $yearPaquetageOld = intval($year)-1;
+        }
         $commandeYearPaquetage = [];
         $commandeYearPaquetageOld = [];
         $backOrder = [];
@@ -128,10 +141,19 @@ class PackageController extends Controller
                 $em->flush();
                 $callpanier[$idpdt] = $addProductCde;
             }
+
+            $callpanieractif=[];
+            foreach ($callpanier as $idpdt=>$addProductCde) {
+                $actif = $em->getRepository(Product::class)->findOneBy(['id' => $idpdt])->isActif();
+                if ($actif) {
+                    $callpanieractif[$idpdt] = $addProductCde;
+                }
+            }
+
         }
 
 
-        if (!$session->has('panier')) $session->set('panier', $callpanier);
+        if (!$session->has('panier')) $session->set('panier', $callpanieractif);
         $panier = $session->get('panier');
 
         if ($request->isXmlHttpRequest()) {
@@ -212,9 +234,15 @@ class PackageController extends Controller
 
         $yearPaquetage = '';
         $date = new \DateTime();
+        $dateMonth = $date->format('m');
         $year = $date->format('Y');
-        $yearPaquetage = intval($year) + 1;
-        $yearPaquetageOld = intval($year);
+        if (in_array($dateMonth,[7,8,9,10,11,12])){
+            $yearPaquetage = intval($year) + 1;
+            $yearPaquetageOld = intval($year);
+        } else if (in_array($dateMonth,[1,2,3,4,5,6])){
+            $yearPaquetage = intval($year);
+            $yearPaquetageOld = intval($year)-1;
+        }
         $commandeYearPaquetage = [];
         $commandeYearPaquetageOld = [];
         $backOrder = [];
@@ -257,10 +285,16 @@ class PackageController extends Controller
                 $callpanier[$idpdt] = $addProductCde;
             }
 
-
+            $callpanieractif=[];
+            foreach ($callpanier as $idpdt=>$addProductCde) {
+                $actif = $em->getRepository(Product::class)->findOneBy(['id' => $idpdt])->isActif();
+                if ($actif) {
+                    $callpanieractif[$idpdt] = $addProductCde;
+                }
+            }
         }
 
-        if (!$session->has('panier')) $session->set('panier', $callpanier);
+        if (!$session->has('panier')) $session->set('panier', $callpanieractif);
         $panier = $session->get('panier');
 
         if ($request->isXmlHttpRequest()) {
@@ -340,9 +374,15 @@ class PackageController extends Controller
 
         $yearPaquetage = '';
         $date = new \DateTime();
+        $dateMonth = $date->format('m');
         $year = $date->format('Y');
-        $yearPaquetage = intval($year) + 1;
-        $yearPaquetageOld = intval($year);
+        if (in_array($dateMonth,[7,8,9,10,11,12])){
+            $yearPaquetage = intval($year) + 1;
+            $yearPaquetageOld = intval($year);
+        } else if (in_array($dateMonth,[1,2,3,4,5,6])){
+            $yearPaquetage = intval($year);
+            $yearPaquetageOld = intval($year)-1;
+        }
         $commandeYearPaquetage = [];
         $commandeYearPaquetageOld = [];
         $backOrder = [];
@@ -472,9 +512,15 @@ class PackageController extends Controller
 
         $yearPaquetage = '';
         $date = new \DateTime();
+        $dateMonth = $date->format('m');
         $year = $date->format('Y');
-        $yearPaquetage = intval($year) + 1;
-        $yearPaquetageOld = intval($year);
+        if (in_array($dateMonth,[7,8,9,10,11,12])){
+            $yearPaquetage = intval($year) + 1;
+            $yearPaquetageOld = intval($year);
+        } else if (in_array($dateMonth,[1,2,3,4,5,6])){
+            $yearPaquetage = intval($year);
+            $yearPaquetageOld = intval($year)-1;
+        }
         $commandeYearPaquetage = [];
         $commandeYearPaquetageOld = [];
         $backOrder = [];

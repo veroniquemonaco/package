@@ -20,9 +20,16 @@ class CommandeController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $user = $this->getUser();
+
+        $yearPaquetage = '';
         $date = new \DateTime();
+        $dateMonth = $date->format('m');
         $year = $date->format('Y');
-        $yearPaquetage = intval($year) + 1;
+        if (in_array($dateMonth,[7,8,9,10,11,12])){
+            $yearPaquetage = intval($year) + 1;
+        } else if (in_array($dateMonth,[1,2,3,4,5,6])){
+            $yearPaquetage = intval($year);
+        }
         $commandeUser = [];
         $commande = [];
         $productsPackage = [];
