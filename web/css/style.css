@@ -21,6 +21,10 @@ body {
     height: 15vh;
 }
 
+.logo {
+    height:80px;
+}
+
 .arc-bouygues-droit {
     position:absolute;
     top:0;
@@ -84,13 +88,16 @@ body {
 }
 
 .btn-package {
-    background-color: rgba(102,180,162,1);
-    border-color: rgba(102,180,162,1);
+    /*background-color: rgba(102,180,162,1);*/
+    background-image: linear-gradient(to right, rgba(102,180,162,0.85),rgba(102,180,162,1));
+    /*border-color: rgba(102,180,162,1);*/
+    color:white;
 }
 
 .btn-package:hover {
     background-color: rgba(102,180,162,1);
     border-color: rgba(102,180,162,1);
+    color:white;
 }
 
 /**PACKAGE FRONT**/
@@ -172,6 +179,23 @@ body {
     background-color: #aaa;
     border-color: #aaa;
     color:white;
+}
+
+.btn-logout {
+    /*background-color: #464a4c;*/
+    background-image: linear-gradient(to right,rgba(70,74,76,0.7), rgba(70,74,76,1));
+    /*border-color: #464a4c;*/
+    color:white;
+}
+
+.btn-logout:hover {
+    background-color: #464a4c;
+    /*border-color: #464a4c;*/
+    color:white;
+}
+
+.modal-dialog.modal--fiches--mesures {
+    max-width: 650px;
 }
 
 /** Form login css CodePen Josh Adamous **/

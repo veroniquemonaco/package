@@ -31,10 +31,20 @@
 <body class="body--package">
 <div class="container-fluid bloc">
     <div class="package--header row d-flex">
-        <div class="logo">
-            <img class="logo" src="{{ asset('images/logoBouygues.png') }}">
+        <div class="logo d-flex">
+            <img class="" src="{{ asset('images/logoBouygues.png') }}">
+
+        <div class="d-flex align-items-center">
+            {% if is_granted('ROLE_USER') %}
+                <a href="{{ path('accueil') }}" class="btn btn-package align-self-center ml-2">Accueil</a>
+            {% endif %}
         </div>
-        <a href="{{ path('logout') }}" class="btn btn-link align-self-center ml-2">Déconnexion</a>
+        <div class="d-flex align-items-center">
+            {% if is_granted('ROLE_USER') %}
+                <a href="{{ path('logout') }}" class="btn btn-logout align-self-center ml-2">Déconnexion</a>
+            {% endif %}
+        </div>
+        </div>
         {% if is_granted('ROLE_ADMIN') %}
             <a href="{{ absolute_url(path('admin')) }}" class="btn btn-info align-self-center ml-2 text-white">
                 Admin</a>
