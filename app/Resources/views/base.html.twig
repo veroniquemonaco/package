@@ -34,21 +34,23 @@
         <div class="logo d-flex">
             <img class="" src="{{ asset('images/logoBouygues.png') }}">
 
-        <div class="d-flex align-items-center">
-            {% if is_granted('ROLE_USER') %}
-                <a href="{{ path('accueil') }}" class="btn btn-package align-self-center ml-2">Accueil</a>
-            {% endif %}
+            <div class="d-flex align-items-center">
+                {% if not is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path('accueil') }}" class="btn btn-package align-self-center ml-2">Accueil</a>
+                {% elseif is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path('admin') }}" class="btn btn-package align-self-center ml-2">Accueil Admin</a>
+                {% endif %}
+            </div>
+            <div class="d-flex align-items-center">
+                {% if is_granted('ROLE_USER') %}
+                    <a href="{{ path('logout') }}" class="btn btn-logout align-self-center ml-2">Déconnexion</a>
+                {% endif %}
+            </div>
         </div>
-        <div class="d-flex align-items-center">
-            {% if is_granted('ROLE_USER') %}
-                <a href="{{ path('logout') }}" class="btn btn-logout align-self-center ml-2">Déconnexion</a>
-            {% endif %}
-        </div>
-        </div>
-        {% if is_granted('ROLE_ADMIN') %}
-            <a href="{{ absolute_url(path('admin')) }}" class="btn btn-info align-self-center ml-2 text-white">
-                Admin</a>
-        {% endif %}
+        {#{% if is_granted('ROLE_ADMIN') %}#}
+        {#<a href="{{ absolute_url(path('admin')) }}" class="btn btn-info align-self-center ml-2 text-white">#}
+        {#Admin</a>#}
+        {#{% endif %}#}
         <div class="arc-bouygues-droit">
             <img class="arc-bouygues-droit" src="{{ asset('images/arc_droit_bouygues.png') }}">
         </div>
@@ -56,7 +58,7 @@
     {% block contentAdmin %}{% endblock %}
     {% block fos_user_content %}{% endblock %}
     <div class="package--content">
-    {% block body %}{% endblock %}
+        {% block body %}{% endblock %}
     </div>
     <footer class="package--footer">
         <div class="arc-bouygues-gauche">
@@ -67,10 +69,19 @@
 
 
 {% block javascripts %}
-    {#<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"#}
-    {#integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"#}
-    {#crossorigin="anonymous"></script>#}
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
+    integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
+    crossorigin="anonymous"></script>
     <script src="{{ asset('js/jquery-3.3.1.js') }}"></script>
+    {#<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"#}
+            {#integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"#}
+            {#crossorigin="anonymous"></script>#}
+    {#<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"#}
+            {#integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"#}
+            {#crossorigin="anonymous"></script>#}
+    {#<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"#}
+            {#integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"#}
+            {#crossorigin="anonymous"></script>#}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
             integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
             crossorigin="anonymous"></script>

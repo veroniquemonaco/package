@@ -15,49 +15,98 @@
 
             {% block menuAdmin %}
 
-                <div class="col-3 menu-vertical">
-                    <h1 class="menu-vertical-titre">Menu</h1>
-                    <div class="d-flex flex-column">
-                        <div class="btn-group m-3">
-                            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false">
-                                Produits
-                            </button>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="{{ path('product_index') }}">Liste Produits</a>
-                                <a class="dropdown-item" href="{{ path('product_new') }}">Créer un nouveau produit</a>
-                                <a class="dropdown-item" href="{{ path('category_index') }}">Liste Catégories</a>
-                                <a class="dropdown-item" href="{{ path('category_new') }}">Créer une nouvelle
-                                    catégorie</a>
-                                <a class="dropdown-item" href="{{ path('taille_index') }}">Liste Tailles</a>
-                                <a class="dropdown-item" href="{{ path('taille_new') }}">Créer une nouvelle taille</a>
-                            </div>
-                        </div>
-                        <div class="btn-group m-3">
-                            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false">
-                                Employés
-                            </button>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="{{ path('index_user') }}">Liste</a>
-                                <a class="dropdown-item" href="{{ path('create_user') }}">Créer un nouvel employé</a>
-                            </div>
-                        </div>
-                        <div class="btn-group m-3">
-                            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false">
-                                Exports
-                            </button>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="{{ path('export_commandes') }}">Export commandes</a>
-                            </div>
+                {#<div class="col-2 menu-vertical">#}
+                    {#<h1 class="menu-vertical-titre">Menu</h1>#}
+                    {#<div class="d-flex flex-column">#}
+                        {#<div class="btn-group m-3">#}
+                            {#<button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown"#}
+                                    {#aria-haspopup="true" aria-expanded="false">#}
+                                {#Produits#}
+                            {#</button>#}
+                            {#<div class="dropdown-menu">#}
+                                {#<a class="dropdown-item" href="{{ path('product_index') }}">Liste Produits</a>#}
+                                {#<a class="dropdown-item" href="{{ path('product_new') }}">Créer un nouveau produit</a>#}
+                                {#<a class="dropdown-item" href="{{ path('category_index') }}">Liste Catégories</a>#}
+                                {#<a class="dropdown-item" href="{{ path('category_new') }}">Créer une nouvelle#}
+                                    {#catégorie</a>#}
+                                {#<a class="dropdown-item" href="{{ path('taille_index') }}">Liste Tailles</a>#}
+                                {#<a class="dropdown-item" href="{{ path('taille_new') }}">Créer une nouvelle taille</a>#}
+                            {#</div>#}
+                        {#</div>#}
+                        {#<div class="btn-group m-3">#}
+                            {#<button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown"#}
+                                    {#aria-haspopup="true" aria-expanded="false">#}
+                                {#Employés#}
+                            {#</button>#}
+                            {#<div class="dropdown-menu">#}
+                                {#<a class="dropdown-item" href="{{ path('index_user') }}">Liste</a>#}
+                                {#<a class="dropdown-item" href="{{ path('create_user') }}">Créer un nouvel employé</a>#}
+                            {#</div>#}
+                        {#</div>#}
+                        {#<div class="btn-group m-3">#}
+                            {#<button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown"#}
+                                    {#aria-haspopup="true" aria-expanded="false">#}
+                                {#Exports#}
+                            {#</button>#}
+                            {#<div class="dropdown-menu">#}
+                                {#<a class="dropdown-item" href="{{ path('export_commandes') }}">Export commandes</a>#}
+                            {#</div>#}
+                        {#</div>#}
+                    {#</div>#}
+                {#</div>#}
+
+            <div class="col-2 menu-vertical">
+                <nav class="side-navbar">
+                    <div class="side-navbar-wrapper">
+                        <!-- Sidebar Navigation Menus-->
+                        <div class="main-menu">
+                            <h5 class="sidenav-heading">Menu Principal</h5>
+                            <ul id="side-main-menu" class="list-unstyled">
+                                <li class="mb-2"><a href="#example1dropdownDropdown" aria-expanded="false" data-toggle="collapse"
+                                       class="main-menu-link">
+                                        <i class="fa fa-book white mr-2" aria-hidden="true"></i>Produits</a>
+                                    <ul id="example1dropdownDropdown" class="collapse list-unstyled ">
+                                        <li><a href="{{ path('product_index') }}"
+                                               class="main-submenu-link">Liste Produits</a></li>
+                                        <li><a href="{{ path('product_new') }}"
+                                               class="main-submenu-link">Créer un nouveau produit</a></li>
+                                        <li><a href="{{ path('category_index') }}"
+                                               class="main-submenu-link">Liste Catégories</a></li>
+                                        <li><a href="{{ path('category_new') }}"
+                                               class="main-submenu-link">Créer une nouvelle catégorie</a></li>
+                                        <li><a href="{{ path('taille_index') }}"
+                                               class="main-submenu-link">Liste des tailles</a></li>
+                                        <li><a href="{{ path('taille_new') }}"
+                                               class="main-submenu-link">Créer une nouvelle taille</a></li>
+                                    </ul>
+                                </li>
+                                <li class="mb-2"><a href="#example2dropdownDropdown" aria-expanded="false" data-toggle="collapse"
+                                       class="main-menu-link">
+                                        <i class="fa fa-user white mr-2" aria-hidden="true"></i>Employés</a>
+                                    <ul id="example2dropdownDropdown" class="collapse list-unstyled ">
+                                        <li><a href="{{ path('index_user') }}"
+                                               class="main-submenu-link">Liste</a></li>
+                                        <li><a href="{{ path('create_user') }}"
+                                               class="main-submenu-link">Créer un nouvel employé</a></li>
+                                    </ul>
+                                </li>
+                                <li class="mb-2"><a href="#example3dropdownDropdown" aria-expanded="false" data-toggle="collapse"
+                                       class="main-menu-link">
+                                        <i class="fa fa-file white mr-2" aria-hidden="true"></i>Exports</a>
+                                    <ul id="example3dropdownDropdown" class="collapse list-unstyled ">
+                                        <li><a href="{{ path('export_commandes') }}"
+                                               class="main-submenu-link">Export commandes</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
                         </div>
                     </div>
-                </div>
+                </nav>
+            </div>
 
             {% endblock %}
 
-            <div class="col-9">
+            <div class="col-10">
                 <div class="admin-content">
                     {% block contentAdmincontent %}{% endblock %}
                 </div>

@@ -16,9 +16,41 @@
 
 .menu-vertical {
     height: 100%;
-    background-color: black;
+    background-color: #363A41;
     color: white;
     padding-top: 50px;
+}
+
+.main-menu-link {
+    color:white;
+}
+
+.main-menu-link:hover {
+    color:white;
+}
+
+.main-menu-link:active {
+    color:white;
+}
+
+.main-menu-link:focus {
+    color:white;
+}
+
+.main-submenu-link {
+    color:#b7b7b7;
+}
+
+.main-submenu-link:hover {
+    color:#b7b7b7;
+}
+
+.main-submenu-link:active {
+    color:#b7b7b7;
+}
+
+.main-submenu-link:focus {
+    color:#b7b7b7;
 }
 
 #appbundle_product_tailles {
