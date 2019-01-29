@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
+use AppBundle\Service\PaquetageQualification;
 
 
 class PanierController extends Controller
@@ -14,7 +15,7 @@ class PanierController extends Controller
     /**
      * @Route("/panier", name="panier")
      */
-    public function indexAction()
+    public function indexAction(PaquetageQualification $paquetageQualification)
     {
         $user = $this->getUser();
 
@@ -22,6 +23,7 @@ class PanierController extends Controller
         if($session->has('panier'))
             $panier = $session->get('panier');
 
+        // correction du panier en enlevant les produits à qté = 0
         $panierCorrige = [];
 
         foreach ($panier as $index=>$addproduct) {
@@ -30,9 +32,17 @@ class PanierController extends Controller
             }
         }
 
+        $pdts = $paquetageQualification->getPaquetageType($user);
+
+        dump($pdts);
+
+        // liste des paquetages idpdt type par qualification
         $paquetageCompagnon = [6,11,16,21,24,33];
+        $paquetageCompagnonMinorange = [7,12,17,22,24,33];
         $paquetageChefEquipe = [6,11,16,21,24,33];
+        $paquetageChefEquipeMinorange = [6,11,16,21,24,33];
         $paquetageMaitrise = [6,11,16,21,24,33];
+        $paquetageMaitriseMinorange = [6,11,16,21,24,33];
 
         $paquetageChaussures = [30,31,32];
 

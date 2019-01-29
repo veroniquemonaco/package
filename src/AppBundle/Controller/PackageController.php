@@ -94,6 +94,7 @@ class PackageController extends Controller
         $backOrder = [];
         $backOrderOld = [];
         $callpanier = [];
+        $callpanieractif = [];
         $panier = [];
 
         $qualificationId = $this->getUser()->getQualification()->getId();
