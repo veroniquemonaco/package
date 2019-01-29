@@ -158,8 +158,9 @@ body {
 }
 
 .btn-next {
-    background-color: #ea4e0e;
-    border-color: #ea4e0e;
+    /*background-color: #ea4e0e;*/
+    /*border-color: #ea4e0e;*/
+    background-image: linear-gradient(to right,rgba(234,78,14,0.7), rgba(234,78,14,1));
     color:white;
 }
 

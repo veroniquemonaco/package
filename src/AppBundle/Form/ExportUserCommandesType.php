@@ -35,7 +35,11 @@ class ExportUserCommandesType extends AbstractType
             ->add('yearOrder', TextType::class, [
                 'required' => false,
             ])
-            ->add('rechercher',SubmitType::class);
+            ->add('rechercher',SubmitType::class, [
+                'attr' => [
+                    'class' => 'button buttonAdmin'
+                ]
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

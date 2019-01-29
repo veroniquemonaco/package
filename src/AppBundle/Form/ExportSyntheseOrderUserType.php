@@ -13,7 +13,9 @@ class ExportSyntheseOrderUserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('yearPaquetage', TextType::class)
+            ->add('yearPaquetage', TextType::class, [
+                'label' => 'Année du Paquetage'
+            ])
             ->add('submit', SubmitType::class, [
                 'attr' => [
                     'class' => 'button buttonAdmin'

@@ -70,6 +70,54 @@ class Product
     private $qualifications;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="min_qty", type="integer")
+     */
+    private $minQty;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="max_qty", type="integer")
+     */
+    private $maxQty;
+
+    /**
+     * @return int
+     */
+    public function getMinQty()
+    {
+        return $this->minQty;
+    }
+
+    /**
+     * @param int $minQty
+     */
+    public function setMinQty($minQty)
+    {
+        $this->minQty = $minQty;
+    }
+
+    /**
+     * @return int
+     */
+    public function getMaxQty()
+    {
+        return $this->maxQty;
+    }
+
+    /**
+     * @param int $maxQty
+     */
+    public function setMaxQty($maxQty)
+    {
+        $this->maxQty = $maxQty;
+    }
+
+
+
+    /**
      * @return bool
      */
     public function isActif()

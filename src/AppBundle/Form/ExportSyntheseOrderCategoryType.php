@@ -13,12 +13,14 @@ class ExportSyntheseOrderCategoryType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('yearPaquetage2', TextType::class)
+            ->add('yearPaquetage2', TextType::class, [
+                'label' => 'Année du Paquetage'
+            ])
             ->add('submit', SubmitType::class, [
                 'attr' => [
                     'class' => 'button buttonAdmin'
                 ],
-                'label' => 'search'
+                'label' => 'Rechercher'
             ]);
     }
 
