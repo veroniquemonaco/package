@@ -37,40 +37,48 @@
         </div>
 
         <div class="mt-3">
-            {% if user.qualification.id == 1 %}
-                {% if totalHT < 373 %}
-                    <a href="{{ path('commande', { 'panier': panier }) }}"
-                       class="btn btn-next float-right">Valider</a>
-                {% else %}
-                    <p>le montant est trop élevé refaire votre sélection</p>
-                {% endif %}
-            {% elseif user.qualification.id == 2 %}
-                {% if totalHT < 374 %}
-                    <a href="{{ path('commande', { 'panier': panier }) }}"
-                       class="btn btn-next float-right">Valider</a>
-                {% else %}
-                    <p>le montant est trop élevé refaire votre sélection</p>
-                {% endif %}
-            {% elseif user.qualification.id == 3 %}
-                {% if totalHT < 391 %}
-                    <a href="{{ path('commande', { 'panier': panier }) }}"
-                       class="btn btn-next float-right">Valider</a>
-                {% else %}
-                    <p>le montant est trop élevé refaire votre sélection</p>
-                {% endif %}
-            {% elseif user.qualification.id == 4 %}
-                {% if totalHT < 391 %}
-                    <a href="{{ path('commande', { 'panier': panier }) }}"
-                       class="btn btn-next float-right">Valider</a>
-                {% else %}
-                    <p>le montant est trop élevé refaire votre sélection</p>
-                {% endif %}
-            {% elseif user.qualification.id == 5 %}
-                {% if totalHT < 416 %}
-                    <a href="{{ path('commande', { 'panier': panier }) }}"
-                       class="btn btn-next float-right">Valider</a>
-                {% else %}
-                    <p>le montant est trop élevé refaire votre sélection</p>
+            {% if errorMessage == 'ko' %}
+                <p class="panier-alert-msg">il manque un produit dans votre sélection</p>
+                <a href="{{ path('commande', { 'panier': panier }) }}"
+                   class="btn btn-next float-right disabled">Valider</a>
+            {% elseif errorMessageQte == 'ko' %}
+                <p class="panier-alert-msg">une quantité est soit trop élevée soit trop faible sur un ou plusieurs produits de la sélection</p>
+            {% else %}
+                {% if user.qualification.id == 1 %}
+                    {% if totalHT < 373 %}
+                        <a href="{{ path('commande', { 'panier': panier }) }}"
+                           class="btn btn-next float-right">Valider</a>
+                    {% else %}
+                        <p class="panier-alert-msg">le montant est trop élevé refaire votre sélection</p>
+                    {% endif %}
+                {% elseif user.qualification.id == 2 %}
+                    {% if totalHT < 374 %}
+                        <a href="{{ path('commande', { 'panier': panier }) }}"
+                           class="btn btn-next float-right">Valider</a>
+                    {% else %}
+                        <p class="panier-alert-msg">le montant est trop élevé refaire votre sélection</p>
+                    {% endif %}
+                {% elseif user.qualification.id == 3 %}
+                    {% if totalHT < 391 %}
+                        <a href="{{ path('commande', { 'panier': panier }) }}"
+                           class="btn btn-next float-right">Valider</a>
+                    {% else %}
+                        <p class="panier-alert-msg">le montant est trop élevé refaire votre sélection</p>
+                    {% endif %}
+                {% elseif user.qualification.id == 4 %}
+                    {% if totalHT < 391 %}
+                        <a href="{{ path('commande', { 'panier': panier }) }}"
+                           class="btn btn-next float-right">Valider</a>
+                    {% else %}
+                        <p class="panier-alert-msg">le montant est trop élevé refaire votre sélection</p>
+                    {% endif %}
+                {% elseif user.qualification.id == 5 %}
+                    {% if totalHT < 416 %}
+                        <a href="{{ path('commande', { 'panier': panier }) }}"
+                           class="btn btn-next float-right">Valider</a>
+                    {% else %}
+                        <p class="panier-alert-msg">le montant est trop élevé refaire votre sélection</p>
+                    {% endif %}
                 {% endif %}
             {% endif %}
 

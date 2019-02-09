@@ -31,20 +31,12 @@ class PanierController extends Controller
                 $panierCorrige[$index]=$addproduct;
             }
         }
-
-        $pdts = $paquetageQualification->getPaquetageType($user);
-
-        dump($pdts);
-
         // liste des paquetages idpdt type par qualification
-        $paquetageCompagnon = [6,11,16,21,24,33];
-        $paquetageCompagnonMinorange = [7,12,17,22,24,33];
-        $paquetageChefEquipe = [6,11,16,21,24,33];
-        $paquetageChefEquipeMinorange = [6,11,16,21,24,33];
-        $paquetageMaitrise = [6,11,16,21,24,33];
-        $paquetageMaitriseMinorange = [6,11,16,21,24,33];
-
+        $paquetageType = $paquetageQualification->getPaquetageType($user);
         $paquetageChaussures = [30,31,32];
+
+        dump($paquetageType);
+        dump($panierCorrige);
 
         $pdtPanier = [];
         $idPdtPanier = [];
@@ -71,7 +63,7 @@ class PanierController extends Controller
 
         // on vérifie si tous les idpdt attendus dans le paquetage type sont présents
         // sinon on envoie un message d'erreur
-        foreach ($paquetageCompagnon as $value) {
+        foreach ($paquetageType as $value) {
             if (!in_array($value,$idPdtPanier)) {
                 $errorMessage='ko';
             }
@@ -102,11 +94,14 @@ class PanierController extends Controller
             }
         }
 
-
+        dump($errorMessage);
+        dump($errorMessageQte);
 
         return $this->render('front/panier.html.twig', array(
             'panier' => $panierCorrige,
-            'user' => $user
+            'user' => $user,
+            'errorMessage' => $errorMessage,
+            'errorMessageQte' => $errorMessageQte
         ));
     }
 }

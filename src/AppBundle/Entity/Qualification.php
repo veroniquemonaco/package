@@ -29,6 +29,13 @@ class Qualification
     private $name;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="max_amount_package", type="integer")
+     */
+    private $maxAmountPackage;
+
+    /**
      * @var
      *
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\User", mappedBy="qualification")
@@ -150,5 +157,21 @@ class Qualification
     public function getProducts()
     {
         return $this->products;
+    }
+
+    /**
+     * @return int
+     */
+    public function getMaxAmountPackage()
+    {
+        return $this->maxAmountPackage;
+    }
+
+    /**
+     * @param int $maxAmountPackage
+     */
+    public function setMaxAmountPackage($maxAmountPackage)
+    {
+        $this->maxAmountPackage = $maxAmountPackage;
     }
 }

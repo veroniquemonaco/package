@@ -8,12 +8,9 @@
             <a href="" class="btn btn-package ml-4" data-toggle="modal" data-target="#exampleModal">guide des tailles</a>
         </h4>
 
-
-        {#<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">#}
-            {#Launch demo modal#}
-        {#</button>#}
-
     </div>
+
+    <div class="amount-cart">{{ amountCart }}</div>
 
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -32,7 +29,6 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-                    {#<button type="button" class="btn btn-primary">Save changes</button>#}
                 </div>
             </div>
         </div>
@@ -174,8 +170,10 @@
                         dataType: 'json',
                         data: {'addProduct': addProduct, 'cart': cart},
                         success: function (data) {
+                            console.log(data);
                             let idPdtCart = data['addPdtId'];
                             let qtyCart = data['addPdtQty'];
+                            let amountCartAjax = data['amountCartAjax'];
                             let tailleCart = data['addPdtTaille'];
                             let libellePdtCart = data['addPdtLibelle'].replace(/"/g, "");
                             let libelleTailleCart = data['addPdtTailleLibelle'].replace(/"/g, "");
@@ -185,6 +183,7 @@
                                 "<td class=\"col-2\">" + libelleTailleCart + "</td>" +
                                 "<td class=\"col-1\">" + qtyCart + "</td>\n" +
                                 "</tr>");
+                            $('.amount-cart').html(amountCartAjax);
                         }
                     })
                 } else {
@@ -204,6 +203,7 @@
                         dataType: 'json',
                         data: {'lessProduct': lessProduct},
                         success: function (data) {
+                            console.log(data)
                             let lessPdtId = data['lessPdtId'];
                             $('#idpdt-' + lessPdtId + '').remove();
                             $('#idpdt-panier-' + lessPdtId + '').remove();
