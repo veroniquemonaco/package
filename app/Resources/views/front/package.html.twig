@@ -1,5 +1,7 @@
 {% extends 'base.html.twig' %}
 
+{% set  maxAmount = user.qualification.maxAmountPackage %}
+
 {% block body %}
 
     <div class="mb-4">
@@ -7,10 +9,15 @@
             paquetage de {{ yearPaquetage }}
             <a href="" class="btn btn-package ml-4" data-toggle="modal" data-target="#exampleModal">guide des tailles</a>
         </h4>
-
     </div>
 
-    <div class="amount-cart">{{ amountCart }}</div>
+    {% set progressionCart = (amountCart/maxAmount)*100 %}
+    <div class="amount-cart">{{ progressionCart|round }} %</div>
+
+    <div class="progress mb-4 w-50 mr-auto ml-auto">
+        <div class="progress-bar" role="progressbar" style="width: {{ progressionCart|round }}%;" aria-valuenow="{{ progressionCart|round }}"
+             aria-valuemin="0" aria-valuemax="100">{{ progressionCart|round }}%</div>
+    </div>
 
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -174,6 +181,7 @@
                             let idPdtCart = data['addPdtId'];
                             let qtyCart = data['addPdtQty'];
                             let amountCartAjax = data['amountCartAjax'];
+                            let progressAmountCart = Math.floor(amountCartAjax/data['maxAmount']*100);
                             let tailleCart = data['addPdtTaille'];
                             let libellePdtCart = data['addPdtLibelle'].replace(/"/g, "");
                             let libelleTailleCart = data['addPdtTailleLibelle'].replace(/"/g, "");
@@ -183,7 +191,10 @@
                                 "<td class=\"col-2\">" + libelleTailleCart + "</td>" +
                                 "<td class=\"col-1\">" + qtyCart + "</td>\n" +
                                 "</tr>");
-                            $('.amount-cart').html(amountCartAjax);
+                            $('.amount-cart').html(progressAmountCart);
+                            $('.progress-bar').html(progressAmountCart+'%')
+                            $('.progress-bar').attr('aria-valuenow',progressAmountCart);
+                            $('.progress-bar').attr('style','width:' + progressAmountCart + '%');
                         }
                     })
                 } else {
@@ -205,8 +216,14 @@
                         success: function (data) {
                             console.log(data)
                             let lessPdtId = data['lessPdtId'];
+                            let amountCartAjax = data['amountCartAjax'];
+                            let progressAmountCart = Math.floor(amountCartAjax/data['maxAmount']*100);
                             $('#idpdt-' + lessPdtId + '').remove();
                             $('#idpdt-panier-' + lessPdtId + '').remove();
+                            $('.amount-cart').html(progressAmountCart);
+                            $('.progress-bar').html(progressAmountCart+'%')
+                            $('.progress-bar').attr('aria-valuenow',progressAmountCart)
+                            $('.progress-bar').attr('style','width:' + progressAmountCart + '%');
                         }
                     })
                 }

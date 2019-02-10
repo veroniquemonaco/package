@@ -34,9 +34,11 @@ class PanierController extends Controller
         // liste des paquetages idpdt type par qualification
         $paquetageType = $paquetageQualification->getPaquetageType($user);
         $paquetageChaussures = [30,31,32];
+        $arrayRules = $this->rulesQualificationPanier($user);
 
         dump($paquetageType);
         dump($panierCorrige);
+        dump($arrayRules);
 
         $pdtPanier = [];
         $idPdtPanier = [];
@@ -103,5 +105,33 @@ class PanierController extends Controller
             'errorMessage' => $errorMessage,
             'errorMessageQte' => $errorMessageQte
         ));
+    }
+
+    private function rulesQualificationPanier($user) {
+
+        $qualificationUser = $user->getQualification()->getId();
+        $arrayRules = [];
+
+        if ($qualificationUser == 1) {
+           $arrayRules['pantalons']=[6,11];
+           $arrayRules['chaussures']=[30,31,32];
+           $arrayRules['vestes']=[16,33];
+        } elseif ($qualificationUser == 2) {
+            $arrayRules['pantalons']=[7,12];
+            $arrayRules['chaussures']=[30,31,32];
+            $arrayRules['vestes']=[17,34];
+        } elseif ($qualificationUser == 3) {
+            $arrayRules['pantalons'] = [8, 13];
+            $arrayRules['chaussures'] = [30, 31, 32];
+            $arrayRules['vestes'] = [18, 35];
+            $arrayRules['shirts'] = [7, 45, 47];
+        } elseif ($qualificationUser == 4) {
+            $arrayRules['pantalons'] = [9, 14];
+            $arrayRules['chaussures'] = [30, 31, 32];
+            $arrayRules['vestes'] = [19, 36];
+            $arrayRules['shirts'] = [8, 46, 48];
+        }
+
+        return $arrayRules;
     }
 }

@@ -34,18 +34,6 @@ class PackageController extends Controller
         if ($userQualification === 7 ) {
             return $this->redirectToRoute('admin');
         } else {
-//            $yearPaquetage = '';
-//            $yearPaquetageOld = '';
-//            $date = new \DateTime();
-//            $dateMonth = $date->format('m');
-//            $year = $date->format('Y');
-//            if (in_array($dateMonth,[7,8,9,10,11,12])){
-//                $yearPaquetage = intval($year) + 1;
-//                $yearPaquetageOld = intval($year);
-//            } else if (in_array($dateMonth,[1,2,3,4,5,6])){
-//                $yearPaquetage = intval($year);
-//                $yearPaquetageOld = intval($year)-1;
-//            }
             $yearPaquetage = '';
             $yearPaquetageOld = '';
             $years = $yearPaquetageService->getYearPaquetage();
@@ -79,23 +67,17 @@ class PackageController extends Controller
     /**
      * @Route("/package", name="package")
      */
-    public function indexAction(Request $request)
+    public function indexAction(Request $request,YearPaquetageService $yearPaquetageService)
     {
 
         $em = $this->getDoctrine()->getManager();
         $user = $this->getUser();
 
         $yearPaquetage = '';
-        $date = new \DateTime();
-        $dateMonth = $date->format('m');
-        $year = $date->format('Y');
-        if (in_array($dateMonth,[7,8,9,10,11,12])){
-            $yearPaquetage = intval($year) + 1;
-            $yearPaquetageOld = intval($year);
-        } else if (in_array($dateMonth,[1,2,3,4,5,6])){
-            $yearPaquetage = intval($year);
-            $yearPaquetageOld = intval($year)-1;
-        }
+        $yearPaquetageOld = '';
+        $years = $yearPaquetageService->getYearPaquetage();
+        $yearPaquetage = $years[0];
+        $yearPaquetageOld = $years[1];
 
         $commandeYearPaquetage = [];
         $commandeYearPaquetageOld = [];
@@ -119,7 +101,6 @@ class PackageController extends Controller
 
         if ($commandeUserOld != []) {
             $commandeYearPaquetageOld = $commandeUserOld[0]->getCommande();
-
             foreach ($commandeYearPaquetageOld as $idpdt => $orderarray) {
                 $backOrderOld[$idpdt] = $idpdt;
             }
@@ -128,12 +109,9 @@ class PackageController extends Controller
 
         if ($commandeUser != []) {
             $commandeYearPaquetage = $commandeUser[0]->getCommande();
-
-
             foreach ($commandeYearPaquetage as $idpdt => $orderarray) {
                 $backOrder[$idpdt] = $idpdt;
             }
-
 
             foreach ($commandeYearPaquetage as $idpdt => $orderarray) {
                 $addProductCde = new Addproduct();
@@ -161,15 +139,13 @@ class PackageController extends Controller
 
         }
 
-
         if (!$session->has('panier')) $session->set('panier', $callpanieractif);
         $panier = $session->get('panier');
-        dump($panier);
         $amountCart=0;
         foreach($panier as $index=>$addpdt) {
             $amountCart = $amountCart + $addpdt->getPrice()*$addpdt->getQuantity();
         }
-        dump($amountCart);
+        $maxAmount = $user->getQualification()->getMaxAmountPackage();
 
         if ($request->isXmlHttpRequest()) {
             if (!$session->has('panier')) $session->set('panier', $callpanier);
@@ -212,16 +188,20 @@ class PackageController extends Controller
                     "addPdtTailleId" => json_encode($addProduct->getTaille()->getId()),
                     "addPdtPrix" => json_encode($addProduct->getPrice()),
                     "amountCartAjax" => $amountCartAjax,
+                    "maxAmount" => $maxAmount
                 ));
             } elseif ($lessData) {
                 $product = $em->getRepository(Product::class)->findOneBy(['id' => $lessData['idPdt']]);
-                $amountCartAjax = $amountCartAjax - ($panier[$product->getId()]->getquantity()*$panier[$product->getId()]->getPrice());
+                $productLinePrice = $panier[$product->getId()]->getquantity()*$panier[$product->getId()]->getPrice();
+                $amountCartAjax = $amountCartAjax-$productLinePrice;
                 unset($panier[$product->getId()]);
                 $session->set('panier', $panier);
                 unset($backOrder[$product->getId()]);
                 return new JsonResponse(array(
                     "lessPdtId" => json_encode($product->getId()),
-                    "amountCartAjax" => $amountCartAjax
+                    "amountCartAjax" => $amountCartAjax,
+                    "prixpdt" => $productLinePrice,
+                    "maxAmount" => $maxAmount
                 ));
             } elseif ($lessDataPanier) {
                 $product = $em->getRepository(Product::class)->findOneBy(['id' => $lessDataPanier['idPdt']]);
@@ -241,6 +221,7 @@ class PackageController extends Controller
             'backOrder' => $backOrder,
             'yearPaquetage' => $yearPaquetage,
             'panier' => $panier,
+            'amountCart' => $amountCart
         ));
     }
 
@@ -251,18 +232,6 @@ class PackageController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $user = $this->getUser();
-
-//        $yearPaquetage = '';
-//        $date = new \DateTime();
-//        $dateMonth = $date->format('m');
-//        $year = $date->format('Y');
-//        if (in_array($dateMonth,[7,8,9,10,11,12])){
-//            $yearPaquetage = intval($year) + 1;
-//            $yearPaquetageOld = intval($year);
-//        } else if (in_array($dateMonth,[1,2,3,4,5,6])){
-//            $yearPaquetage = intval($year);
-//            $yearPaquetageOld = intval($year)-1;
-//        }
 
         $yearPaquetage = '';
         $yearPaquetageOld = '';
@@ -327,63 +296,9 @@ class PackageController extends Controller
         foreach($panier as $index=>$addpdt) {
             $amountCart = $amountCart + $addpdt->getPrice()*$addpdt->getQuantity();
         }
+        $amountCartAjax = $amountCart;
+        $maxAmount = $user->getQualification()->getMaxAmountPackage();
         dump($panier);
-
-        if ($request->isXmlHttpRequest()) {
-            if (!$session->has('panier')) $session->set('panier', $callpanier);
-            $panier = $session->get('panier');
-            $data = $request->get('addProduct');
-            $lessData = $request->get('lessProduct');
-            $lessDataPanier = $request->get('lessProductPanier');
-
-            if ($data) {
-                $qty = intval($data['qty']);
-                $product = $em->getRepository(Product::class)
-                    ->findOneBy(['id' => $data['idPdt']]);
-                $productId = $product->getId();
-                $price = $product->getPrix();
-                $amount = $price * $qty;
-                $amountCartAjax = $amountCart + $amount;
-                $taille = $em->getRepository(Taille::class)->findOneBy(['id' => $data['taille']]);
-                $addProduct = new Addproduct();
-                $addProduct->setProduct($product);
-                $addProduct->setTaille($taille);
-                $addProduct->setQuantity($qty);
-                $addProduct->setPrice($price);
-                $em->persist($addProduct);
-                $em->flush();
-
-                $panier[$productId] = $addProduct;
-                $session->set('panier', $panier);
-                array_push($backOrder, $productId);
-
-                return new JsonResponse(array("addPdtId" => json_encode($addProduct->getProduct()->getId()),
-                    "addPdtTaille" => json_encode($addProduct->getTaille()->getId()),
-                    "addPdtQty" => json_encode($addProduct->getQuantity()),
-                    "addPdtLibelle" => json_encode($addProduct->getProduct()->getName()),
-                    "addPdtTailleLibelle" => json_encode($addProduct->getTaille()->getName()),
-                    "addPdtTailleId" => json_encode($addProduct->getTaille()->getId()),
-                    "addPdtPrix" => json_encode($addProduct->getPrice()),
-                ));
-            } elseif ($lessData) {
-
-                $product = $em->getRepository(Product::class)->findOneBy(['id' => $lessData['idPdt']]);
-                unset($panier[$product->getId()]);
-                $session->set('panier', $panier);
-                unset($backOrder[$product->getId()]);
-                return new JsonResponse(array(
-                    "lessPdtId" => json_encode($product->getId())
-                ));
-            } elseif ($lessDataPanier) {
-                $product = $em->getRepository(Product::class)->findOneBy(['id' => $lessDataPanier['idPdt']]);
-                unset($panier[$product->getId()]);
-                $session->set('panier', $panier);
-                unset($backOrder[$product->getId()]);
-                return new JsonResponse(array(
-                    "lessPdtIdPanier" => json_encode($product->getId())
-                ));
-            }
-        }
 
         return $this->render('front/package.html.twig', array(
             'produits' => $produits,
@@ -399,7 +314,7 @@ class PackageController extends Controller
     /**
      * @Route("/packageReturn", name="package_return")
      */
-    public function packageReturn(Request $request)
+    public function packageReturn(Request $request,YearPaquetageService $yearPaquetageService )
     {
         $em = $this->getDoctrine()->getManager();
         $user = $this->getUser();
@@ -415,6 +330,13 @@ class PackageController extends Controller
             $yearPaquetage = intval($year);
             $yearPaquetageOld = intval($year)-1;
         }
+
+        $yearPaquetage = '';
+        $yearPaquetageOld = '';
+        $years = $yearPaquetageService->getYearPaquetage();
+        $yearPaquetage = $years[0];
+        $yearPaquetageOld = $years[1];
+
         $commandeYearPaquetage = [];
         $commandeYearPaquetageOld = [];
         $backOrder = [];
@@ -428,99 +350,14 @@ class PackageController extends Controller
 
         $session = new Session();
 
-//        $commandeUser = $em->getRepository(Commande::class)->findBy(array('yearPaquetage' => $yearPaquetage,
-//            'user' => $user));
-//
-//        $commandeUserOld = $em->getRepository(Commande::class)->findBy(array('yearPaquetage' => $yearPaquetageOld,
-//            'user' => $user));
-//
-//        if ($commandeUserOld != []) {
-//            $commandeYearPaquetageOld = $commandeUserOld[0]->getCommande();
-//
-//            foreach ($commandeYearPaquetageOld as $idpdt => $orderarray) {
-//                $backOrderOld[$idpdt] = $idpdt;
-//            }
-//
-//            foreach ($commandeYearPaquetageOld as $idpdt => $orderarray) {
-//                $addProductCde = new Addproduct();
-//                $addProductCde->setProduct(
-//                    $em->getRepository(Product::class)->findOneBy(['id' => $orderarray['idpdt']]));
-//                $addProductCde->setTaille(
-//                    $em->getRepository(Taille::class)->findOneBy(['id' => $orderarray['tailleid']])
-//                );
-//                $addProductCde->setQuantity($orderarray['qte']);
-//                $addProductCde->setPrice(
-//                    $em->getRepository(Product::class)->findOneBy(['id' => $orderarray['idpdt']])->getPrix()
-//                );
-//                $em->persist($addProductCde);
-//                $em->flush();
-//                $callpanier[$idpdt] = $addProductCde;
-//            }
-//
-//
-//        }
-
-//        if (!$session->has('panier')) $session->set('panier', $callpanier);
+        if (!$session->has('panier')) $session->set('panier', $callpanier);
         $panier = $session->get('panier');
         foreach ($panier as $index=>$addproduct) {
             $backOrderOld[$index] = $index;
         }
-
-        if ($request->isXmlHttpRequest()) {
-            if (!$session->has('panier')) $session->set('panier', $callpanier);
-            $panier = $session->get('panier');
-
-            $data = $request->get('addProduct');
-            $lessData = $request->get('lessProduct');
-            $lessDataPanier = $request->get('lessProductPanier');
-
-            if ($data) {
-                $qty = intval($data['qty']);
-                $product = $em->getRepository(Product::class)
-                    ->findOneBy(['id' => $data['idPdt']]);
-                $productId = $product->getId();
-                $price = $product->getPrix();
-                $amount = $price * $qty;
-                $taille = $em->getRepository(Taille::class)->findOneBy(['id' => $data['taille']]);
-                $addProduct = new Addproduct();
-                $addProduct->setProduct($product);
-                $addProduct->setTaille($taille);
-                $addProduct->setQuantity($qty);
-                $addProduct->setPrice($price);
-                $em->persist($addProduct);
-                $em->flush();
-
-                $panier[$productId] = $addProduct;
-                $session->set('panier', $panier);
-                array_push($backOrder, $productId);
-
-
-                return new JsonResponse(array("addPdtId" => json_encode($addProduct->getProduct()->getId()),
-                    "addPdtTaille" => json_encode($addProduct->getTaille()->getId()),
-                    "addPdtQty" => json_encode($addProduct->getQuantity()),
-                    "addPdtLibelle" => json_encode($addProduct->getProduct()->getName()),
-                    "addPdtTailleLibelle" => json_encode($addProduct->getTaille()->getName()),
-                    "addPdtTailleId" => json_encode($addProduct->getTaille()->getId()),
-                    "addPdtPrix" => json_encode($addProduct->getPrice()),
-                ));
-            } elseif ($lessData) {
-
-                $product = $em->getRepository(Product::class)->findOneBy(['id' => $lessData['idPdt']]);
-                unset($panier[$product->getId()]);
-                $session->set('panier', $panier);
-                unset($backOrder[$product->getId()]);
-                return new JsonResponse(array(
-                    "lessPdtId" => json_encode($product->getId())
-                ));
-            } elseif ($lessDataPanier) {
-                $product = $em->getRepository(Product::class)->findOneBy(['id' => $lessDataPanier['idPdt']]);
-                unset($panier[$product->getId()]);
-                $session->set('panier', $panier);
-                unset($backOrder[$product->getId()]);
-                return new JsonResponse(array(
-                    "lessPdtIdPanier" => json_encode($product->getId())
-                ));
-            }
+        $amountCart=0;
+        foreach($panier as $index=>$addpdt) {
+            $amountCart = $amountCart + $addpdt->getPrice()*$addpdt->getQuantity();
         }
 
         return $this->render('front/package.html.twig', array(
@@ -530,6 +367,7 @@ class PackageController extends Controller
             'backOrder' => $backOrderOld,
             'yearPaquetage' => $yearPaquetage,
             'panier' => $panier,
+            'amountCart' => $amountCart
         ));
     }
 
@@ -537,22 +375,17 @@ class PackageController extends Controller
     /**
      * @Route("/packageInit", name="package_init")
      */
-    public function packageInit(Request $request)
+    public function packageInit(Request $request, YearPaquetageService $yearPaquetageService)
     {
         $em = $this->getDoctrine()->getManager();
         $user = $this->getUser();
 
         $yearPaquetage = '';
-        $date = new \DateTime();
-        $dateMonth = $date->format('m');
-        $year = $date->format('Y');
-        if (in_array($dateMonth,[7,8,9,10,11,12])){
-            $yearPaquetage = intval($year) + 1;
-            $yearPaquetageOld = intval($year);
-        } else if (in_array($dateMonth,[1,2,3,4,5,6])){
-            $yearPaquetage = intval($year);
-            $yearPaquetageOld = intval($year)-1;
-        }
+        $yearPaquetageOld = '';
+        $years = $yearPaquetageService->getYearPaquetage();
+        $yearPaquetage = $years[0];
+        $yearPaquetageOld = $years[1];
+
         $commandeYearPaquetage = [];
         $commandeYearPaquetageOld = [];
         $backOrder = [];
@@ -569,61 +402,9 @@ class PackageController extends Controller
         if (!$session->has('panier')) $session->set('panier', $callpanier);
         $panier = $session->get('panier');
 
-        if ($request->isXmlHttpRequest()) {
-            if (!$session->has('panier')) $session->set('panier', $callpanier);
-            $panier = $session->get('panier');
-
-            $data = $request->get('addProduct');
-            $lessData = $request->get('lessProduct');
-            $lessDataPanier = $request->get('lessProductPanier');
-
-            if ($data) {
-                $qty = intval($data['qty']);
-                $product = $em->getRepository(Product::class)
-                    ->findOneBy(['id' => $data['idPdt']]);
-                $productId = $product->getId();
-                $price = $product->getPrix();
-                $amount = $price * $qty;
-                $taille = $em->getRepository(Taille::class)->findOneBy(['id' => $data['taille']]);
-                $addProduct = new Addproduct();
-                $addProduct->setProduct($product);
-                $addProduct->setTaille($taille);
-                $addProduct->setQuantity($qty);
-                $addProduct->setPrice($price);
-                $em->persist($addProduct);
-                $em->flush();
-
-                $panier[$productId] = $addProduct;
-                $session->set('panier', $panier);
-                array_push($backOrder, $productId);
-
-
-                return new JsonResponse(array("addPdtId" => json_encode($addProduct->getProduct()->getId()),
-                    "addPdtTaille" => json_encode($addProduct->getTaille()->getId()),
-                    "addPdtQty" => json_encode($addProduct->getQuantity()),
-                    "addPdtLibelle" => json_encode($addProduct->getProduct()->getName()),
-                    "addPdtTailleLibelle" => json_encode($addProduct->getTaille()->getName()),
-                    "addPdtTailleId" => json_encode($addProduct->getTaille()->getId()),
-                    "addPdtPrix" => json_encode($addProduct->getPrice()),
-                ));
-            } elseif ($lessData) {
-
-                $product = $em->getRepository(Product::class)->findOneBy(['id' => $lessData['idPdt']]);
-                unset($panier[$product->getId()]);
-                $session->set('panier', $panier);
-                unset($backOrder[$product->getId()]);
-                return new JsonResponse(array(
-                    "lessPdtId" => json_encode($product->getId())
-                ));
-            } elseif ($lessDataPanier) {
-                $product = $em->getRepository(Product::class)->findOneBy(['id' => $lessDataPanier['idPdt']]);
-                unset($panier[$product->getId()]);
-                $session->set('panier', $panier);
-                unset($backOrder[$product->getId()]);
-                return new JsonResponse(array(
-                    "lessPdtIdPanier" => json_encode($product->getId())
-                ));
-            }
+        $amountCart=0;
+        foreach($panier as $index=>$addpdt) {
+            $amountCart = $amountCart + $addpdt->getPrice()*$addpdt->getQuantity();
         }
 
         return $this->render('front/package.html.twig', array(
@@ -633,6 +414,7 @@ class PackageController extends Controller
             'backOrder' => $backOrderOld,
             'yearPaquetage' => $yearPaquetage,
             'panier' => $panier,
+            'amountCart' => $amountCart
         ));
     }
 
@@ -642,14 +424,11 @@ class PackageController extends Controller
      */
     public function ResetPanierAction(Session $session)
     {
-
         $session = new Session();
         if ($session->has('panier'))
             $session->remove('panier');
 
         return $this->redirectToRoute('package_init');
-
-
     }
 
 
