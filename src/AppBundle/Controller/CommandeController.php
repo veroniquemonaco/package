@@ -10,32 +10,28 @@ use AppBundle\Entity\UserOrderByCategory;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
+use AppBundle\Service\YearPaquetageService;
 
 class CommandeController extends Controller
 {
     /**
      * @Route("/commande", name="commande")
      */
-    public function indexAction()
+    public function indexAction(YearPaquetageService $yearPaquetageService)
     {
         $em = $this->getDoctrine()->getManager();
         $user = $this->getUser();
 
         $yearPaquetage = '';
-        $date = new \DateTime();
-        $dateMonth = $date->format('m');
-        $year = $date->format('Y');
-        if (in_array($dateMonth,[7,8,9,10,11,12])){
-            $yearPaquetage = intval($year) + 1;
-        } else if (in_array($dateMonth,[1,2,3,4,5,6])){
-            $yearPaquetage = intval($year);
-        }
+        $years = $yearPaquetageService->getYearPaquetage();
+        $yearPaquetage = $years[0];
+
         $commandeUser = [];
         $commande = [];
         $productsPackage = [];
         $arrayByCategory = [];
         $matricule = $user->getMatricule();
-        $reference = $year.'-'.$matricule;
+        $reference = $yearPaquetage.'-'.$matricule;
 
 
         $categories = $em->getRepository(Category::class)->findAll();

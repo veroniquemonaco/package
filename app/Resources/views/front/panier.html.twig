@@ -37,43 +37,53 @@
         </div>
 
         <div class="mt-3">
-            {% if errorMessage == 'ko' %}
-                <p class="panier-alert-msg">il manque un produit dans votre sélection</p>
+            {% if msg1 == 'ko' %}
+                <p class="panier-alert-msg">vous devez prendre au moins 3 pantalons dans votre paquetage</p>
                 <a href="{{ path('commande', { 'panier': panier }) }}"
                    class="btn btn-next float-right disabled">Valider</a>
-            {% elseif errorMessageQte == 'ko' %}
-                <p class="panier-alert-msg">une quantité est soit trop élevée soit trop faible sur un ou plusieurs produits de la sélection</p>
+            {% elseif msg2 == 'ko' %}
+                <p class="panier-alert-msg">vous devez prendre au moins 1 paire de chaussures</p>
+                <a href="{{ path('commande', { 'panier': panier }) }}"
+                   class="btn btn-next float-right disabled">Valider</a>
+            {% elseif msg3 == 'ko' %}
+                <p class="panier-alert-msg">vous devez prendre au moins 1 sweat shirt ou 1 veste d'hiver</p>
+                <a href="{{ path('commande', { 'panier': panier }) }}"
+                   class="btn btn-next float-right disabled">Valider</a>
+            {% elseif msg4 == 'ko' %}
+                <p class="panier-alert-msg">vous devez prendre au moins 3 articles entre les polos et les tee-shirts</p>
+                <a href="{{ path('commande', { 'panier': panier }) }}"
+                   class="btn btn-next float-right disabled">Valider</a>
             {% else %}
                 {% if user.qualification.id == 1 %}
-                    {% if totalHT < 373 %}
+                    {% if totalHT < user.qualification.maxAmountPackage %}
                         <a href="{{ path('commande', { 'panier': panier }) }}"
                            class="btn btn-next float-right">Valider</a>
                     {% else %}
                         <p class="panier-alert-msg">le montant est trop élevé refaire votre sélection</p>
                     {% endif %}
                 {% elseif user.qualification.id == 2 %}
-                    {% if totalHT < 374 %}
+                    {% if totalHT < user.qualification.maxAmountPackage %}
                         <a href="{{ path('commande', { 'panier': panier }) }}"
                            class="btn btn-next float-right">Valider</a>
                     {% else %}
                         <p class="panier-alert-msg">le montant est trop élevé refaire votre sélection</p>
                     {% endif %}
                 {% elseif user.qualification.id == 3 %}
-                    {% if totalHT < 391 %}
+                    {% if totalHT < user.qualification.maxAmountPackage %}
                         <a href="{{ path('commande', { 'panier': panier }) }}"
                            class="btn btn-next float-right">Valider</a>
                     {% else %}
                         <p class="panier-alert-msg">le montant est trop élevé refaire votre sélection</p>
                     {% endif %}
                 {% elseif user.qualification.id == 4 %}
-                    {% if totalHT < 391 %}
+                    {% if totalHT < user.qualification.maxAmountPackage %}
                         <a href="{{ path('commande', { 'panier': panier }) }}"
                            class="btn btn-next float-right">Valider</a>
                     {% else %}
                         <p class="panier-alert-msg">le montant est trop élevé refaire votre sélection</p>
                     {% endif %}
                 {% elseif user.qualification.id == 5 %}
-                    {% if totalHT < 416 %}
+                    {% if totalHT < user.qualification.maxAmountPackage %}
                         <a href="{{ path('commande', { 'panier': panier }) }}"
                            class="btn btn-next float-right">Valider</a>
                     {% else %}

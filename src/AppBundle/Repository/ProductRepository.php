@@ -19,6 +19,7 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
             ->leftJoin('p.qualifications','q')
             ->where('q.id = :qualificationId')
             ->andWhere('p.actif = :actif')
+            ->orderBy('p.position','ASC')
             ->setParameter('qualificationId', $qualificationId)
             ->setParameter('actif',true);
 

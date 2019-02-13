@@ -7,16 +7,27 @@
     <div class="mb-4">
         <h4 class="text-center">{{ user.firstname }} {{ user.lastname }} confectionnez votre
             paquetage de {{ yearPaquetage }}
-            <a href="" class="btn btn-package ml-4" data-toggle="modal" data-target="#exampleModal">guide des tailles</a>
+            <a href="" class="btn btn-package ml-4" data-toggle="modal" data-target="#exampleModal">guide des
+                tailles</a>
+            <a href="" class="btn btn-package ml-4" data-toggle="modal" data-target="#exampleModal2">guide des
+                chaussures</a>
         </h4>
     </div>
 
     {% set progressionCart = (amountCart/maxAmount)*100 %}
-    <div class="amount-cart">{{ progressionCart|round }} %</div>
 
     <div class="progress mb-4 w-50 mr-auto ml-auto">
-        <div class="progress-bar" role="progressbar" style="width: {{ progressionCart|round }}%;" aria-valuenow="{{ progressionCart|round }}"
-             aria-valuemin="0" aria-valuemax="100">{{ progressionCart|round }}%</div>
+        {% if progressionCart < 100 %}
+            <div class="progress-bar progress-package" role="progressbar" style="width: {{ progressionCart|round }}%;"
+                 aria-valuenow="{{ progressionCart|round }}"
+                 aria-valuemin="0" aria-valuemax="100">{{ progressionCart|round }}%
+            </div>
+        {% else %}
+            <div class="progress-bar progress-package-over" role="progressbar" style="width: {{ progressionCart|round }}%;"
+                 aria-valuenow="{{ progressionCart|round }}"
+                 aria-valuemin="0" aria-valuemax="100">{{ progressionCart|round }}%
+            </div>
+        {% endif %}
     </div>
 
     <!-- Modal -->
@@ -33,6 +44,27 @@
                 <div class="modal-body">
                     <img src="{{ asset('images/fiche-mesures01.png') }}">
                     <img src="{{ asset('images/fiche-mesures02.png') }}">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal--fiches--mesures" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Chaussures</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body ml-auto mr-auto">
+                    <img src="{{ asset('images/chaussures.jpg') }}">
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
@@ -82,7 +114,8 @@
                                     {% if addproduct.product.id == id %}
                                         {% set qte = addproduct.quantity %}
                                         <input type="number" class="form-product-qty-value form-group"
-                                               id="quantity" value="{{ qte }}" min="0" required>
+                                               id="quantity" value="{{ qte }}" min="{{ addproduct.product.minQty }}"
+                                               max="{{ addproduct.product.maxQty }}" required>
                                     {% endif %}
                                 {% endfor %}
 
@@ -177,11 +210,10 @@
                         dataType: 'json',
                         data: {'addProduct': addProduct, 'cart': cart},
                         success: function (data) {
-                            console.log(data);
                             let idPdtCart = data['addPdtId'];
                             let qtyCart = data['addPdtQty'];
                             let amountCartAjax = data['amountCartAjax'];
-                            let progressAmountCart = Math.floor(amountCartAjax/data['maxAmount']*100);
+                            let progressAmountCart = Math.floor(amountCartAjax / data['maxAmount'] * 100);
                             let tailleCart = data['addPdtTaille'];
                             let libellePdtCart = data['addPdtLibelle'].replace(/"/g, "");
                             let libelleTailleCart = data['addPdtTailleLibelle'].replace(/"/g, "");
@@ -192,9 +224,13 @@
                                 "<td class=\"col-1\">" + qtyCart + "</td>\n" +
                                 "</tr>");
                             $('.amount-cart').html(progressAmountCart);
-                            $('.progress-bar').html(progressAmountCart+'%')
-                            $('.progress-bar').attr('aria-valuenow',progressAmountCart);
-                            $('.progress-bar').attr('style','width:' + progressAmountCart + '%');
+                            $('.progress-bar').html(progressAmountCart + '%')
+                            $('.progress-bar').attr('aria-valuenow', progressAmountCart);
+                            $('.progress-bar').attr('style', 'width:' + progressAmountCart + '%');
+                            if (progressAmountCart > 99) {
+                                $('.progress-bar.progress-package').css('background-color', '#ea4e0e');
+                            }
+
                         }
                     })
                 } else {
@@ -214,16 +250,18 @@
                         dataType: 'json',
                         data: {'lessProduct': lessProduct},
                         success: function (data) {
-                            console.log(data)
                             let lessPdtId = data['lessPdtId'];
                             let amountCartAjax = data['amountCartAjax'];
-                            let progressAmountCart = Math.floor(amountCartAjax/data['maxAmount']*100);
+                            let progressAmountCart = Math.floor(amountCartAjax / data['maxAmount'] * 100);
                             $('#idpdt-' + lessPdtId + '').remove();
                             $('#idpdt-panier-' + lessPdtId + '').remove();
                             $('.amount-cart').html(progressAmountCart);
-                            $('.progress-bar').html(progressAmountCart+'%')
-                            $('.progress-bar').attr('aria-valuenow',progressAmountCart)
-                            $('.progress-bar').attr('style','width:' + progressAmountCart + '%');
+                            $('.progress-bar').html(progressAmountCart + '%')
+                            $('.progress-bar').attr('aria-valuenow', progressAmountCart)
+                            $('.progress-bar').attr('style', 'width:' + progressAmountCart + '%');
+                            if (progressAmountCart > 99) {
+                                $('.progress-bar.progress-package').css('background-color', '#ea4e0e');
+                            }
                         }
                     })
                 }

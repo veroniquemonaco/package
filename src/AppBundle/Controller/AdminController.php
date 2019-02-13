@@ -241,8 +241,8 @@ class AdminController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $date = new \DateTime();
-        $year = $date->format('Y');
+//        $date = new \DateTime();
+//        $year = $date->format('Y');
 //        $yearPaquetage = intval($year) + 1;
 
         $userOrderByCategories = $em->getRepository(UserOrderByCategory::class)->findBy(

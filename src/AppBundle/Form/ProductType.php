@@ -52,6 +52,8 @@ class ProductType extends AbstractType
                 'attr'=> ['class'=>'selectpicker']
             ])
             ->add('image')
+            ->add('minQty')
+            ->add('maxQty')
             ->add('actif');
     }
 

@@ -298,7 +298,6 @@ class PackageController extends Controller
         }
         $amountCartAjax = $amountCart;
         $maxAmount = $user->getQualification()->getMaxAmountPackage();
-        dump($panier);
 
         return $this->render('front/package.html.twig', array(
             'produits' => $produits,

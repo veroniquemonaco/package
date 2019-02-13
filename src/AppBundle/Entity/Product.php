@@ -84,6 +84,13 @@ class Product
     private $maxQty;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="position", type="integer")
+     */
+    private $position;
+
+    /**
      * @return int
      */
     public function getMinQty()
@@ -333,5 +340,21 @@ class Product
     public function getQualifications()
     {
         return $this->qualifications;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPosition()
+    {
+        return $this->position;
+    }
+
+    /**
+     * @param int $position
+     */
+    public function setPosition($position)
+    {
+        $this->position = $position;
     }
 }

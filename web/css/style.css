@@ -18,7 +18,7 @@ body {
 }
 
 .package--header {
-    height: 15vh;
+    height: 10vh;
 }
 
 .logo {
@@ -197,6 +197,14 @@ body {
 
 .modal-dialog.modal--fiches--mesures {
     max-width: 650px;
+}
+
+.progress-bar.progress-package {
+    background-color: #66b4a8;
+}
+
+.progress-bar.progress-package-over {
+    background-color: #ea4e0e;
 }
 
 /** Form login css CodePen Josh Adamous **/
