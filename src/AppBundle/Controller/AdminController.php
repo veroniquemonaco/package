@@ -282,7 +282,12 @@ class AdminController extends Controller
             'CHAUSSURES RANGERS LEMAITRE taille', 'CHAUSSURES RANGERS LEMAITRE qte',
             'CHAUSSURES RANGERS SWIMM taille', 'CHAUSSURES RANGERS SWIMM qte',
             'PARKA taille','PARKA qte','TENUE DE PLUIE taille','TENUE DE PLUIE qte',
-            'CEINTURE taille','CEINTURE qte','CASQUE taille','CASQUE qte']);
+            'CEINTURE taille','CEINTURE qte','CASQUE taille','CASQUE qte','CHAUSSURES RANGERS JORAN taille',
+            'CHAUSSURES RANGERS JORAN qte','CHAUSSURES RANGERS JALBORG taille', 'CHAUSSURES RANGERS JALBORG qte',
+            'CHAUSSURES RANGERS JALOSBERN taille', 'CHAUSSURES RANGERS JALOSBERN qte',
+            'CHAUSSURES RANGERS JALOSBERN Hiver taille', 'CHAUSSURES RANGERS JALOSBERN Hiver qte',
+            'VESTE HIVER taille','VESTE HIVER qte','CADENAS taille','CADENAS qte','CHAUSSETTES taille','CHAUSSETTES qte',
+            'CALECON taille','CALECON qte']);
 
         foreach ($arrayExport as $userOrder){
                 $csv->insertOne($userOrder);
@@ -372,6 +377,7 @@ class AdminController extends Controller
         }
         $csv->output('exportsynthesepaquetage.csv');
         die('end');
+
 
 //        return $this->render('admin/exportCsvSynthese.html.twig', array());
     }

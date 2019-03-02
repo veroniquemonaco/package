@@ -141,7 +141,8 @@
                             </div>
                             <div class="col-2 form-product-qty">
                                 <input type="number" class="form-product-qty-value form-group"
-                                       id="quantity" placeholder="0" min="0" required>
+                                       id="quantity" placeholder="0" min="{{ produit.minQty }}"
+                                       max="{{ produit.maxQty }}" required>
                             </div>
                             <div class="col-1 custom-switch">
                                 <input type="checkbox" class="custom-switch-input" id="check-{{ produit.id }}">

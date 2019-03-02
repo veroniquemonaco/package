@@ -34,7 +34,7 @@ class PanierController extends Controller
         }
         // liste des paquetages idpdt type par qualification
         $paquetageType = $paquetageQualification->getPaquetageType($user);
-        $paquetageChaussures = [30, 31, 32];
+        $paquetageChaussures = [30, 31, 32,49,50,51,52];
         $arrayRules = $this->rulesQualificationPanier($user);
 
 
@@ -180,25 +180,25 @@ class PanierController extends Controller
 
         if ($qualificationUser == 1) {
             $arrayRules['pantalons'] = [6, 11];
-            $arrayRules['chaussures'] = [30, 31, 32];
+            $arrayRules['chaussures'] = [30, 31, 32, 49, 50, 51, 52];
             $arrayRules['vestes'] = [16, 33];
         } elseif ($qualificationUser == 2) {
             $arrayRules['pantalons'] = [7, 12];
-            $arrayRules['chaussures'] = [30, 31, 32];
+            $arrayRules['chaussures'] = [30, 31, 32, 49, 50, 51, 52];
             $arrayRules['vestes'] = [17, 34];
         } elseif ($qualificationUser == 3) {
             $arrayRules['pantalons'] = [8, 13];
-            $arrayRules['chaussures'] = [30, 31, 32];
+            $arrayRules['chaussures'] = [30, 31, 32, 49, 50, 51, 52];
             $arrayRules['vestes'] = [18, 35];
             $arrayRules['shirts'] = [7, 45, 47];
         } elseif ($qualificationUser == 4) {
             $arrayRules['pantalons'] = [9, 14];
-            $arrayRules['chaussures'] = [30, 31, 32];
+            $arrayRules['chaussures'] = [30, 31, 32, 49, 50, 51, 52];
             $arrayRules['vestes'] = [19, 36];
             $arrayRules['shirts'] = [8, 46, 48];
         } elseif ($qualificationUser == 5) {
             $arrayRules['pantalons'] = [10, 15];
-            $arrayRules['chaussures'] = [30, 31, 32];
+            $arrayRules['chaussures'] = [30, 31, 32, 49, 50, 51, 52];
             $arrayRules['vestes'] = [20, 37];
         }
 

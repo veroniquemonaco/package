@@ -161,6 +161,9 @@ class PackageController extends Controller
                 $qty = intval($data['qty']);
                 $product = $em->getRepository(Product::class)
                     ->findOneBy(['id' => $data['idPdt']]);
+                if ($qty > $product->getMaxQty()) {
+                    $qty=$product->getMaxQty();
+                }
                 $productId = $product->getId();
                 $price = $product->getPrix();
                 $amount = $price * $qty;
