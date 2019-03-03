@@ -56,6 +56,10 @@
                             précédente {{ yearPaquetageOld }}</p>
                         <a href="{{ path('package_year_before') }}" class="btn btn-package float-right text-white">Reprendre</a>
                     </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <p class="mt-4 mb-4">Vous pouvez commencer une nouvelle commande</p>
+                        <a href="{{ path('package') }}" class="btn btn-package float-right text-white">Commencer</a>
+                    </div>
                 {% else %}
                     <div class="d-flex justify-content-between align-items-center">
                         <p class="mt-4 mb-4">Vous n'avez pas encore fait votre commande de paquetage pour

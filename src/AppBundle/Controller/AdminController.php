@@ -287,7 +287,7 @@ class AdminController extends Controller
             'CHAUSSURES RANGERS JALOSBERN taille', 'CHAUSSURES RANGERS JALOSBERN qte',
             'CHAUSSURES RANGERS JALOSBERN Hiver taille', 'CHAUSSURES RANGERS JALOSBERN Hiver qte',
             'VESTE HIVER taille','VESTE HIVER qte','CADENAS taille','CADENAS qte','CHAUSSETTES taille','CHAUSSETTES qte',
-            'CALECON taille','CALECON qte']);
+            'CALECON taille','CALECON qte','TSHIRT manches longues taille','TSHIRT manches longues qte']);
 
         foreach ($arrayExport as $userOrder){
                 $csv->insertOne($userOrder);

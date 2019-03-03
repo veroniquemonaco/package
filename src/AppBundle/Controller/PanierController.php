@@ -181,25 +181,25 @@ class PanierController extends Controller
         if ($qualificationUser == 1) {
             $arrayRules['pantalons'] = [6, 11];
             $arrayRules['chaussures'] = [30, 31, 32, 49, 50, 51, 52];
-            $arrayRules['vestes'] = [16, 33];
+            $arrayRules['vestes'] = [16, 53];
         } elseif ($qualificationUser == 2) {
             $arrayRules['pantalons'] = [7, 12];
             $arrayRules['chaussures'] = [30, 31, 32, 49, 50, 51, 52];
-            $arrayRules['vestes'] = [17, 34];
+            $arrayRules['vestes'] = [17, 54];
         } elseif ($qualificationUser == 3) {
             $arrayRules['pantalons'] = [8, 13];
             $arrayRules['chaussures'] = [30, 31, 32, 49, 50, 51, 52];
-            $arrayRules['vestes'] = [18, 35];
-            $arrayRules['shirts'] = [7, 45, 47];
+            $arrayRules['vestes'] = [18, 55];
+            $arrayRules['shirts'] = [27, 45, 47];
         } elseif ($qualificationUser == 4) {
             $arrayRules['pantalons'] = [9, 14];
             $arrayRules['chaussures'] = [30, 31, 32, 49, 50, 51, 52];
-            $arrayRules['vestes'] = [19, 36];
-            $arrayRules['shirts'] = [8, 46, 48];
+            $arrayRules['vestes'] = [19, 56];
+            $arrayRules['shirts'] = [28, 46, 48];
         } elseif ($qualificationUser == 5) {
             $arrayRules['pantalons'] = [10, 15];
             $arrayRules['chaussures'] = [30, 31, 32, 49, 50, 51, 52];
-            $arrayRules['vestes'] = [20, 37];
+            $arrayRules['vestes'] = [20, 57];
         }
 
         return $arrayRules;
