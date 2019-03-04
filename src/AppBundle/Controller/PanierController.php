@@ -33,8 +33,6 @@ class PanierController extends Controller
             }
         }
 
-        dump($panierCorrige);
-
         // liste des paquetages idpdt type par qualification
         $paquetageType = $paquetageQualification->getPaquetageType($user);
         $paquetageChaussures = [30, 31, 32,49,50,51,52];
