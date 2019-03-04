@@ -65,6 +65,12 @@
                 </div>
                 <div class="modal-body ml-auto mr-auto">
                     <img src="{{ asset('images/chaussures.jpg') }}">
+                    <div class="d-flex justify-content-between">
+                        {#<div class=""><a href="">Joran</a></div>#}
+                        {#<div class=""><a href="">Jalborg</a></div>#}
+                        {#<div class=""><a href="">Jalosbern</a></div>#}
+                        {#<div class=""><a href="">Jalosbern Winter</a></div>#}
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
@@ -92,7 +98,9 @@
                         <div class="row" id="productid-{{ produit.id }}">
                             <div class="col-1">{{ loop.index }}</div>
                             <div class="col-5 form-product"
-                                 data-productid="{{ produit.id }}">{{ produit.name }}</div>
+                                 data-productid="{{ produit.id }}">
+                                <p class="mb-0">{{ produit.name }}</p>
+                                <p class="product--alert--qty mb-0">quantités min={{ produit.minQty }} max={{ produit.maxQty }}</p></div>
                             <div class="col-2 form-product-taille">
                                 <select class="custom-select w-100">
                                     {% for addproduct in panier %}
@@ -129,7 +137,9 @@
                         <div class="row" id="productid-{{ produit.id }}">
                             <div class="col-1">{{ loop.index }}</div>
                             <div class="col-5 form-product"
-                                 data-productid="{{ produit.id }}">{{ produit.name }}</div>
+                                 data-productid="{{ produit.id }}">
+                                <p class="mb-0">{{ produit.name }}</p>
+                            <p class="product--alert--qty mb-0">quantités min={{ produit.minQty }} max={{ produit.maxQty }}</p></div>
                             <div class="col-2 form-product-taille">
                                 <select class="custom-select w-100">
                                     {#<option>tailles</option>#}
@@ -141,7 +151,7 @@
                             </div>
                             <div class="col-2 form-product-qty">
                                 <input type="number" class="form-product-qty-value form-group"
-                                       id="quantity" placeholder="0" min="{{ produit.minQty }}"
+                                       id="quantity" placeholder="{{ produit.minQty }}" min="{{ produit.minQty }}"
                                        max="{{ produit.maxQty }}" required>
                             </div>
                             <div class="col-1 custom-switch">
@@ -252,13 +262,15 @@
                         data: {'lessProduct': lessProduct},
                         success: function (data) {
                             let lessPdtId = data['lessPdtId'];
+                            let lessPdtIdMinQty = data['minQty'];
                             let amountCartAjax = data['amountCartAjax'];
                             let progressAmountCart = Math.floor(amountCartAjax / data['maxAmount'] * 100);
                             $('#idpdt-' + lessPdtId + '').remove();
                             $('#idpdt-panier-' + lessPdtId + '').remove();
+                            $('#productid-' + lessPdtId + '').children('.form-product-qty').children('input#quantity').val(lessPdtIdMinQty);
                             $('.amount-cart').html(progressAmountCart);
-                            $('.progress-bar').html(progressAmountCart + '%')
-                            $('.progress-bar').attr('aria-valuenow', progressAmountCart)
+                            $('.progress-bar').html(progressAmountCart + '%');
+                            $('.progress-bar').attr('aria-valuenow', progressAmountCart);
                             $('.progress-bar').attr('style', 'width:' + progressAmountCart + '%');
                             if (progressAmountCart > 99) {
                                 $('.progress-bar.progress-package').css('background-color', '#ea4e0e');

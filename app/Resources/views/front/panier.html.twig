@@ -37,22 +37,30 @@
         </div>
 
         <div class="mt-3">
-            {% if msg1 == 'ko' %}
-                <p class="panier-alert-msg">vous devez prendre au moins 3 pantalons dans votre paquetage</p>
+            {% if msg1 == 'ko' or msg2 == 'ko' or msg3 == 'ko' or msg4 == 'ko' %}
                 <a href="{{ path('commande', { 'panier': panier }) }}"
                    class="btn btn-next float-right disabled">Valider</a>
-            {% elseif msg2 == 'ko' %}
-                <p class="panier-alert-msg">vous devez prendre au moins 1 paire de chaussures</p>
-                <a href="{{ path('commande', { 'panier': panier }) }}"
-                   class="btn btn-next float-right disabled">Valider</a>
-            {% elseif msg3 == 'ko' %}
-                <p class="panier-alert-msg">vous devez prendre au moins 1 sweat shirt ou 1 veste d'hiver</p>
-                <a href="{{ path('commande', { 'panier': panier }) }}"
-                   class="btn btn-next float-right disabled">Valider</a>
-            {% elseif msg4 == 'ko' %}
-                <p class="panier-alert-msg">vous devez prendre au moins 3 articles entre les polos et les tee-shirts</p>
-                <a href="{{ path('commande', { 'panier': panier }) }}"
-                   class="btn btn-next float-right disabled">Valider</a>
+                {% if msg1 == 'ko' %}
+                    <p class="panier-alert-msg">vous devez prendre au moins 3 pantalons dans votre paquetage</p>
+                    {#<a href="{{ path('commande', { 'panier': panier }) }}"#}
+                    {#class="btn btn-next float-right disabled">Valider</a>#}
+                {% endif %}
+                {% if msg2 == 'ko' %}
+                    <p class="panier-alert-msg">vous devez prendre au moins 1 paire de chaussures</p>
+                    {#<a href="{{ path('commande', { 'panier': panier }) }}"#}
+                    {#class="btn btn-next float-right disabled">Valider</a>#}
+                {% endif %}
+                {% if msg3 == 'ko' %}
+                    <p class="panier-alert-msg">vous devez prendre au moins 1 sweat shirt ou 1 veste d'hiver</p>
+                    {#<a href="{{ path('commande', { 'panier': panier }) }}"#}
+                    {#class="btn btn-next float-right disabled">Valider</a>#}
+                {% endif %}
+                {% if msg4 == 'ko' %}
+                    <p class="panier-alert-msg">vous devez prendre au moins 3 articles entre les polos et les
+                        tee-shirts</p>
+                    {#<a href="{{ path('commande', { 'panier': panier }) }}"#}
+                    {#class="btn btn-next float-right disabled">Valider</a>#}
+                {% endif %}
             {% else %}
                 {% if user.qualification.id == 1 %}
                     {% if totalHT < user.qualification.maxAmountPackage %}

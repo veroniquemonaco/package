@@ -148,6 +148,12 @@ body {
     width:60%;
 }
 
+.product--alert--qty {
+    font-size: 0.8em;
+    font-style: italic;
+    color: #b7b7b7;
+}
+
 .package-front--panier {
     background-color: rgba(4,77,67,0.8) ;
     width:85%;
@@ -205,6 +211,17 @@ body {
 
 .progress-bar.progress-package-over {
     background-color: #ea4e0e;
+}
+
+/** PANIER **/
+
+.panier-alert-msg {
+    background-color: #ea4e0e;
+    font-size: 1.1em;
+    width:50%;
+    text-align: center;
+    padding: 0.20%;
+    margin: auto;
 }
 
 /** Form login css CodePen Josh Adamous **/

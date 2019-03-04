@@ -10,4 +10,9 @@ namespace AppBundle\Repository;
  */
 class AddproductRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function orderByPosition($panierCorrige)
+    {
+
+    }
+
 }

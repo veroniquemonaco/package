@@ -195,6 +195,7 @@ class PackageController extends Controller
                 ));
             } elseif ($lessData) {
                 $product = $em->getRepository(Product::class)->findOneBy(['id' => $lessData['idPdt']]);
+                $minQtyProduct = $product->getMinQty();
                 $productLinePrice = $panier[$product->getId()]->getquantity()*$panier[$product->getId()]->getPrice();
                 $amountCartAjax = $amountCartAjax-$productLinePrice;
                 unset($panier[$product->getId()]);
@@ -202,6 +203,7 @@ class PackageController extends Controller
                 unset($backOrder[$product->getId()]);
                 return new JsonResponse(array(
                     "lessPdtId" => json_encode($product->getId()),
+                    "minQty" => $minQtyProduct,
                     "amountCartAjax" => $amountCartAjax,
                     "prixpdt" => $productLinePrice,
                     "maxAmount" => $maxAmount
