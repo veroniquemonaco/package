@@ -5,7 +5,7 @@
         <h1 class="login--title">Identification</h1>
 
         {% if errors %}
-            <div>{{ errors.messageKey|trans(errors.messageData, 'security') }}</div>
+            <div class="login--error--msg w-50">{{ errors.messageKey|trans(errors.messageData, 'security') }}</div>
         {% endif %}
 
         {{ form_start(form) }}
