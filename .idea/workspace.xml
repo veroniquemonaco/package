@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="28e6545e-f624-4eda-a02f-2df1bb0a93a9" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/app/Resources/views/front/package.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/front/package.html.twig" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -52,12 +51,12 @@
       <file leaf-file-name="package.html.twig" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Resources/views/front/package.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="492">
-              <caret line="343" column="94" lean-forward="true" selection-start-line="343" selection-start-column="94" selection-end-line="343" selection-end-column="94" />
+            <state relative-caret-position="72">
+              <caret line="4" column="16" lean-forward="true" selection-start-line="4" selection-start-column="16" selection-end-line="4" selection-end-column="16" />
               <folding>
-                <element signature="e#2030#2037#1#HTML" expanded="true" />
-                <element signature="e#3072#3079#1#HTML" expanded="true" />
-                <element signature="e#4055#4062#1#HTML" expanded="true" />
+                <element signature="e#2117#2124#1#HTML" expanded="true" />
+                <element signature="e#3170#3177#1#HTML" expanded="true" />
+                <element signature="e#4203#4210#1#HTML" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -732,12 +731,12 @@
       <workItem from="1551431063111" duration="1206000" />
       <workItem from="1551518034007" duration="12611000" />
       <workItem from="1551685886904" duration="17491000" />
-      <workItem from="1551772446115" duration="11148000" />
+      <workItem from="1551772446115" duration="12024000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="857108000" />
+    <option name="totallyTimeSpent" value="857984000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1160,12 +1159,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Resources/views/front/package.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="492">
-          <caret line="343" column="94" lean-forward="true" selection-start-line="343" selection-start-column="94" selection-end-line="343" selection-end-column="94" />
+        <state relative-caret-position="72">
+          <caret line="4" column="16" lean-forward="true" selection-start-line="4" selection-start-column="16" selection-end-line="4" selection-end-column="16" />
           <folding>
-            <element signature="e#2030#2037#1#HTML" expanded="true" />
-            <element signature="e#3072#3079#1#HTML" expanded="true" />
-            <element signature="e#4055#4062#1#HTML" expanded="true" />
+            <element signature="e#2117#2124#1#HTML" expanded="true" />
+            <element signature="e#3170#3177#1#HTML" expanded="true" />
+            <element signature="e#4203#4210#1#HTML" expanded="true" />
           </folding>
         </state>
       </provider>

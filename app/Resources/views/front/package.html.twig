@@ -5,8 +5,9 @@
 {% block body %}
 
     <div class="mb-4">
-        <h4 class="text-center">{{ user.firstname }} {{ user.lastname }} confectionnez votre
-            paquetage de {{ yearPaquetage }}
+        <h4 class="text-center mb-4">{{ user.firstname }} {{ user.lastname }} confectionnez votre
+            paquetage de {{ yearPaquetage }}</h4>
+        <h4 class="d-flex justify-content-around w-50 m-auto">
             <a href="" class="btn btn-package ml-4" data-toggle="modal" data-target="#exampleModal">guide des
                 tailles</a>
             <a href="" class="btn btn-package ml-4" data-toggle="modal" data-target="#exampleModal2">guide des
@@ -31,7 +32,7 @@
         {% endif %}
     </div>
 
-    <!-- Modal -->
+    <!-- Modal Fiche Mesures -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
          aria-hidden="true">
         <div class="modal-dialog modal--fiches--mesures" role="document">
@@ -53,7 +54,7 @@
         </div>
     </div>
 
-    <!-- Modal -->
+    <!-- Modal Chaussures -->
     <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
          aria-hidden="true">
         <div class="modal-dialog modal--fiches--mesures" role="document">
@@ -74,23 +75,23 @@
         </div>
     </div>
 
-    <!-- Modal -->
+    <!-- Modal Conditions-->
         <div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
          aria-hidden="true">
         <div class="modal-dialog modal--fiches--mesures" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Conditions</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Rappel des conditions à l'élaboration du paquetage</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body ml-auto mr-auto">
-                    <p>Rappel des conditions à l'élaboration du paquetage</p>
+                <div class="modal-body">
+                    <p>le paquetage doit contenir au moins : </p>
                     <ul>
-                        <li>le paquetage doit contenir au moins 3 pantalons</li>
-                        <li>le paquetage doit avoir au moins 1 paire de chaussures et au plus 2 paires</li>
-                        <li>le paquetage doit avoir au moins 1 sweat shirt ou 1 veste d'hiver</li>
+                        <li>3 pantalons</li>
+                        <li>1 paire de chaussures et au plus 2 paires</li>
+                        <li>1 sweat shirt ou 1 veste d'hiver</li>
                     </ul>
                 </div>
                 <div class="modal-footer">
