@@ -147,7 +147,7 @@
                                         {% set qte = addproduct.quantity %}
                                         <input type="number" class="form-product-qty-value form-group"
                                                id="quantity" value="{{ qte }}" min="{{ addproduct.product.minQty }}"
-                                               max="{{ addproduct.product.maxQty }}" required>
+                                               max="{{ addproduct.product.maxQty }}"  required>
                                     {% endif %}
                                 {% endfor %}
 
@@ -175,7 +175,7 @@
                             </div>
                             <div class="col-2 form-product-qty">
                                 <input type="number" class="form-product-qty-value form-group"
-                                       id="quantity" placeholder="{{ produit.minQty }}" min="{{ produit.minQty }}"
+                                       id="quantity" value="0" min="{{ produit.minQty }}"
                                        max="{{ produit.maxQty }}" required>
                             </div>
                             <div class="col-1 custom-switch">
@@ -292,6 +292,7 @@
                             $('#idpdt-' + lessPdtId + '').remove();
                             $('#idpdt-panier-' + lessPdtId + '').remove();
                             $('#productid-' + lessPdtId + '').children('.form-product-qty').children('input#quantity').val(0);
+                            $('#productid-' + lessPdtId + '').children('.custom-switch').children(':checkbox').attr('disabled','disabled');
                             $('.amount-cart').html(progressAmountCart);
                             $('.progress-bar').html(progressAmountCart + '%');
                             $('.progress-bar').attr('aria-valuenow', progressAmountCart);
@@ -326,6 +327,21 @@
                 }
             })
         });
+
+        $(function() {
+            $("input[value='0']").parent().next().children(":checkbox").attr('disabled','disabled');
+            $("input[value!='0']").parent().next().children(":checkbox").attr('disabled',!'disabled');
+            $("input#quantity").change(function(){
+                let qty = $(this).val();
+                if (qty == 0) {
+                    $(this).parent().next().children(":checkbox").attr('disabled','disabled');
+                } else {
+                    $(this).parent().next().children(":checkbox").attr('disabled',!'disabled');
+                }
+            });
+        });
+
+
     </script>
 
 {% endblock %}
