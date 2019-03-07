@@ -127,7 +127,7 @@
                                 <p class="mb-0">{{ produit.name }}</p>
                                 <p class="product--alert--qty mb-0">quantités min={{ produit.minQty }} max={{ produit.maxQty }}</p></div>
                             <div class="col-2 form-product-taille">
-                                <select class="custom-select w-100">
+                                <select class="custom-select w-100 p-1">
                                     {% for addproduct in panier %}
                                         {% if addproduct.product.id == id %}
                                             {% set tailleorderid = addproduct.taille.id %}
@@ -166,7 +166,7 @@
                                 <p class="mb-0">{{ produit.name }}</p>
                             <p class="product--alert--qty mb-0">quantités min={{ produit.minQty }} max={{ produit.maxQty }}</p></div>
                             <div class="col-2 form-product-taille">
-                                <select class="custom-select w-100">
+                                <select class="custom-select w-100 p-1">
                                     {#<option>tailles</option>#}
                                     {% for taille in produit.tailles %}
                                         <option class="form-product-taille-option"
