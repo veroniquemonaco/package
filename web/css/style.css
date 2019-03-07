@@ -234,9 +234,9 @@ body {
 .panier-alert-msg {
     background-color: #ea4e0e;
     font-size: 1.1em;
-    width:50%;
-    text-align: center;
-    padding: 0.20%;
+    width:65%;
+    /*text-align: center;*/
+    padding: 0.3em;
     margin: auto;
 }
 
