@@ -97,6 +97,7 @@ class PanierController extends Controller
                     $teeshirtOrder[] = $index;
                 }
             }
+
             if ($qte1 < 3) {
                 $msg1 = 'ko';
             }

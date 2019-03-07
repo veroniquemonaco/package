@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="28e6545e-f624-4eda-a02f-2df1bb0a93a9" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/app/Resources/views/front/package.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/front/package.html.twig" />
       <change beforePath="$PROJECT_DIR$/app/Resources/views/front/panier.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/front/panier.html.twig" />
       <change beforePath="$PROJECT_DIR$/src/AppBundle/Controller/PanierController.php" afterPath="$PROJECT_DIR$/src/AppBundle/Controller/PanierController.php" />
-      <change beforePath="$PROJECT_DIR$/web/css/style.css" afterPath="$PROJECT_DIR$/web/css/style.css" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -31,11 +29,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="package.html.twig" pinned="false" current-in-tab="true">
+      <file leaf-file-name="package.html.twig" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Resources/views/front/package.html.twig">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="513">
-              <caret line="102" column="10" lean-forward="true" selection-start-line="102" selection-start-column="10" selection-end-line="102" selection-end-column="10" />
+              <caret line="102" column="10" lean-forward="false" selection-start-line="102" selection-start-column="10" selection-end-line="102" selection-end-column="10" />
               <folding>
                 <element signature="e#2117#2124#1#HTML" expanded="true" />
                 <element signature="e#3170#3177#1#HTML" expanded="true" />
@@ -45,11 +43,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="panier.html.twig" pinned="false" current-in-tab="false">
+      <file leaf-file-name="panier.html.twig" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Resources/views/front/panier.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="851">
-              <caret line="75" column="51" lean-forward="false" selection-start-line="75" selection-start-column="51" selection-end-line="75" selection-end-column="51" />
+            <state relative-caret-position="257">
+              <caret line="48" column="37" lean-forward="false" selection-start-line="48" selection-start-column="37" selection-end-line="48" selection-end-column="37" />
               <folding />
             </state>
           </provider>
@@ -58,8 +56,8 @@
       <file leaf-file-name="PanierController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/PanierController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-895">
-              <caret line="66" column="13" lean-forward="false" selection-start-line="66" selection-start-column="13" selection-end-line="66" selection-end-column="13" />
+            <state relative-caret-position="455">
+              <caret line="117" column="13" lean-forward="true" selection-start-line="117" selection-start-column="13" selection-end-line="117" selection-end-column="13" />
               <folding>
                 <element signature="e#41#98#0#PHP" expanded="true" />
               </folding>
@@ -160,10 +158,10 @@
         <option value="$PROJECT_DIR$/src/AppBundle/Controller/PackageController.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Repository/AddproductRepository.php" />
         <option value="$PROJECT_DIR$/app/Resources/views/security/login.html.twig" />
-        <option value="$PROJECT_DIR$/app/Resources/views/front/panier.html.twig" />
-        <option value="$PROJECT_DIR$/src/AppBundle/Controller/PanierController.php" />
         <option value="$PROJECT_DIR$/web/css/style.css" />
         <option value="$PROJECT_DIR$/app/Resources/views/front/package.html.twig" />
+        <option value="$PROJECT_DIR$/app/Resources/views/front/panier.html.twig" />
+        <option value="$PROJECT_DIR$/src/AppBundle/Controller/PanierController.php" />
       </list>
     </option>
   </component>
@@ -693,12 +691,12 @@
       <workItem from="1551772446115" duration="12739000" />
       <workItem from="1551905907492" duration="608000" />
       <workItem from="1551949654745" duration="2396000" />
-      <workItem from="1551959793394" duration="8421000" />
+      <workItem from="1551959793394" duration="9256000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="870124000" />
+    <option name="totallyTimeSpent" value="870959000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1076,38 +1074,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/PackageController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2016">
-          <caret line="205" column="27" lean-forward="false" selection-start-line="205" selection-start-column="21" selection-end-line="205" selection-end-column="27" />
-          <folding>
-            <element signature="e#42#74#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Resources/views/base.html.twig">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="770">
           <caret line="46" column="18" lean-forward="false" selection-start-line="46" selection-start-column="18" selection-end-line="46" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/PanierController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-895">
-          <caret line="66" column="13" lean-forward="false" selection-start-line="66" selection-start-column="13" selection-end-line="66" selection-end-column="13" />
-          <folding>
-            <element signature="e#41#98#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Resources/views/front/panier.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="851">
-          <caret line="75" column="51" lean-forward="false" selection-start-line="75" selection-start-column="51" selection-end-line="75" selection-end-column="51" />
           <folding />
         </state>
       </provider>
@@ -1123,12 +1093,40 @@
     <entry file="file://$PROJECT_DIR$/app/Resources/views/front/package.html.twig">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="513">
-          <caret line="102" column="10" lean-forward="true" selection-start-line="102" selection-start-column="10" selection-end-line="102" selection-end-column="10" />
+          <caret line="102" column="10" lean-forward="false" selection-start-line="102" selection-start-column="10" selection-end-line="102" selection-end-column="10" />
           <folding>
             <element signature="e#2117#2124#1#HTML" expanded="true" />
             <element signature="e#3170#3177#1#HTML" expanded="true" />
             <element signature="e#4203#4210#1#HTML" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/PackageController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2016">
+          <caret line="205" column="27" lean-forward="false" selection-start-line="205" selection-start-column="21" selection-end-line="205" selection-end-column="27" />
+          <folding>
+            <element signature="e#42#74#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/PanierController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="455">
+          <caret line="117" column="13" lean-forward="true" selection-start-line="117" selection-start-column="13" selection-end-line="117" selection-end-column="13" />
+          <folding>
+            <element signature="e#41#98#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Resources/views/front/panier.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="257">
+          <caret line="48" column="37" lean-forward="false" selection-start-line="48" selection-start-column="37" selection-end-line="48" selection-end-column="37" />
+          <folding />
         </state>
       </provider>
     </entry>

@@ -37,8 +37,7 @@
         </div>
 
         <div class="mt-3">
-
-            {% if msg1 == 'ko' or msg2 == 'ko' or msg3 == 'ko' or msg4 == 'ko' %}
+            {% if msg1 == 'ko' or msg2 == 'ko' or msg3 == 'ko' or msg4 == 'ko' or msg5 == 'ko' or msg6 == 'ko' %}
                 <a href="{{ path('commande', { 'panier': panier }) }}"
                    class="btn btn-next float-right disabled">Valider</a>
                 {% if msg1 == 'ko' %}
