@@ -163,6 +163,22 @@ body {
     overflow-y: scroll;
 }
 
+#panier {
+    width:90%;
+    margin:auto;
+}
+
+.panier--title {
+    border-top: 2px solid #e5e5e5;
+    font-weight: bold;
+}
+
+.panier--addpdt {
+    border-top: 1px solid #e5e5e5;
+    padding:0.75em;
+}
+
+
 .btn-next {
     /*background-color: #ea4e0e;*/
     /*border-color: #ea4e0e;*/

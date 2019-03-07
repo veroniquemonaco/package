@@ -189,28 +189,28 @@
             </div>
             <div class="container product--select p-3 col-5">
                 <h4 class="p-2 mb-4 text-center">Sélection de {{ user.firstname }} {{ user.lastname }}</h4>
-                <div id="panier" class="w-100">
-                    <table class="table table-striped">
-                        <thead>
-                        <tr class="row m-auto">
-                            <th class="offset-1 col-1">#</th>
-                            <th class="col-6">Produit</th>
-                            <th class="col-2">Taille</th>
-                            <th class="col-1">Qté</th>
-                        </tr>
-                        </thead>
-                        <tbody class="panier--product">
+                <div id="panier" class="p-4">
+                    <div class="mb-4">
+                        <div>
+                        <div class="row m-auto p-2 panier--title">
+                            <div class="col-1">#</div>
+                            <div class="col-7">Produit</div>
+                            <div class="col-2">Taille</div>
+                            <div class="col-1">Qté</div>
+                        </div>
+                        </div>
+                        <div class="panier--product p-0">
                         {% for addproduct in panier %}
-                            <tr class="row m-auto" id="idpdt-panier-{{ addproduct.product.id }}"
+                            <div class="panier--addpdt row m-auto p-2" id="idpdt-panier-{{ addproduct.product.id }}"
                                 data-panierproductid="{{ addproduct.product.id }}">
-                                <td class="offset-1 col-1">{{ loop.index }}</td>
-                                <td class="col-6">{{ addproduct.product.name }}</td>
-                                <td class="col-2">{{ addproduct.taille.name }}</td>
-                                <td class="col-1">{{ addproduct.quantity }}</td>
-                            </tr>
+                                <div class="col-1">{{ loop.index }}</div>
+                                <div class="col-7">{{ addproduct.product.name }}</div>
+                                <div class="col-2">{{ addproduct.taille.name }}</div>
+                                <div class="col-1">{{ addproduct.quantity }}</div>
+                            </div>
                         {% endfor %}
-                        </tbody>
-                    </table>
+                        </div>
+                    </div>
                     <div class="clearfix"></div>
                     <a href="{{ path('panier') }}" class="btn btn-next float-right mb-3">Valider</a>
                     <a href="{{ path('reset_panier') }}" class="btn btn-back text-white mb-3">Annuler Sélection</a>
@@ -253,12 +253,12 @@
                             let tailleCart = data['addPdtTaille'];
                             let libellePdtCart = data['addPdtLibelle'].replace(/"/g, "");
                             let libelleTailleCart = data['addPdtTailleLibelle'].replace(/"/g, "");
-                            $('.panier--product').append("<tr class=\"row m-auto\" id=idpdt-" + idPdtCart + ">" +
-                                "<td class=\"offset-1 col-1\">" + idPdtCart + "</td>" +
-                                "<td class=\"col-6\">" + libellePdtCart + "</td>" +
-                                "<td class=\"col-2\">" + libelleTailleCart + "</td>" +
-                                "<td class=\"col-1\">" + qtyCart + "</td>\n" +
-                                "</tr>");
+                            $('.panier--product').append("<div class=\"panier--addpdt row m-auto p-2\" id=idpdt-" + idPdtCart + ">" +
+                                "<div class=\"col-1\">" + idPdtCart + "</div>" +
+                                "<div class=\"col-7\">" + libellePdtCart + "</div>" +
+                                "<div class=\"col-2\">" + libelleTailleCart + "</div>" +
+                                "<div class=\"col-1\">" + qtyCart + "</div>\n" +
+                                "</div>");
                             $('.amount-cart').html(progressAmountCart);
                             $('.progress-bar').html(progressAmountCart + '%')
                             $('.progress-bar').attr('aria-valuenow', progressAmountCart);
