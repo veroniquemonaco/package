@@ -57,11 +57,14 @@ class PanierController extends Controller
                 if (in_array($index, $arrayRules['pantalons'])) {
                     $qte1 = $qte1 + $addpdt->getQuantity();
                     $pantalonOrder[] = $index;
-                } elseif (in_array($index, $arrayRules['chaussures'])) {
+                }
+                if (in_array($index, $arrayRules['chaussures'])) {
                     $qte2 = $qte2 + $addpdt->getQuantity();
-                } elseif (in_array($index, $arrayRules['vestes'])) {
+                }
+                if (in_array($index, $arrayRules['vestes'])) {
                     $qte3 = $qte3 + $addpdt->getQuantity();
-                } elseif (in_array($index,$arrayRules['teeshirts'])) {
+                }
+                if (in_array($index,$arrayRules['teeshirts'])) {
                     $teeshirtOrder[] = $index;
                 }
             }
@@ -82,18 +85,23 @@ class PanierController extends Controller
             }
 
         }
+
         if ($qualificationUser == 3 || $qualificationUser == 4) {
             foreach ($panierCorrige as $index => $addpdt) {
                 if (in_array($index, $arrayRules['pantalons'])) {
                     $qte1 = $qte1 + $addpdt->getQuantity();
                     $pantalonOrder[] = $index;
-                } elseif (in_array($index, $arrayRules['chaussures'])) {
+                }
+                if (in_array($index, $arrayRules['chaussures'])) {
                     $qte2 = $qte2 + $addpdt->getQuantity();
-                } elseif (in_array($index, $arrayRules['vestes'])) {
+                }
+                if (in_array($index, $arrayRules['vestes'])) {
                     $qte3 = $qte3 + $addpdt->getQuantity();
-                } elseif (in_array($index, $arrayRules['shirts'])) {
+                }
+                if (in_array($index, $arrayRules['shirts'])) {
                     $qte4 = $qte4 + $addpdt->getQuantity();
-                } elseif (in_array($index,$arrayRules['teeshirts'])) {
+                }
+                if (in_array($index,$arrayRules['teeshirts'])) {
                     $teeshirtOrder[] = $index;
                 }
             }
@@ -121,10 +129,12 @@ class PanierController extends Controller
             foreach ($panierCorrige as $index => $addpdt) {
                 if (in_array($index, $arrayRules['chaussures'])) {
                     $qte2 = $qte2 + $addpdt->getQuantity();
-                } elseif (in_array($index, $arrayRules['pantalons'])) {
+                }
+                if (in_array($index, $arrayRules['pantalons'])) {
                     $qte1 = $qte1 + $addpdt->getQuantity();
                     $pantalonOrder[] = $index;
-                } elseif (in_array($index,$arrayRules['teeshirts'])) {
+                }
+                if (in_array($index,$arrayRules['teeshirts'])) {
                     $teeshirtOrder[] = $index;
                 }
             }
