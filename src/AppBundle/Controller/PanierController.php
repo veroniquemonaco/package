@@ -10,6 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use AppBundle\Service\PaquetageQualification;
 
 
+
 class PanierController extends Controller
 {
     /**

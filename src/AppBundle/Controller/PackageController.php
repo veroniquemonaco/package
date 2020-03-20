@@ -30,16 +30,20 @@ class PackageController extends Controller
         $user = $this->getUser();
         $userQualification = $user->getQualification()->getId();
 
-
+        // si l'utilisateur est l'admin il est redirigé vers la page de l'admin
         if ($userQualification === 7 ) {
             return $this->redirectToRoute('admin');
         } else {
+
+            // on initialise l'année du paquetage en fonction de la date de connexion
+
             $yearPaquetage = '';
             $yearPaquetageOld = '';
             $years = $yearPaquetageService->getYearPaquetage();
             $yearPaquetage = $years[0];
             $yearPaquetageOld = $years[1];
 
+            // on cherche les commandes de l'année en cours et de l'année précédente
 
             $commandeUser = $em->getRepository(Commande::class)->findBy(array('yearPaquetage' => $yearPaquetage,
                 'user' => $user));
@@ -73,11 +77,18 @@ class PackageController extends Controller
         $em = $this->getDoctrine()->getManager();
         $user = $this->getUser();
 
+        // on initialise l'année du paquetage en fonction de la date de connexion
+
         $yearPaquetage = '';
         $yearPaquetageOld = '';
         $years = $yearPaquetageService->getYearPaquetage();
         $yearPaquetage = $years[0];
         $yearPaquetageOld = $years[1];
+
+        // on initialise les variables pour la commande en cours et la commande de l'année précédente
+        // on initialise les variables pour le backorder en cours et le backorder de l'année précédente
+        // on initialise les variables pour le callpanier
+
 
         $commandeYearPaquetage = [];
         $commandeYearPaquetageOld = [];
@@ -87,18 +98,23 @@ class PackageController extends Controller
         $callpanieractif = [];
         $panier = [];
 
+
+        // affichage des produits en fonction de la qualification de l'utilisateur
         $qualificationId = $this->getUser()->getQualification()->getId();
 
         $produits = $em->getRepository('AppBundle:Product')->searchBy($qualificationId);
 
+        // initialisation d'une session pour le panier
         $session = new Session();
 
+        // recherche de la commande en cours et de la commande de l'année précédente
         $commandeUser = $em->getRepository(Commande::class)->findBy(array('yearPaquetage' => $yearPaquetage,
             'user' => $user));
 
         $commandeUserOld = $em->getRepository(Commande::class)->findBy(array('yearPaquetage' => $yearPaquetageOld,
             'user' => $user));
 
+        // tableau backorderold => tableau des idpdt de la commande en de l'année précédente
         if ($commandeUserOld != []) {
             $commandeYearPaquetageOld = $commandeUserOld[0]->getCommande();
             foreach ($commandeYearPaquetageOld as $idpdt => $orderarray) {
@@ -106,7 +122,8 @@ class PackageController extends Controller
             }
         }
 
-
+        // tableau backorder => tableau des idpdt de la commande en de l'année en cours
+        // tableau callpanier => tableau des objets addProductCde de la commande de l'année en cours avec idpdt comme clé
         if ($commandeUser != []) {
             $commandeYearPaquetage = $commandeUser[0]->getCommande();
             foreach ($commandeYearPaquetage as $idpdt => $orderarray) {
@@ -129,6 +146,7 @@ class PackageController extends Controller
                 $callpanier[$idpdt] = $addProductCde;
             }
 
+        //transformation de callpanier en callpanieractif en ne gardant que les produits actifs
             $callpanieractif=[];
             foreach ($callpanier as $idpdt=>$addProductCde) {
                 $actif = $em->getRepository(Product::class)->findOneBy(['id' => $idpdt])->isActif();
@@ -139,14 +157,18 @@ class PackageController extends Controller
 
         }
 
+        // initialisation de la session panier avec $callpanieractif
         if (!$session->has('panier')) $session->set('panier', $callpanieractif);
         $panier = $session->get('panier');
+
+        //calcul du montant de panier
         $amountCart=0;
         foreach($panier as $index=>$addpdt) {
             $amountCart = $amountCart + $addpdt->getPrice()*$addpdt->getQuantity();
         }
         $maxAmount = $user->getQualification()->getMaxAmountPackage();
 
+        // gestion du panier et de l'affichage en fonction des actions de l'utilisateur via requête AJAX
         if ($request->isXmlHttpRequest()) {
             if (!$session->has('panier')) $session->set('panier', $callpanier);
             $panier = $session->get('panier');

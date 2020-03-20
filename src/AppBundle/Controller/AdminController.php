@@ -22,6 +22,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -45,6 +46,11 @@ class AdminController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $commandes = $em->getRepository(Commande::class)->findAll();
+        $commandes2018 = $em->getRepository(Commande::class)->findBy(array('yearPaquetage' => 2019));
+
+        $agenceOrleans = $em->getRepository(Agence::class)->find(4);
+        $commandesOrleans2019 = $em->getRepository(Commande::class)->searchByAgenceYear(4,2019);
+
         $allOrderProducts = $em->getRepository(ProductPackage::class)->findAll();
         $users = $em->getRepository(User::class)->findAll();
         $commandesSearch = '';
@@ -148,6 +154,7 @@ class AdminController extends Controller
 
         return $this->render('admin/exports.html.twig', array(
             'commandes' => $commandes,
+            'commandes2018' => $commandes2018,
             'form' => $form->createView(),
             'form2' => $form2->createView(),
             'form3' => $form3->createView(),
@@ -163,7 +170,8 @@ class AdminController extends Controller
             'userSearchId' => $userSearchId,
             'userYearPaquetage' => $userYearPaquetage,
             'yearPaquetage' => $yearPaquetage,
-            'yearPaquetage2' => $yearPaquetage2
+            'yearPaquetage2' => $yearPaquetage2,
+            'commandes2019Orleans' => $commandesOrleans2019
         ));
 
     }
@@ -380,6 +388,35 @@ class AdminController extends Controller
 
 
 //        return $this->render('admin/exportCsvSynthese.html.twig', array());
+    }
+
+    /**
+     * @Route("/admin/export/allCommandeUser", name="pdf_export_allCommandeUser")
+     */
+    public function exportAllCommandeUser()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $yearPaquetage = 2019;
+
+        $allCommandeUser = $em->getRepository(Commande::class)->findBy(array('yearPaquetage' => $yearPaquetage));
+
+        $html = $this->renderView('pdf/pdfExportAllCommandeUser.html.twig', array(
+            'allCommandeUser' => $allCommandeUser
+        ));
+
+        $filename = sprintf('allcommande2018-%s.pdf', date('Y-m-d'));
+
+        return new Response(
+            $this->get('knp_snappy.pdf')->getOutputFromHtml($html), 200,
+            [
+                'Content-Type' => 'application/pdf',
+                'Content-Disposition' => sprintf('attachment; filename="%s"', $filename),
+            ]
+        );
+
+
+
     }
 
 }

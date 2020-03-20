@@ -21,4 +21,19 @@ class CommandeRepository extends \Doctrine\ORM\EntityRepository
 
         return $qb->getQuery()->getResult();
     }
+
+
+    public function searchByAgenceYear($agence = null,$yearPaquetage = null)
+    {
+
+        $qb = $this->createQueryBuilder('c')
+            ->leftJoin('c.user','u')
+            ->leftJoin('u.agence','a')
+            ->andWhere('a.id = :agence')
+            ->andWhere('c.yearPaquetage = :yearPaquetage')
+            ->setParameter('agence',$agence)
+            ->setParameter('yearPaquetage',$yearPaquetage);
+
+        return $qb->getQuery()->getResult();
+    }
 }

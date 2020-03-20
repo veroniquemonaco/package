@@ -10,6 +10,12 @@
 
     <h2 class="mb-4">Export des produits commandés</h2>
 
+    {{ dump(commandes2019Orleans) }}
+
+    <div class="w-100">
+        <a href="{{ path('pdf_export_allCommandeUser') }}" class="btn btn-next float-right text-white">Télécharger en pdf les commandes 2019</a>
+    </div>
+
     <div class="mb-4">
         <h5>
             <ins>Exporter la synthèse des commandes par compagnon</ins>
